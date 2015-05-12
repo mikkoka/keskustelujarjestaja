@@ -1,0 +1,19 @@
+Ohje ruudun yläreunassa näytettäväksi (ei yli kolmea riviä):
+Sort the concepts into four groups.
+The order of the groups doesn't matter.
+
+Käsitteet järjestettäväksi:
+Osote
+Nähdäänkö illalla
+Tulisiks sää kaheksalta tai joskus
+Käviskö teille vaik
+Mites toi Antti mahtasko tavottaa
+Onks semmosii tilanteit oikeest
+Vieläks sul on niit vaatteit
+Te olitte siel Kankaanpäässä
+Korttei mis sä olit niinkö
+Kuulitko 
+Onksse tärpättii vai mitä
+
+Excel -tiedoston nimi:
+Daatta.xlsx
