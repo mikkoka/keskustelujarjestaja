@@ -6,16 +6,12 @@ Keskustelujärjestelijä (työnimi) tuo annotaatioita erilaisista tekstitiedosto
 
 Keskustelutapahtumien järjestely tapahtuu graafisesti, vetämällä yksittäisiä annotaatioita edustavia objekteja eri osiin ikkunaa. (Ikkuna on jaettu viivoilla alueisiin, jotka edustavat joitakin asiaa, joka voi liittyä, tai olla liittymättä, annotaatioon.) Järjestelysession päättyessä annotaatiotietoihin liitetään ominaisuuksia sen perusteella, missä ne sijaitsevat ikkunassa. 
 
-Keskustelutapahtumien hakutoiminnossa käyttäjä hakee annotaatiokokoelmasta jonkin tietyn ominaisuusyhdistelmän omaavat tapahtumat.
-
-Havaintotyypin (työnimi) luontitoiminnossa käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
-
 **Käyttäjät:** Yksittäinen keskusteluntutkija. Ei muita käyttäjiä.
 
 **Toiminnot:** 
 
 * Käyttäjä tuo annotaatioita. Käyttäjä antaa polun video/äänitiedostoon sekä tähän liittyviä annotaatioita sisältävään tekstitiedostoon.Sovellus lisää tiedot kokoelmaan.
-
+us
 * Käytäjä luo havaintotyypin (työnimi). Käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
 
 * Käyttäjä valitsee havaintotyyppejä ja annotaatioita järjestelytoimintoa varten ja aloittaa järjestelyn.
@@ -26,5 +22,5 @@ Havaintotyypin (työnimi) luontitoiminnossa käyttäjä määrittää luokan, jo
 
 * Käyttäjä hakee annotaatioitten joukosta tiettyihin havaintotyyppeihin kuuluvia annotaatioita. Sovellus näyttää aina haetun tyyppiset annotaatiot (taulukossa).
 
-* Käyttäjä tallentaa annotaatiokokoelmansa antamaansa polkuun. 
+* Käyttäjä tallentaa annotaatiokokoelman antamaansa polkuun.
 
