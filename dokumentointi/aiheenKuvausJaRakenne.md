@@ -1,25 +1,30 @@
 **Aihe:** Ohjelma, jonka avulla järjestellä keskusteluihin liittyviä annotaatioita. 
 
-Keskusteluita tutkivissa piireissä (ks. esim. http://www.intersubjectivity.fi/) tehdään annotaatioita keskusteluista tehtyihin nauhotteisiin. Yhteen keskusteluun voidaan tehdä useita annotaatioita, kukin koskien jotakin aikaväliä nauhoitteella. Annotaatioitten tekoon käytettyjä ohjelmia ovat esim. Elan (https://tla.mpi.nl/tools/tla-tools/elan/) ja Praat (http://www.fon.hum.uva.nl/praat/). Annotaatioita voi näistä viedä tekstitiedostoihin. 
+Keskusteluntutkijat (esim. http://www.intersubjectivity.fi/) tekevät annotaatioita keskusteluista tehtyihin nauhotteisiin. Annotaatiot koskevat jotakin aikaväliä jollakin tietyllä nauhoitteella. Annotaatioitten tekoon käytettyjä ohjelmia ovat esim. Elan (https://tla.mpi.nl/tools/tla-tools/elan/) ja Praat (http://www.fon.hum.uva.nl/praat/). Annotaatioita voi näistä viedä tekstitiedostoihin. 
 
-Keskustelujärjestelijä (työnimi) tuo annotaatioita erilaisista tekstitiedostoista, ja tarjoaa välineet luokitella -- tai *järjestellä* -- niitä, sekä *hakea* annotaatiokokoelmasta tietyn tyyppisiä keskustelunpätkiä.
+Keskustelujärjestelijä (työnimi) tuo annotaatioita erilaisista tekstitiedostoista, ja tarjoaa tavanomaisesta poikkeavan välineen luokitella -- tai *järjestellä* -- niitä, sekä *hakea* annotaatiokokoelmasta jonkin kriteerin täyttäviä keskustelunpätkiä. Molemmissa tiloissa käyttäjä voi myös tutustua annotaation sisältöön katsomalla sen videolta (tai kuuntelemalla nauhoitteen). 
 
-Keskustelutapahtumien järjestely tapahtuu graafisesti, vetämällä yksittäisiin annotaatioihin liittyviä "symboleita" eri osiin ikkunaa. (Ikkuna on jaettu viivoilla alueisiin.) Järjestelysession päättyessä annotaatiotietoihin liitetään ominaisuuksia sen perusteella, missä ne sijaitsevat ikkunassa. 
+Keskustelutapahtumien järjestely tapahtuu graafisesti, vetämällä yksittäisiä annotaatioita edustavia objekteja eri osiin ikkunaa. (Ikkuna on jaettu viivoilla alueisiin, jotka edustavat joitakin asiaa, joka voi liittyä, tai olla liittymättä, annotaatioon.) Järjestelysession päättyessä annotaatiotietoihin liitetään ominaisuuksia sen perusteella, missä ne sijaitsevat ikkunassa. 
 
-Keskustelutapahtumien hakutoiminnossa käyttäjä hakee annotaatiokokoelmasta jonkin tietyn ominaisuusyhdistelmän omaavat tapahtumat.  
+Keskustelutapahtumien hakutoiminnossa käyttäjä hakee annotaatiokokoelmasta jonkin tietyn ominaisuusyhdistelmän omaavat tapahtumat.
 
-**Käyttäjät:** Keskusteluntutkija. Ei muita käyttäjiä.
+Havaintotyypin (työnimi) luontitoiminnossa käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
+
+**Käyttäjät:** Yksittäinen keskusteluntutkija. Ei muita käyttäjiä.
 
 **Toiminnot:** 
 
- 
+* Käyttäjä tuo annotaatioita. Käyttäjä antaa polun video/äänitiedostoon sekä tähän liittyviä annotaatioita sisältävään tekstitiedostoon.Sovellus lisää tiedot kokoelmaan.
 
-Käyttäjä valitsee joukon annotaatio
+* Käytäjä luo havaintotyypin (työnimi). Käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
 
+* Käyttäjä valitsee havaintotyyppejä ja annotaatioita järjestelytoimintoa varten ja aloittaa järjestelyn.
 
-Annotaatiossa on aikat liittyvät jonkin tietyn tyyppisiin tapahtumiin keskustelussa. Kokoelma annotoitavia tapahtumia voisi olla esim. joukko nauhotteisiin liittyviä 
+* Käyttäjä järjestelee annotaatioita vetämällä niitä edustavia graafisia objekteja ikkunan eri osiin. Ikkunan eri osat edustavat eri havaintotyyppejä.
 
+* Käyttäjä lopettaa järjestelemisen ja sovellus liittää annotaatioihin havaintotyyppejä sen perusteella, missä ne sijaitsevat näytöllä.
 
+* Käyttäjä hakee annotaatioitten joukosta tiettyihin havaintotyyppeihin kuuluvia annotaatioita. Sovellus näyttää aina haetun tyyppiset annotaatiot (taulukossa).
 
+* Käyttäjä tallentaa annotaatiokokoelmansa antamaansa polkuun. 
 
- Annotaatio koskee yleensä jonkin tietyn tyyppistä *tapahtumaa*. (Esimerkki tapahtumasta, jollaisia voitaisiin keräillä, on *pyyntö*, jolloin annotaatioitten  
