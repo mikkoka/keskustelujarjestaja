@@ -56,9 +56,10 @@ public class MedianToistaja
         if (out - in <= 0)
             return false;
                 
-        String komento = String.format("%svlc --play-and-stop %s%s"
+        String komento = String.format("%svlc --play-and-stop \"%s%s\""
                 + " --start-time %d --stop-time %d",
                 VLCPolku, tiedostoPolku, tiedostoNimi, in, out); 
+        System.out.println(komento);
         try 
         {            
             Process p = Runtime.getRuntime().exec(komento);
@@ -74,7 +75,7 @@ public class MedianToistaja
     public static void main (String[] args) 
     {
         MedianToistaja mt = new MedianToistaja();
-        mt.toista("/home/mikko/Työpöytä/", "C20x.mpg", 10, 20);
+        mt.toista("//home/mkahri/Documents/My Videos", "SG347_alku.mpeg", 10, 20);
         System.out.println();
     }  
 }
