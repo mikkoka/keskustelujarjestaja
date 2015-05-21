@@ -6,6 +6,9 @@
 package keskjarj.keskjarj;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
  * Luokkaa käytetään mediatiedostojen toistamiseen VLC -mediaplayerilla.
@@ -14,13 +17,17 @@ import java.io.IOException;
 
 public class MedianToistaja 
 {
-    private String VLCPolku = "";
+    public MedianToistaja ()
+    {
+        this.VLCPolku = Paths.get("vlc"); // Toimii Linux-järj. jos VLC asennettuna
+    }
+    private Path VLCPolku;
     
     /**
      * Palauttaa VLC -mediaplayerin polun, sikäli kun sellainen on asetettu
-     * @return Polku VLC mediaplayeriin 
+     * @return Polku VLC -mediaplayeriin 
      */
-    public String getVLCPolku ()
+    public Path getVLCPolku ()
     {
         return this.VLCPolku;
     }
@@ -31,35 +38,27 @@ public class MedianToistaja
      * sikäli kun sellaista tarvitaan (esim. Windows -järjestelmissä)
      * @param VLCPolku
      */
-    public void setVLCPolku (String VLCPolku)
+    public void setVLCPolku (Path VLCPolku)
     {
         this.VLCPolku = VLCPolku;
     }
      
     /**
      * Toistaa mediatiedoston VLC -mediaplayerilla. 
-     * Ottaa argumentteina mediatiedoston polun, nimen sekä 
-     * toiston alku- ja loppuajat sekunneissa. 
-     * @param tiedostoPolku
-     * @param tiedostoNimi
-     * @param in
-     * @param out
-     * @return onnistuiko toisto
+     * Ottaa argumenttina linkin toistettavaan otteeseen.
+     * @param ote
+     * @return onnistuiko komennon muodostaminen
      */        
-    public boolean toista (String tiedostoPolku, String tiedostoNimi, int in, int out) 
-    {
-        char viimeinenMerkki = tiedostoPolku.charAt(tiedostoPolku.length() - 1);
-        
-        if (viimeinenMerkki != '/')
-            tiedostoPolku = tiedostoPolku + "/";
-        
-        if (out - in <= 0)
+    public boolean toista (Ote ote) 
+    {               
+        if (Objects.equals(ote.getAlku(), ote.getLoppu())) 
             return false;
-                
-        String komento = String.format("%svlc --play-and-stop \"%s%s\""
-                + " --start-time %d --stop-time %d",
-                VLCPolku, tiedostoPolku, tiedostoNimi, in, out); 
-        System.out.println(komento);
+
+        String komento = String.format("%s --play-and-stop %s --start-time %.3f "
+                + "--stop-time %.3f", VLCPolku.toString(), 
+                ote.getTallenne().getPolku().toString(), 
+                ote.getAlku(), 
+                ote.getLoppu()); 
         try 
         {            
             Process p = Runtime.getRuntime().exec(komento);
@@ -74,8 +73,12 @@ public class MedianToistaja
     
     public static void main (String[] args) 
     {
-        MedianToistaja mt = new MedianToistaja();
-        mt.toista("//home/mkahri/Documents/My Videos", "SG347_alku.mpeg", 10, 20);
-        System.out.println();
+        MedianToistaja mt = new MedianToistaja();       
+        
+        Path polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        Tallenne tallenne = new Tallenne(polku);
+        Ote ote = new Ote(tallenne, 10.0, 20.0);
+        mt.toista(ote);
     }  
 }
+

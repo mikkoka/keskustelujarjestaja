@@ -6,21 +6,25 @@
 
 package keskjarj.keskjarj;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  *
  * @author mkahri
  */
 public class Tallenne {
-    private String tiedostoNimi, polku;
-    private Path ppolku; 
-    private Tallenne edellinen;
+    private Projekti projekti;
+    private Path polku; 
+    private Tallenne edellinen, seuraava;
+    private ArrayList<HavaintoTyyppi> havaintoTyypit;
     
-    public Tallenne (String tiedostoPolku, String tiedostoNimi)
+    public Tallenne (Path polku) //throws SecurityException 
     {
-        this.tiedostoNimi = tiedostoNimi;
-        this.polku = tiedostoPolku;
+        //if(Files.notExists(polku))
+        this.polku = polku;
     }
     
     public void setEdellinen (Tallenne edellinen)
@@ -33,19 +37,51 @@ public class Tallenne {
         return edellinen;
     }
     
-    public void setPolku (String polku)
+        public void setSeuraava (Tallenne seuraava)
     {
-        this.polku = polku;
+        this.seuraava = seuraava;
     }
     
-    public String getPolku ()
+    public Tallenne getSeuraava ()
+    {
+        return seuraava;
+    }
+    
+    public boolean setPolku (Path polku)
+    {
+        if(Files.notExists(polku))
+            return false;
+        else
+            this.polku = polku;
+        return true;
+    }
+    
+    public Path getPolku ()
     {
         return this.polku;
     }
     
-    public void setTiedostoNimi(String nimi)
+    public String getTiedostoNimi()
     {
+        return polku.getFileName().toString();   
+    }
+    
+    private void setTiedostoNimi (String nimi)
+    {
+        String alku = polku.subpath(0, polku.getNameCount() - 1).toString();
+        this.polku = Paths.get(alku + "/" + nimi);
+    }
+    
+    public static void main (String[] args )
+    {
+        Path p = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        Tallenne tallenne = new Tallenne(p);
+        System.out.println(tallenne.getPolku().subpath(0, tallenne.polku.getNameCount() - 1));
+        System.out.println(tallenne.getPolku());
+        tallenne.setTiedostoNimi("Miikko");
+        System.out.println(tallenne.getTiedostoNimi());
+        System.out.println(tallenne.setPolku(Paths.get("hehe")));
+        System.out.println(tallenne.setPolku(p));
         
     }
-            
-}
+}           

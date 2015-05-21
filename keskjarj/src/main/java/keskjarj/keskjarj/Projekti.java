@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package keskjarj.keskjarj;
+
+import java.util.ArrayList;
 
 /**
  *
- * @author mkahri
+ * @author mikko
  */
-public class Osanottaja {
+public class Projekti 
+{
+    ArrayList<HavaintoTyyppi> havaintoTyypit;
     
-    private boolean mies;
-    private int ika;    
 }

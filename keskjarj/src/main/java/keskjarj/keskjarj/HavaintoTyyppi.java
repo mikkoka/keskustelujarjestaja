@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package keskjarj.keskjarj;
 
 /**
  *
- * @author mkahri
+ * @author mikko
  */
-public class Osanottaja {
+public interface HavaintoTyyppi {
     
-    private boolean mies;
-    private int ika;    
 }

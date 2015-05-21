@@ -3,82 +3,44 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package keskjarj.keskjarj;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.nio.file.*;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author mkahri
+ * @author mikko
  */
-public class MedianToistajaTest {
-    
-    
+public class MedianToistajaTest 
+{
+    MedianToistaja mt;
+    Path polku;
+    Tallenne tallenne;
+    Ote ote;
+       
     @Before
-    public void setUp() {
+    public void setUp() 
+    {
+        mt = new MedianToistaja();
+        polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        tallenne = new Tallenne(polku);
+        ote = new Ote(tallenne, 10.0, 20.0);    
     }
     
-    /**
-     * Test of getVLCPolku method, of class MedianToistaja.
-     */
     @Test
-    public void testGetVLCPolku() {
-        System.out.println("getVLCPolku");
-        MedianToistaja instance = new MedianToistaja();
-        String expResult = "";
-        String result = instance.getVLCPolku();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testToista() 
+    {
+        assertEquals(mt.toista(ote), true);
+    }
+    
+        @Test
+    public void testEiToistaJosToistoajatPuuttuvat() 
+    {
+        ote = new Ote(tallenne, 20.0, 10.0);
+        assertEquals(mt.toista(ote), false);
     }
 
-    /**
-     * Test of setVLCPolku method, of class MedianToistaja.
-     */
-    @Test
-    public void testSetVLCPolku() {
-        System.out.println("setVLCPolku");
-        String VLCPolku = "";
-        MedianToistaja instance = new MedianToistaja();
-        instance.setVLCPolku(VLCPolku);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toista method, of class MedianToistaja.
-     */
-    @Test
-    public void testToista() {
-        System.out.println("toista");
-        String tiedostoPolku = "";
-        String tiedostoNimi = "";
-        int in = 0;
-        int out = 0;
-        MedianToistaja instance = new MedianToistaja();
-        boolean expResult = false;
-        boolean result = instance.toista(tiedostoPolku, tiedostoNimi, in, out);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class MedianToistaja.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        MedianToistaja.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }
