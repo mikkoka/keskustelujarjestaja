@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package keskjarj.keskjarj;
 
 import java.io.IOException;
@@ -15,17 +15,18 @@ import java.util.Objects;
  * Vaihtoehtoinen lähestymistapa vlcj, http://capricasoftware.co.uk/#/projects/vlcj
  */
 
-public class MedianToistaja 
+public class MedianToistaja
 {
+    private Path VLCPolku;
+    
     public MedianToistaja ()
     {
         this.VLCPolku = Paths.get("vlc"); // Toimii Linux-järj. jos VLC asennettuna
     }
-    private Path VLCPolku;
     
     /**
      * Palauttaa VLC -mediaplayerin polun, sikäli kun sellainen on asetettu
-     * @return Polku VLC -mediaplayeriin 
+     * @return Polku VLC -mediaplayeriin
      */
     public Path getVLCPolku ()
     {
@@ -33,8 +34,8 @@ public class MedianToistaja
     }
     
     
-     /**
-     * Ottaa argumenttina polun VLC -mediaplayeriin, 
+    /**
+     * Ottaa argumenttina polun VLC -mediaplayeriin,
      * sikäli kun sellaista tarvitaan (esim. Windows -järjestelmissä)
      * @param VLCPolku
      */
@@ -42,28 +43,28 @@ public class MedianToistaja
     {
         this.VLCPolku = VLCPolku;
     }
-     
+    
     /**
-     * Toistaa mediatiedoston VLC -mediaplayerilla. 
-     * Ottaa argumenttina linkin toistettavaan otteeseen.
+     * Toistaa mediatiedoston VLC -mediaplayerilla.
+     * Ottaa argumenttina polun toistettavaan otteeseen.
      * @param ote
      * @return onnistuiko komennon muodostaminen
-     */        
-    public boolean toista (Ote ote) 
-    {               
-        if (Objects.equals(ote.getAlku(), ote.getLoppu())) 
+     */
+    public boolean toista (Ote ote)
+    {
+        if (Objects.equals(ote.getAlku(), ote.getLoppu()))
             return false;
-
+        
         String komento = String.format("%s --play-and-stop %s --start-time %.3f "
-                + "--stop-time %.3f", VLCPolku.toString(), 
-                ote.getTallenne().getPolku().toString(), 
-                ote.getAlku(), 
-                ote.getLoppu()); 
-        try 
-        {            
+                + "--stop-time %.3f", VLCPolku.toString(),
+                ote.getTallenne().getPolku().toString(),
+                ote.getAlku(),
+                ote.getLoppu());
+        try
+        {
             Process p = Runtime.getRuntime().exec(komento);
-        } 
-        catch (IOException ex) 
+        }
+        catch (IOException ex)
         {
             System.out.println(ex);
             return false;
@@ -71,14 +72,17 @@ public class MedianToistaja
         return true;
     }
     
-    public static void main (String[] args) 
+    public static void main (String[] args)
     {
-        MedianToistaja mt = new MedianToistaja();       
+        MedianToistaja mt = new MedianToistaja();
         
-        Path polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        Path p = Paths.get("");
+        Path pa = p.toAbsolutePath();
+        System.out.println(pa);
+        Path polku = Paths.get("../aineistoja/Example.mp4");
         Tallenne tallenne = new Tallenne(polku);
         Ote ote = new Ote(tallenne, 10.0, 20.0);
         mt.toista(ote);
-    }  
+    }
 }
 

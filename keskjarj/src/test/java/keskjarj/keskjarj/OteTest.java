@@ -50,10 +50,9 @@ public class OteTest
     @Test
     public void KonstruktoriEiAsetaAlkuaJokaSuurempiKuinLoppu ()
     {
-        Path polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
-        Ote o = new Ote(tallenne, 20.0, 10.0);
+        Ote ote2 = new Ote(tallenne, 20.0, 10.0);
         Double testiLuku = 0.0;
-        assertEquals(o.getAlku(), testiLuku);  
+        assertEquals(ote2.getAlku(), testiLuku);  
     }
     
         public void KonstruktoriEiAsetaAlkuaJokaAlleNollan ()
