@@ -20,15 +20,14 @@ public class MedianToistaja
     private Path VLCPolku;
     
     public MedianToistaja() {
-        if (System.getProperty("os.name").equalsIgnoreCase("linux")) 
-        {
+        if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
             VLCPolku = Paths.get("vlc");            
         } 
         else paikannaVLC();
     }
     
     private boolean paikannaVLC() {
-        setVLCPolku (Paths.get("vlc"));
+        setVLCPolku (Paths.get("vlc")); //Väliaikainen
         return true;
     }
 
@@ -93,6 +92,9 @@ public class MedianToistaja
         Path p = Paths.get("");
         Path pa = p.toAbsolutePath();
         System.out.println(pa); ///home/ad/fshome4/u4/m/mkahri/Documents/Ohjelmointi/keskustelujarjestaja/keskjarj
+        Path pa2 = Paths.get(System.getProperty("user.home"),"Documents", "SG347_alku.mpeg"); ///home/mkahri/Documents/SG347_alku.mpeg
+        System.out.println(pa2);
+        
         Path polku = Paths.get("../aineistoja/Example.mp4");
         Tallenne tallenne = new Tallenne(polku);
         Ote ote = new Ote(tallenne, 10.0, 20.0);
