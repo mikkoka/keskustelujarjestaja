@@ -14,5 +14,6 @@ import java.util.ArrayList;
 public class Projekti 
 {
     ArrayList<HavaintoTyyppi> havaintoTyypit;
-    
+    ArrayList<Ote> otteet;
+    ArrayList<Tallenne> tallenteet;    
 }

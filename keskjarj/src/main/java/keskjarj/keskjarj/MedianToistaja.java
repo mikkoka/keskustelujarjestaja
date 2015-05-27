@@ -20,33 +20,32 @@ public class MedianToistaja
     private Path VLCPolku;
     
     public MedianToistaja() {
-        if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
-            this.VLCPolku = Paths.get("vlc");            
-        } else this.VLCPolku = this.findVLC();
+        if (System.getProperty("os.name").equalsIgnoreCase("linux")) 
+        {
+            VLCPolku = Paths.get("vlc");            
+        } 
+        else paikannaVLC();
     }
     
-    private Path findVLC()
-    {
-        return Paths.get("vlc"); 
+    private boolean paikannaVLC() {
+        setVLCPolku (Paths.get("vlc"));
+        return true;
     }
 
     /**
      * Palauttaa VLC -mediaplayerin polun, sikäli kun sellainen on asetettu
      * @return Polku VLC -mediaplayeriin
      */
-    public Path getVLCPolku ()
-    {
-        return this.VLCPolku;
+    public Path getVLCPolku () {
+        return VLCPolku;
     }
-    
-    
+
     /**
      * Ottaa argumenttina polun VLC -mediaplayeriin,
      * sikäli kun sellaista tarvitaan (esim. Windows -järjestelmissä)
      * @param VLCPolku
      */
-    public void setVLCPolku (Path VLCPolku)
-    {
+    public void setVLCPolku (Path VLCPolku) {
         this.VLCPolku = VLCPolku;
     }
     
@@ -54,37 +53,40 @@ public class MedianToistaja
      * Toistaa mediatiedoston VLC -mediaplayerilla.
      * Ottaa argumenttina polun toistettavaan otteeseen.
      * @param ote
-     * @return onnistuiko komennon muodostaminen
      */
-    public boolean toista (Ote ote)
-    {
-        if (Objects.equals(ote.getAlku(), ote.getLoppu()))
-            return false;
+    public void toista (Ote ote) {
+        tarkastaOte(ote);
+        if (!kutsuVLC(ote))
+            if (paikannaVLC())
+                kutsuVLC(ote);
+    }
 
-        String komento = String.format("%sjeejee --play-and-stop %s --start-time %.3f "
+    private String luoKomento (Ote ote) {
+        return String.format("%s --play-and-stop %s --start-time %.3f "
                 + "--stop-time %.3f", VLCPolku.toString(),
                 ote.getTallenne().getPolku().toString(),
                 ote.getAlku(),
                 ote.getLoppu());
-        boolean valmis = false;
-        do
-        {
-            try {
-                Process p = Runtime.getRuntime().exec(komento);
-                valmis = true;
-            } catch (IOException ex) {
-                System.out.println(ex);
-                if (ex.getMessage().contains("error=2")) {
-                    System.out.println(this.findVLC());
-                    valmis = true;
-                }
-
-                return false;
-            }
-        } while (!valmis); 
-        return true;
     }
 
+    private boolean kutsuVLC (Ote ote){
+        String komento = luoKomento(ote);
+        try {
+            Runtime.getRuntime().exec(komento);
+        } 
+        catch (IOException ex) {
+            System.out.println(ex);
+            System.err.println("Tarkasta VLC -mediaplayerin polku!");
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean tarkastaOte (Ote ote) {
+        return !(Objects.equals(ote.getAlku(), ote.getLoppu())); 
+    }
+            
+    
     public static void main(String[] args) {
         MedianToistaja mt = new MedianToistaja();
 
