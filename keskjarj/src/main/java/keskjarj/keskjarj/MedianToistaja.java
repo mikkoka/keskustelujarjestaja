@@ -27,7 +27,7 @@ public class MedianToistaja
     }
     
     private boolean paikannaVLC() {
-        setVLCPolku (Paths.get("vlc")); //Väliaikainen
+        //setVLCPolku (Paths.get("vlc")); //Väliaikainen, tarkoitus laittaa tiedostonhakuvalikko
         return true;
     }
 
@@ -39,28 +39,30 @@ public class MedianToistaja
         return VLCPolku;
     }
 
-    /**
-     * Ottaa argumenttina polun VLC -mediaplayeriin,
-     * sikäli kun sellaista tarvitaan (esim. Windows -järjestelmissä)
-     * @param VLCPolku
-     */
-    public void setVLCPolku (Path VLCPolku) {
-        this.VLCPolku = VLCPolku;
+    protected void setVLCPolku(Path polku) {
+        VLCPolku = polku;
     }
     
     /**
      * Toistaa mediatiedoston VLC -mediaplayerilla.
-     * Ottaa argumenttina polun toistettavaan otteeseen.
+     * Ottaa argumenttina polun toistettavaan otteeseen. Tarkastaa otteen ja 
+     * keskeyttää toiston, jos siinä on ongelmia.
+     * Mikäli komennon suorittaminen epäonnistuu, tarjoaa käyttäjälle 
+     * mahdollisuutta paikantaa VLC mediaplayerin.
+     * Komennon suorittamisen onnistuminen ei tarkoita, että tallenne tulee toistetuksi.
+     * Se tarkoittaa ainoastaan, että komennon alku on kunnossa (käytännössä että 
+     * se alkaa polulla vlc:hen tai merkkijonolla "vlc", jos vlc:n niin tavoittaa)
      * @param ote
      */
     public void toista (Ote ote) {
-        tarkastaOte(ote);
+        if (!tarkastaOte(ote))
+            return;
         if (!kutsuVLC(ote))
             if (paikannaVLC())
                 kutsuVLC(ote);
     }
 
-    private String luoKomento (Ote ote) {
+    protected String luoKomento (Ote ote) {
         return String.format("%s --play-and-stop %s --start-time %.3f "
                 + "--stop-time %.3f", VLCPolku.toString(),
                 ote.getTallenne().getPolku().toString(),
@@ -68,10 +70,11 @@ public class MedianToistaja
                 ote.getLoppu());
     }
 
-    private boolean kutsuVLC (Ote ote){
+    protected boolean kutsuVLC (Ote ote){
         String komento = luoKomento(ote);
         try {
             Runtime.getRuntime().exec(komento);
+            System.out.println(komento);
         } 
         catch (IOException ex) {
             System.out.println(ex);
@@ -81,7 +84,7 @@ public class MedianToistaja
         return true;
     }
     
-    private boolean tarkastaOte (Ote ote) {
+    protected boolean tarkastaOte (Ote ote) {
         return !(Objects.equals(ote.getAlku(), ote.getLoppu())); 
     }
             

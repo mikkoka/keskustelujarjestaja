@@ -22,7 +22,7 @@ public class TallenneTest
     @Before
     public void setUp()
     {
-        polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        polku = Paths.get("../aineistoja/Example.mp4");
         tallenne = new Tallenne(polku);
     }
     
@@ -35,7 +35,7 @@ public class TallenneTest
     @Test
     public void SetPolkuAsettaaTiedostonJokaOnOlemassa()
     {
-        Path polku2 = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/ElanExample.txt");
+        Path polku2 = Paths.get("../aineistoja/ElanExample.txt");
         assertEquals(tallenne.setPolku(polku2), true);
     }
     

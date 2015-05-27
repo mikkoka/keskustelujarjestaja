@@ -9,6 +9,7 @@ package keskjarj.apu;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import keskjarj.keskjarj.Tallenne;
 
@@ -20,21 +21,32 @@ public class ElanLukija extends tiedostonLukija {
     {
         Path polku = Paths.get("../aineistoja/ElanExample2.txt");
         Tallenne tallenne = new Tallenne(polku);
-        List<String> kokeilu = lueTekstitiedosto(tallenne);
-        ArrayList<String> rivit;
+        List<String> rivit = lueTekstitiedosto(tallenne);
         String[] sarakkeet;
-        for (String r : kokeilu)
+        ArrayList<String> havainnot = new ArrayList();
+        ArrayList<String> alut = new ArrayList();
+        ArrayList<String> loput = new ArrayList();
+        ArrayList<String> kommentit = new ArrayList();
+        for (int r = 0; r < rivit.size(); r++) 
         {
-            sarakkeet = r.split("\t"); 
-            System.out.println(sarakkeet[0]);
-            System.out.println(sarakkeet[2]);
-            System.out.println(sarakkeet[3]);
-            System.out.println(sarakkeet[4]);
-            System.out.println("\n\n\n");
+            sarakkeet = rivit.get(r).split("\t");
+            havainnot.add(sarakkeet[0]);
+            alut.add(sarakkeet[2]);
+            loput.add(sarakkeet[3]);
+            kommentit.add(sarakkeet[4]);
+        }
+        
+        HashMap<String, ArrayList<String>> mappi = new HashMap();
+
+
+            System.out.println(havainnot);
+            System.out.println(alut);
+            System.out.println(loput);
+            System.out.println(kommentit);
             
 //            for (String s : sarakkeet)
 //                System.out.println(s);
-        }  
+ 
     } 
     
 } 

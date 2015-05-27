@@ -13,34 +13,45 @@ import static org.junit.Assert.*;
  *
  * @author mikko
  */
-public class MedianToistajaTest 
-{
+public class MedianToistajaTest {
+
     MedianToistaja mt;
     Path polku;
     Tallenne tallenne;
     Ote ote;
-       
+
     @Before
-    public void setUp() 
-    {
+    public void setUp() {
         mt = new MedianToistaja();
-        polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        polku = Paths.get("../aineistoja/Example.mp4");
         tallenne = new Tallenne(polku);
-        ote = new Ote(tallenne, 10.0, 20.0);    
-    }
-    
-    @Test
-    public void testToista() 
-    {
-        assertEquals(mt.toista(ote), true);
-    }
-    
-        @Test
-    public void testEiToistaJosToistoajatPuuttuvat() 
-    {
-        ote = new Ote(tallenne, 20.0, 10.0);
-        assertEquals(mt.toista(ote), false);
+        ote = new Ote(tallenne, 10.0, 20.0);
     }
 
-    
+    @Test
+    public void testaaKutsuVLC() {
+        assertEquals(mt.kutsuVLC(ote), true);
+    }
+
+    @Test
+    public void testaaKutsuVLCnToimintaOudollaVLCPolulla() {
+        mt.setVLCPolku(Paths.get("hehehe/hohoho"));
+        assertEquals(mt.kutsuVLC(ote), false);
+    }
+
+    @Test
+    public void testaaOtteenTarkastusToistoEstyyJosToistoajatPuuttuvat() {
+        ote = new Ote(tallenne, 20.0, 10.0);
+        assertEquals(mt.tarkastaOte(ote), false);
+    }
+
+    @Test
+    public void testaaEttaKomennossaOikeitaMerkkeja() {
+        String komento = mt.luoKomento(ote);
+        if (!komento.contains("vlc --play-and-stop ")) {
+            fail();
+        }
+        
+        assertEquals(mt.tarkastaOte(ote), false);
+    }
 }
