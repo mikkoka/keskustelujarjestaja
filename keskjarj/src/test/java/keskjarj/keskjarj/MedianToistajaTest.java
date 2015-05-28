@@ -40,18 +40,26 @@ public class MedianToistajaTest {
     }
 
     @Test
-    public void testaaOtteenTarkastusToistoEstyyJosToistoajatPuuttuvat() {
+    public void testaaOteMoitteeton_ToistoEstyyJosToistoajatPuuttuvat() {
         ote = new Ote(tallenne, 20.0, 10.0);
-        assertEquals(mt.tarkastaOte(ote), false);
+        assertEquals(mt.oteMoitteeton(ote), false);
+    }
+    
+        @Test
+    public void testaaOteMoitteeton_ToistoEstyyJosPolkuKelvoton() {
+        Path p = Paths.get("../aineistoja/Example.hehe");
+        Tallenne t = new Tallenne(p);
+        Ote o = new Ote(t, 10.0, 11.0);
+        assertEquals(mt.oteMoitteeton(o), false);
     }
 
-    @Test
-    public void testaaEttaKomennossaOikeitaMerkkeja() {
-        String komento = mt.luoKomento(ote);
-        if (!komento.contains("vlc --play-and-stop ")) {
-            fail();
-        }
-        
-        assertEquals(mt.tarkastaOte(ote), false);
-    }
+//    @Test
+//    public void testaaEttaKomennossaOikeitaMerkkeja() {
+//        String komento = mt.luoKomento(ote);
+//        if (!komento.contains("vlc --play-and-stop ")) {
+//            fail();
+//        }
+//        
+//        assertEquals(mt.oteMoitteeton(ote), false);
+//    }
 }

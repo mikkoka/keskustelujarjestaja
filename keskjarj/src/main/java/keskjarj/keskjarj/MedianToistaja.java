@@ -6,6 +6,7 @@
 package keskjarj.keskjarj;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -19,7 +20,8 @@ public class MedianToistaja
 {
     private Path VLCPolku;
     
-    public MedianToistaja() {
+    public MedianToistaja() 
+    {
         if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
             VLCPolku = Paths.get("vlc");            
         } 
@@ -51,11 +53,11 @@ public class MedianToistaja
      * mahdollisuutta paikantaa VLC mediaplayerin.
      * Komennon suorittamisen onnistuminen ei tarkoita, että tallenne tulee toistetuksi.
      * Se tarkoittaa ainoastaan, että komennon alku on kunnossa (käytännössä että 
-     * se alkaa polulla vlc:hen tai merkkijonolla "vlc", jos vlc:n niin tavoittaa)
+     * se alkaa polulla, josta vlc:n tavoittaa)
      * @param ote
      */
     public void toista (Ote ote) {
-        if (!tarkastaOte(ote))
+        if (!oteMoitteeton(ote))
             return;
         if (!kutsuVLC(ote))
             if (paikannaVLC())
@@ -74,35 +76,39 @@ public class MedianToistaja
         String komento = luoKomento(ote);
         try {
             Runtime.getRuntime().exec(komento);
-            System.out.println(komento);
+           // System.out.println(komento);
         } 
         catch (IOException ex) {
-            System.out.println(ex);
-            System.err.println("Tarkasta VLC -mediaplayerin polku!");
+            //System.out.println(ex);
             return false;
         }
         return true;
     }
     
-    protected boolean tarkastaOte (Ote ote) {
-        return !(Objects.equals(ote.getAlku(), ote.getLoppu())); 
+    protected boolean oteMoitteeton (Ote ote) {
+        if (!(Objects.equals(ote.getAlku(), ote.getLoppu())))
+            return false;
+        else return !Files.isReadable(ote.getTallenne().getPolku());
     }
             
     
-    public static void main(String[] args) {
-        MedianToistaja mt = new MedianToistaja();
+//    public static void main(String[] args) {
+//        MedianToistaja mt = new MedianToistaja();
+//        Path koe = Paths.get("/bin/bash");
+//        System.out.println(Files.isExecutable(koe));
+//    
 
-        Path p = Paths.get("");
-        Path pa = p.toAbsolutePath();
-        System.out.println(pa); ///home/ad/fshome4/u4/m/mkahri/Documents/Ohjelmointi/keskustelujarjestaja/keskjarj
-        Path pa2 = Paths.get(System.getProperty("user.home"),"Documents", "SG347_alku.mpeg"); ///home/mkahri/Documents/SG347_alku.mpeg
-        System.out.println(pa2);
-        
-        Path polku = Paths.get("../aineistoja/Example.mp4");
-        Tallenne tallenne = new Tallenne(polku);
-        Ote ote = new Ote(tallenne, 10.0, 20.0);
-        mt.toista(ote);
-        System.out.println(System.getProperty("os.name").toLowerCase());
-    }
+//        Path p = Paths.get("");
+//        Path pa = p.toAbsolutePath();
+//        System.out.println(pa); ///home/ad/fshome4/u4/m/mkahri/Documents/Ohjelmointi/keskustelujarjestaja/keskjarj
+//        Path pa2 = Paths.get(System.getProperty("user.home"),"Documents", "SG347_alku.mpeg"); ///home/mkahri/Documents/SG347_alku.mpeg
+//        System.out.println(pa2);
+//        
+//        Path polku = Paths.get("../aineistoja/Example.mp4");
+//        Tallenne tallenne = new Tallenne(polku);
+//        Ote ote = new Ote(tallenne, 10.0, 20.0);
+//        mt.toista(ote);
+//        System.out.println(System.getProperty("os.name").toLowerCase());
+//    }
 }
 

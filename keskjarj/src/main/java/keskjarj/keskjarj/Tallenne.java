@@ -8,7 +8,6 @@ package keskjarj.keskjarj;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -21,9 +20,9 @@ public class Tallenne {
     private Tallenne edellinen, seuraava;
     private ArrayList<HavaintoTyyppi> havaintoTyypit;
     
-    public Tallenne (Path polku) //throws SecurityException 
+    public Tallenne (Path polku) 
     {
-        //if(Files.notExists(polku))
+        if(Files.isReadable(polku))
         this.polku = polku;
     }
     
@@ -66,22 +65,17 @@ public class Tallenne {
         return polku.getFileName().toString();   
     }
     
-    private void setTiedostoNimi (String nimi)
-    {
-        String alku = polku.subpath(0, polku.getNameCount() - 1).toString();
-        this.polku = Paths.get(alku + "/" + nimi);
-    }
-    
-    public static void main (String[] args )
-    {
-        Path p = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
-        Tallenne tallenne = new Tallenne(p);
-        System.out.println(tallenne.getPolku().subpath(0, tallenne.polku.getNameCount() - 1));
-        System.out.println(tallenne.getPolku());
-        tallenne.setTiedostoNimi("Miikko");
-        System.out.println(tallenne.getTiedostoNimi());
-        System.out.println(tallenne.setPolku(Paths.get("hehe")));
-        System.out.println(tallenne.setPolku(p));
-        
-    }
+//
+//    
+//    public static void main (String[] args )
+//    {
+//        Path p = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+//        Tallenne tallenne = new Tallenne(p);
+//        System.out.println(tallenne.getPolku().subpath(0, tallenne.polku.getNameCount() - 1));
+//        System.out.println(tallenne.getPolku());
+//        System.out.println(tallenne.getTiedostoNimi());
+//        System.out.println(tallenne.setPolku(Paths.get("hehe")));
+//        System.out.println(tallenne.setPolku(p));
+//        
+//    }
 }           
