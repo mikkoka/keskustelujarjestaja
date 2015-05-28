@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Tää on tällä hetkellä kauhee katastrofi.
  */
 package keskjarj.apu;
 
@@ -11,40 +9,12 @@ import keskjarj.keskjarj.*;
 
 public class AnnotaatioidenTuoja extends TiedostonLukija {
 
-    public static HashMap<Ote, List<HavaintoTyyppi>> tuo(Path polku) 
-    {
+    public static HashMap<Ote, List<HavaintoTyyppi>> tuo(Path polku) {
+
         Tallenne tallenne = new Tallenne(polku);
         List<String> rivit = lueTekstitiedosto(tallenne);
         HashMap<String, List<String>> mappi = kokoaOtteet(rivit);
         return luoOtteet(mappi, tallenne);
-
-    }
-
-    private static HashMap<Ote, List<HavaintoTyyppi>> luoOtteet(HashMap<String, List<String>> m, Tallenne t) {
-        HashMap<Ote, List<HavaintoTyyppi>> palautus = new HashMap();
-        List<HavaintoTyyppi> htyypit;
-        HavaintoTyyppi havainto;
-        Ote ote;
-        String[] ajat;
-        Double alku, loppu;
-
-        for (String s : m.keySet()) {
-            ajat = s.split("-");
-            alku = Double.parseDouble(ajat[0]);
-            loppu = Double.parseDouble(ajat[1]);
-
-            htyypit = new ArrayList(); 
-            ote = new Ote(t, alku, loppu);
-
-            for (List<String> l : m.values()) {
-                htyypit.add(new HavaintoTyyppi(l.toString()));
-            }
-
-            palautus.put(ote, htyypit);
-
-        }
-        return palautus;
-
     }
 
     private static HashMap<String, List<String>> kokoaOtteet(List<String> rivit) {
@@ -53,9 +23,10 @@ public class AnnotaatioidenTuoja extends TiedostonLukija {
 
         //havaintolista otteeseen liittyville havainnoille
         List<String> havaintolista;
-        
+
         //Väliaikaisia
-        String[] rivi; String aika, kategoria;
+        String[] rivi;
+        String aika, kategoria;
 
         for (String r : rivit) {
             rivi = r.split("\t");
@@ -78,6 +49,33 @@ public class AnnotaatioidenTuoja extends TiedostonLukija {
                 havaintolista.add(kategoria);
             }
             palautus.put(aika, havaintolista);
+        }
+        return palautus;
+    }
+
+    private static HashMap<Ote, List<HavaintoTyyppi>> luoOtteet(HashMap<String, List<String>> m, Tallenne t) {
+
+        HashMap<Ote, List<HavaintoTyyppi>> palautus = new HashMap();
+        List<String> htyypit;
+        List<HavaintoTyyppi> joku = new ArrayList();
+        Ote ote;
+        String[] ajat;
+        Double alku, loppu;
+
+        for (String s : m.keySet()) {
+            ajat = s.split("-");
+            alku = Double.parseDouble(ajat[0]);
+            loppu = Double.parseDouble(ajat[1]);
+
+            htyypit = m.get(s);
+
+            ote = new Ote(t, alku, loppu);
+
+            for (String z : htyypit) {
+                joku.add(new HavaintoTyyppi(z));
+                System.out.println(z);
+            }
+            palautus.put(ote, joku);
         }
         return palautus;
     }
@@ -110,40 +108,44 @@ public class AnnotaatioidenTuoja extends TiedostonLukija {
     public static void main(String[] args) {
 
         Path polku = Paths.get("../aineistoja/ElanExample.txt");
-        System.out.println("\nTekstitiedosto raakana:\n");
+        System.out.println("\nTekstitiedosto raakana:");
         tulostaTekstitiedosto(polku);
-        
+
         Tallenne tallenne = new Tallenne(polku);
 
         List<String> rivit = lueTekstitiedosto(tallenne);
 
-        
-        
+        HashMap<Ote, List<HavaintoTyyppi>> kokeilu = tuo(polku);
 
+        System.out.println(kokeilu.get(args));
 
-        HashMap<String, List<String>> mappi = kokoaOtteet(rivit);
-
-        System.out.println("\nAjat uniikkeina merkkijonoina:\n");
-        for (String p : mappi.keySet()) {
-            System.out.println(p);
-        }
-
-        System.out.println("\nHavainnot ilman aikoja, joihin ne liittyvät:\n");
-        for (List<String> p : mappi.values()) {
-            System.out.println(p);
-        }
-
-        List<Double> alut = listaaAlut(mappi);
-        List<Double> loput = listaaLoput(mappi);
-
-        System.out.println("\nAlut:");
-        for (Double a : alut) {
-            System.out.println(a);
-        }
-
-        System.out.println("\nLoput:");
-        for (Double l : loput) {
-            System.out.println(l);
-        }
+//        
+//        
+//
+//
+//        HashMap<String, List<String>> mappi = kokoaOtteet(rivit);
+////
+////        System.out.println("\nAjat uniikkeina merkkijonoina:\n");
+////        for (String p : mappi.keySet()) {
+////            System.out.println(p);
+////        }
+////
+//        System.out.println("\nHavainnot ilman aikoja, joihin ne liittyvät:\n");
+//        for (List<String> p : mappi.values()) {
+//            System.out.println(p);
+//        }
+//
+//        List<Double> alut = listaaAlut(mappi);
+//        List<Double> loput = listaaLoput(mappi);
+//
+//        System.out.println("\nAlut:");
+//        for (Double a : alut) {
+//            System.out.println(a);
+//        }
+//
+//        System.out.println("\nLoput:");
+//        for (Double l : loput) {
+//            System.out.println(l);
+//        }
     }
 }

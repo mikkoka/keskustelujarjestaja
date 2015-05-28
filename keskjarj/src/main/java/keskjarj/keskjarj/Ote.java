@@ -6,6 +6,7 @@
 
 package keskjarj.keskjarj;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,6 +18,7 @@ public class Ote
     private Tallenne tallenne;
     private Osanottaja[] osanottajat;
     private Double alku, loppu;
+    private List<HavaintoTyyppi> havainnot;
     
     public Ote (Tallenne tallenne, Double alku, Double loppu)
     {
@@ -62,6 +64,11 @@ public class Ote
     {
         if (loppu > this.alku)
             this.loppu = loppu;
+    }
+    
+    public List<HavaintoTyyppi> getHavaintoTyypit()
+    {
+        return this.havainnot;
     }
 
     @Override

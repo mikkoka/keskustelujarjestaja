@@ -16,4 +16,9 @@ public class HavaintoTyyppi {
     {
         this.nimi = nimi;
     }
+    
+    public String getNimi ()
+    {
+        return this.nimi;
+    }
 }
