@@ -9,6 +9,11 @@ package keskjarj.keskjarj;
  *
  * @author mikko
  */
-public interface HavaintoTyyppi {
+public class HavaintoTyyppi {
+    String nimi;
     
+    public HavaintoTyyppi(String nimi)
+    {
+        this.nimi = nimi;
+    }
 }

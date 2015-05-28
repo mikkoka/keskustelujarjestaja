@@ -17,9 +17,9 @@ import keskjarj.keskjarj.Tallenne;
  *
  * @author mkahri
  */
-public abstract class tiedostonLukija {
+public abstract class TiedostonLukija {
     
-    protected static List<String> lueTekstitiedosto (Tallenne tallenne) 
+    public static List<String> lueTekstitiedosto (Tallenne tallenne) 
     {
         List<String> palautus = null;        
         try {
@@ -29,4 +29,12 @@ public abstract class tiedostonLukija {
         }
         return palautus;
     }  
+ 
+    public static void tulostaTekstitiedosto(Path polku) 
+    {
+        List<String> rivit = lueTekstitiedosto(new Tallenne(polku));
+        for (String r : rivit) {
+            System.out.println(r);
+        }
+    }
 }

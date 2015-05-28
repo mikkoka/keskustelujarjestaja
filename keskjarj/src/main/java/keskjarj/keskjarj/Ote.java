@@ -6,6 +6,8 @@
 
 package keskjarj.keskjarj;
 
+import java.util.Objects;
+
 /**
  *
  * @author mkahri
@@ -61,4 +63,41 @@ public class Ote
         if (loppu > this.alku)
             this.loppu = loppu;
     }
+
+    @Override
+    public int hashCode() 
+    {
+        int luku1 = alku.hashCode();
+        int luku2 = loppu.hashCode();
+        
+        return luku1 + luku2 + (luku2 - luku1); //Emmätiiä, aattelin, jos tää ois aika ainutkertainen
+    }
+
+    @Override
+    public boolean equals(Object toinen) 
+    {
+        if (toinen == null)
+        {
+            return false;
+        }
+
+        if (getClass() != toinen.getClass()) 
+        {
+            return false;
+        }
+        
+        Ote ote2 = (Ote) toinen;
+        
+        if (!Objects.equals(this.alku, ote2.alku)) 
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.loppu, ote2.loppu)) 
+        {
+            return false;
+        }
+        
+        return true;
+    } 
 }
