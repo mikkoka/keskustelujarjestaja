@@ -18,7 +18,8 @@ public class Tallenne {
     private Projekti projekti;
     private Path polku; 
     private Tallenne edellinen, seuraava;
-    private ArrayList<HavaintoTyyppi> havaintoTyypit;
+    
+
     
     public Tallenne (Path polku) 
     {

@@ -8,8 +8,13 @@ import java.util.*;
 import keskjarj.keskjarj.*;
 
 public class AnnotaatioidenTuoja extends TiedostonLukija {
+    
+    
+    
 
-    public static HashMap<Ote, List<HavaintoTyyppi>> tuo(Path polku) {
+    public static HashMap<Ote, List<Havainto>> tuo(Path polku) {
+        
+        
 
         Tallenne tallenne = new Tallenne(polku);
         List<String> rivit = lueTekstitiedosto(tallenne);
@@ -53,32 +58,32 @@ public class AnnotaatioidenTuoja extends TiedostonLukija {
         return palautus;
     }
 
-    private static HashMap<Ote, List<HavaintoTyyppi>> luoOtteet(HashMap<String, List<String>> m, Tallenne t) {
-
-        HashMap<Ote, List<HavaintoTyyppi>> palautus = new HashMap();
-        List<String> htyypit;
-        List<HavaintoTyyppi> joku = new ArrayList();
-        Ote ote;
-        String[] ajat;
-        Double alku, loppu;
-
-        for (String s : m.keySet()) {
-            ajat = s.split("-");
-            alku = Double.parseDouble(ajat[0]);
-            loppu = Double.parseDouble(ajat[1]);
-
-            htyypit = m.get(s);
-
-            ote = new Ote(t, alku, loppu);
-
-            for (String z : htyypit) {
-                joku.add(new HavaintoTyyppi(z));
-                System.out.println(z);
-            }
-            palautus.put(ote, joku);
-        }
-        return palautus;
-    }
+//    private static HashMap<Ote, List<HavainHavaintoOtteet(HashMap<String, List<String>> m, Tallenne t) {
+//
+//        HashMap<Ote, List<Havainto>> = new HashMap();
+//        List<String> htyypit;
+//        List<Havainto> joku();
+//        Ote ote;
+//        String[] ajat;
+//        Double alku, loppu;
+//
+//        for (String s : m.keySet()) {
+//            ajat = s.split("-");
+//            alku = Double.parseDouble(ajat[0]);
+//            loppu = Double.parseDouble(ajat[1]);
+//
+//            htyypit = m.get(s);
+//
+//            ote = new Ote(t, alku, loppu);
+//
+//            for (String z : htyypit) {
+//                joku.add(new OtettaKoskevaHavainto(z));
+//                System.out.println(z);
+//            }
+//            palautus.put(ote, joku);
+//        }
+//        return palautus;
+//    }
 
     public static List<Double> listaaAlut(HashMap<String, List<String>> otteet) {
         return listaaAjat(otteet, 0);
@@ -115,9 +120,9 @@ public class AnnotaatioidenTuoja extends TiedostonLukija {
 
         List<String> rivit = lueTekstitiedosto(tallenne);
 
-        HashMap<Ote, List<HavaintoTyyppi>> kokeilu = tuo(polku);
-
-        System.out.println(kokeilu.get(args));
+//        HashMap<Ote, List<HavaintoTyyppi>> kokeiluHavainto
+//
+//        System.out.println(kokeilu.get(kokeilu.entrySet()));
 
 //        
 //        

@@ -18,7 +18,6 @@ public class Ote
     private Tallenne tallenne;
     private Osanottaja[] osanottajat;
     private Double alku, loppu;
-    private List<HavaintoTyyppi> havainnot;
     
     public Ote (Tallenne tallenne, Double alku, Double loppu)
     {
@@ -28,8 +27,8 @@ public class Ote
         {
             this.alku = alku;
             this.loppu = loppu;
-        } else {
-            this.alku = 0.0;
+        } else 
+        {   this.alku = 0.0;
             this.loppu = 0.0;
         }
     }
@@ -37,6 +36,11 @@ public class Ote
     public Tallenne getTallenne ()
     {
         return this.tallenne;
+    }
+    
+    public void setTallenne(Tallenne tallenne) 
+    {
+        this.tallenne = tallenne;
     }
     
     public Double getAlku ()
@@ -48,12 +52,7 @@ public class Ote
     {
         return this.loppu;
     }
-    
-    public void setTallenne (Tallenne tallenne)
-    {
-        this.tallenne = tallenne;
-    }
-    
+        
     public void setAlku (Double alku)
     {
         if (alku < this.loppu)
@@ -66,18 +65,13 @@ public class Ote
             this.loppu = loppu;
     }
     
-    public List<HavaintoTyyppi> getHavaintoTyypit()
-    {
-        return this.havainnot;
-    }
-
     @Override
     public int hashCode() 
     {
         int luku1 = alku.hashCode();
         int luku2 = loppu.hashCode();
         
-        return luku1 + luku2 + (luku2 - luku1); //Emmätiiä, aattelin, jos tää ois aika ainutkertainen
+        return luku1 + luku2; //Emmätiiä, aattelin, jos tää ois aika ainutkertainen
     }
 
     @Override

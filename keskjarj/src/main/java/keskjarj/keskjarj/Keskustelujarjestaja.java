@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package keskjarj.keskjarj;
 
 /**
- *
- * @author mikko
+ * Tämä on Keskustelunjärjestäjän pääluokka, josta ohjelman suoritus alkaa.
+ * @author mkahri
  */
-public class HavaintoTyyppi {
-    String nimi;
-    
-    public HavaintoTyyppi(String nimi)
+public class Keskustelujarjestaja {
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) 
     {
-        this.nimi = nimi;
-    }
-    
-    public String getNimi ()
-    {
-        return this.nimi;
+
     }
 }
