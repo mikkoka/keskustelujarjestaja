@@ -9,3 +9,4 @@
  Ti 26.5.  |   2   |Mediatiedostojen toiston kanssa nysväystä, tekstitiedostojen lukemiseen tutustumista
  Ke 27.5.  |   6   |Annotaatioiden tuonnin ja ylipäätään tekstitiedostojen lukemisen opettelua ja toteuttamista
  To 28.5.  |   6   |Tuskaa ja jumittamista tekstitiedostojen tuonnin kanssa, ja ennen kaikkea sen kanssa, mihinkä luokkaan mitäkin tietoa sijoitetaan, ja millaisiin tietorakenteisiin. Ei oo Objektiorientoituneesta ohjelmoinnista riittävästi kokemusta, että osaisi luonnostaan.
+ Ti 2.6.   |   6   |Luokkarakenteen uudelleen ajatteluja, vastuitten uudelleen ajattelua, metodien uudelleen ajattelua

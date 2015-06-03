@@ -5,7 +5,9 @@
  */
 package keskjarj.keskjarj;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -13,7 +15,18 @@ import java.util.ArrayList;
  */
 public class Projekti 
 {
-    ArrayList<Havainto> havainnot;
-    ArrayList<Ote> otteet;
-    ArrayList<Tallenne> tallenteet;    
+    private HashSet<Havainto> havainnot;
+    private ArrayList<Tallenne> tallenteet;  
+    
+    public Projekti ()
+    {
+        havainnot = new HashSet<Havainto>();
+        tallenteet = new ArrayList();
+    }
+    
+    public void tuoAnnotaatioita (Path polku)
+    {
+        AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku);
+        HashSet<Havainto> uudetHavainnot = tuoja.tuo();
+    }
 }

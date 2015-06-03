@@ -15,11 +15,9 @@ import java.util.ArrayList;
  * @author mkahri
  */
 public class Tallenne {
-    private Projekti projekti;
     private Path polku; 
     private Tallenne edellinen, seuraava;
-    
-
+   
     
     public Tallenne (Path polku) 
     {

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package keskjarj.apu;
+package keskjarj.keskjarj;
 
 import java.io.IOException;
 
@@ -19,11 +19,11 @@ import keskjarj.keskjarj.Tallenne;
  */
 public abstract class TiedostonLukija {
     
-    public static List<String> lueTekstitiedosto (Tallenne tallenne) 
+    public static List<String> tuoRivit (Path polku) 
     {
         List<String> palautus = null;        
         try {
-            palautus = Files.readAllLines(tallenne.getPolku(), StandardCharsets.UTF_8);
+            palautus = Files.readAllLines(polku, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             System.out.println("ÄHH! (Sanoo tiedostonLukija.lueTekstitiedosto.)");
         }
@@ -32,7 +32,7 @@ public abstract class TiedostonLukija {
  
     public static void tulostaTekstitiedosto(Path polku) 
     {
-        List<String> rivit = lueTekstitiedosto(new Tallenne(polku));
+        List<String> rivit = tuoRivit(polku);
         for (String r : rivit) {
             System.out.println(r);
         }
