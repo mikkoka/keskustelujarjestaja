@@ -20,7 +20,7 @@ public class Projekti
     
     public Projekti ()
     {
-        havainnot = new HashSet<Havainto>();
+        havainnot = new HashSet();
         tallenteet = new ArrayList();
     }
     
@@ -28,5 +28,38 @@ public class Projekti
     {
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku);
         HashSet<Havainto> uudetHavainnot = tuoja.tuo();
+        lisaaAnnotaatiot(uudetHavainnot);                  
+    }
+    /**
+    * Lisää Projektin havaintoihin uudet havainnot. Lisää vanhoihin havaintokategorioihin
+    * uusia otteita silloin, kun sellaisia on tuotu.
+    */
+    private void lisaaAnnotaatiot (HashSet<Havainto> uudetHavainnot)
+    {        
+        for (Havainto uusi : uudetHavainnot) 
+            if (!havainnot.contains(uusi))
+                havainnot.add(uusi);
+            else
+            {
+                for (Havainto h : havainnot)
+                    if (h.equals(uusi))
+                        for (Ote  o : uusi.getOtteet())
+                            h.lisaaOte(o);
+            }
+    }
+    
+    public boolean luoHaivaintokategoria(String nimi)
+    {
+        return havainnot.add(new OtettaKoskevaHavainto(nimi));
+    }
+    
+    public HashSet<Havainto> havainnot()
+    {
+        return this.havainnot;
+    }
+    
+    public void jarjestele(Ote[] ... otteet)
+    {
+        
     }
 }

@@ -18,10 +18,13 @@ public class Ote
     private Tallenne tallenne;
     private Osanottaja[] osanottajat;
     private Double alku, loppu;
+    private String ajat, tiedosto, tunnus;
     
-    public Ote (Tallenne tallenne, Double alku, Double loppu)
+    public Ote (Tallenne tallenne, Double alku, Double loppu, String ajat, String tiedosto)
     {
         this.tallenne = tallenne;
+        this.ajat = ajat;
+        this.tiedosto = tiedosto;
         
         if (alku < loppu && alku > 0)
         {
@@ -63,6 +66,23 @@ public class Ote
     {
         if (loppu > this.alku)
             this.loppu = loppu;
+    }
+    
+    public String getAjat()
+    {
+        return this.ajat;
+    }
+        
+    public String getTunnus()
+    {
+        if (this.tunnus == null)
+            return this.tiedosto + " " + this.ajat;
+        else return this.tiedosto;
+    }
+    
+    public void setTunnus(String tunnus)
+    {
+        this.tunnus = tunnus;
     }
     
     @Override
