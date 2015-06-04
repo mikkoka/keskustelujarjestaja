@@ -77,7 +77,7 @@ public class Ote
     {
         if (this.tunnus == null)
             return this.tiedosto + " " + this.ajat;
-        else return this.tiedosto;
+        else return this.tunnus;
     }
     
     public void setTunnus(String tunnus)

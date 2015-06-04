@@ -11,7 +11,6 @@ Keskustelutapahtumien järjestely tapahtuu graafisesti, vetämällä yksittäisi
 **Toiminnot:** 
 
 * Käyttäjä tuo annotaatioita. Käyttäjä antaa polun video/äänitiedostoon sekä tähän liittyviä annotaatioita sisältävään tekstitiedostoon.Sovellus lisää tiedot kokoelmaan.
-us
 
 * Käytäjä luo havaintotyypin (työnimi). Käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
 
@@ -25,11 +24,14 @@ us
 
 * Käyttäjä tallentaa annotaatiokokoelman antamaansa polkuun.
 
+* Käyttäjä tutustuu annotaation sisältöön katsomalla sen videolta.
+
 **Käsitteitä:**
 
 * **Projekti** on tallennettavissa oleva kokoelma annotaatioita ja niihin liittyviä havaintoja. Projektissa voi olla annotaatioita useilta eri tallenteilta.
 
-* **Tallenne** on video- tai äänitallenne
+* **Tallenne** voi olla video- tai äänitiedosto ja se voi olla osa kokoelmaa (esim. istunto1, istunto2 jne.)
+
 
  
 

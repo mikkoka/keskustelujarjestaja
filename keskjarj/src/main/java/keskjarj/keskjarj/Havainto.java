@@ -6,6 +6,7 @@
 package keskjarj.keskjarj;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  *
@@ -16,17 +17,49 @@ public abstract class Havainto {
     protected String nimi;
     protected HashSet<Ote> otteet;
 
-    public abstract String getNimi();
+    public String getNimi() {        
+        return this.nimi;
+    }
 
-    public abstract void setNimi(String nimi);
+    public void setNimi(String nimi) {        
+        this.nimi = nimi;
+    }
+    
+    public HashSet<Ote> getOtteet() {        
+        return otteet;
+    }
 
-    public abstract HashSet<Ote> getOtteet();
-
-    public abstract void lisaaOte(Ote ote);
+    public boolean lisaaOte(Ote ote) {        
+        return otteet.add(ote);
+    }
+        
+    public void lisaaOtteita(Ote[] otteet)
+    {
+        for (Ote o : otteet)
+            this.lisaaOte(o);
+    }
 
     @Override
-    abstract public int hashCode();
+    public int hashCode() {        
+        return nimi.hashCode();
+    }
 
     @Override
-    abstract public boolean equals(Object toinen);
+    public boolean equals(Object toinen) {
+        
+        if (toinen == null) {
+            return false;
+        }
+
+        if (getClass() != toinen.getClass()) {
+            return false;
+        }
+
+        Havainto havainto2 = (Havainto) toinen;
+
+        if (!Objects.equals(this.nimi, havainto2.nimi)) {
+            return false;
+        }
+        return true;
+    }
 }

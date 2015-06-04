@@ -11,10 +11,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
-import keskjarj.keskjarj.Tallenne;
 
 /**
- *
+ * Lukee tiedostoja.
  * @author mkahri
  */
 public abstract class TiedostonLukija {
@@ -25,16 +24,20 @@ public abstract class TiedostonLukija {
         try {
             palautus = Files.readAllLines(polku, StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            System.out.println("ÄHH! (Sanoo tiedostonLukija.lueTekstitiedosto.)");
+
         }
         return palautus;
     }  
  
-    public static void tulostaTekstitiedosto(Path polku) 
+    public static boolean tulostaTekstitiedosto(Path polku) 
     {
         List<String> rivit = tuoRivit(polku);
-        for (String r : rivit) {
+        if (!rivit.isEmpty()) 
+        {
+        for (String r : rivit) 
             System.out.println(r);
+        return true;
         }
+        return false;
     }
 }

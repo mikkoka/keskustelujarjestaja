@@ -11,7 +11,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- *
+ * Hallinnoi ääni- ja videotallenteiden tietoja, ja tietoja niitten 
+ * keskinäisistä suhteista. Toim. huom. suhde tekstitiedostoihin epäselvä.
  * @author mkahri
  */
 public class Tallenne {
@@ -59,6 +60,10 @@ public class Tallenne {
         return this.polku;
     }
     
+    /**
+     * Palauttaa tiedoston nimen ilman polkua.
+     * @return tiedoston nimi merkkijonona
+     */
     public String getTiedostoNimi()
     {
         return polku.getFileName().toString();   

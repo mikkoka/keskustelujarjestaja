@@ -1,0 +1,41 @@
+General		8.812	12.039	Begin H
+General		12.039	28.438	Middle H
+General		28.438	35.123	Huono-onninen
+General		35.123	41.876	Begin I
+General		41.876	93.479	Middle I
+General		93.479	97.271	Innokas
+General		97.271	109.721	Begin J
+General		109.721	145.518	Middle J
+General		145.518	147.381	Commitment
+General		147.381	149.709	Begin K
+General		149.709	169.158	Middle K
+General		169.158	173.316	Koheltava
+General		173.316	174.979	Begin L 
+General		174.979	176.243	Middle L
+General		176.243	181.091	Laiska
+General		181.091	189.065	Begin M
+Begin		8.812	12.039	H
+Begin		35.123	41.876	I
+Begin		97.271	109.721	J
+Begin		147.381	149.709	K
+Begin		173.316	174.979	L
+Begin		181.091	189.065	M
+Middle		12.039	28.438	H
+Middle		41.876	93.479	I
+Middle		109.721	145.518	J
+Middle		149.709	169.158	K
+Middle		174.979	176.243	L
+Commitment		28.438	35.123	Huono-onninen
+Commitment		93.479	97.271	Innokas
+Commitment		145.518	147.381	Commitment
+Commitment		169.158	173.316	Koheltava
+Commitment		176.243	181.091	Laiska
+Expl_verbal_commitm		28.438	35.123	Huono-onninen
+Expl_verbal_commitm		93.479	97.271	Innokas
+Expl_verbal_commitm		145.518	147.381	Commitment
+Expl_verbal_commitm		169.158	173.316	Koheltava
+Expl_verbal_commitm		176.243	181.091	Laiska
+L pro R com		93.479	97.271	Innokas
+L pro R com		176.243	181.091	Laiska
+R pro L com		28.438	35.123	Huono-onninen
+R pro L com		169.158	173.316	Koheltava

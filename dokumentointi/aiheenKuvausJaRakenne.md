@@ -11,7 +11,6 @@ Keskustelutapahtumien järjestely tapahtuu graafisesti, vetämällä yksittäisi
 **Toiminnot:** 
 
 * Käyttäjä tuo annotaatioita. Käyttäjä antaa polun video/äänitiedostoon sekä tähän liittyviä annotaatioita sisältävään tekstitiedostoon.Sovellus lisää tiedot kokoelmaan.
-us
 
 * Käytäjä luo havaintotyypin (työnimi). Käyttäjä määrittää luokan, jota hän voi sitten käyttää järjestelyssä ja haussa.
 
@@ -24,6 +23,8 @@ us
 * Käyttäjä hakee annotaatioitten joukosta tiettyihin havaintotyyppeihin kuuluvia annotaatioita. Sovellus näyttää aina haetun tyyppiset annotaatiot (taulukossa).
 
 * Käyttäjä tallentaa annotaatiokokoelman antamaansa polkuun.
+
+* Käyttäjä tutustuu annotaation sisältöön katsomalla sen videolta tai kuuntelemalla sen.
 
 **Käsitteitä:**
 

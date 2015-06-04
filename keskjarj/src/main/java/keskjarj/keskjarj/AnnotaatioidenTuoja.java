@@ -1,15 +1,17 @@
-/*
- * Luokasta luodaan instanssi jokaista annotaatiotiedoston tuontia varten.
- * Instanssia ei voi käyttää toisen annotaatioitiedoston tuontiin, eikä 
- * instanssiin luettavan tiedoston polkua voi muuttaa instanssin luonnin jälkeen. 
- * Luokan koodi on aivan turhan monimutkaista toistaiseksi. Javadoccia ei kannattane
- * hioa kovin paljoa ennen kuin työnjako metodien välillä lopullinen.
- */
+
 package keskjarj.keskjarj;
 
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * Luokasta luodaan instanssi jokaista annotaatiotiedoston tuontia varten.
+ * Instanssia ei voi käyttää toisen annotaatioitiedoston tuontiin, eikä 
+ * instanssiin luettavan tiedoston polkua voi muuttaa instanssin luonnin jälkeen. 
+ * Käyttää tekstitiedostojen lukemiseen yliluokan metodia.
+ * 
+ * @see    keskjarj.keskjarj.TiedostonLukija
+ */
 public class AnnotaatioidenTuoja extends TiedostonLukija 
 {    
     private List<String> rivit;
@@ -24,8 +26,13 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         this.polku = polku;
     }
     
+    /**
+     * Lukee tekstitiedostosta havaintoja ja otteita ja luo niistä olioita
+     * @return  Havainto -olioita sisältävä HashSet
+     */
     public HashSet<Havainto> tuo() 
     {
+        // Komentojen suoritusjärjestys ei ole yhdentekevä; muuta harkiten
         Tallenne tallenne = new Tallenne(polku);
         rivit = tuoRivit(polku);        
         luoOtteet(listaaOtteet(), tallenne);
@@ -35,6 +42,8 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
 
     private HashSet<String> listaaOtteet()
     {
+        if (rivit.isEmpty())
+            return null;
         String[] rivi;
         HashSet<String> palautus = new HashSet();
         
@@ -60,7 +69,6 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     
     private void luoOtteet(HashSet<String> stringOtteet, Tallenne tallenne)
     {
-
         String tiedostonimi;
         for (String o : stringOtteet)
         {
@@ -116,24 +124,6 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
             palautus.add(havainto);      
         }
         return palautus;       
-    }
-
-
-    public static void main(String[] args) {
-
-        Path polku = Paths.get("../aineistoja/ElanExample.txt");
-        System.out.println("\nTekstitiedosto raakana:");
-        tulostaTekstitiedosto(polku);
-        
-        AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku);
-        HashSet<Havainto> kokeilu;
-        kokeilu = tuoja.tuo();
-        for (Havainto h : kokeilu)
-        {
-            System.out.println(h.nimi);
-            for (Ote o : h.otteet)
-                System.out.println(o.getTunnus());
-        }
     }
 }  
 //    private List listaaSarake(int nro) 

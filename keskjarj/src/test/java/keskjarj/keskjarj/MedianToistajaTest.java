@@ -25,7 +25,7 @@ public class MedianToistajaTest {
         mt = new MedianToistaja();
         polku = Paths.get("../aineistoja/Example.mp4");
         tallenne = new Tallenne(polku);
-        ote = new Ote(tallenne, 10.0, 20.0);
+        ote = new Ote(tallenne, 10.0, 20.0, "11-12", "joku.txt");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class MedianToistajaTest {
 
     @Test
     public void testaaOteMoitteeton_ToistoEstyyJosToistoajatPuuttuvat() {
-        ote = new Ote(tallenne, 20.0, 10.0);
+        ote = new Ote(tallenne, 20.0, 10.0, "11-12", "joku.txt");
         assertEquals(mt.oteMoitteeton(ote), false);
     }
     
@@ -49,7 +49,7 @@ public class MedianToistajaTest {
     public void testaaOteMoitteeton_ToistoEstyyJosPolkuKelvoton() {
         Path p = Paths.get("../aineistoja/Example.hehe");
         Tallenne t = new Tallenne(p);
-        Ote o = new Ote(t, 10.0, 11.0);
+        Ote o = new Ote(t, 10.0, 11.0, "11-12", "joku.txt");
         assertEquals(mt.oteMoitteeton(o), false);
     }
 

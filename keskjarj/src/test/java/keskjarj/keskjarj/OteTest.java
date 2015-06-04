@@ -25,9 +25,9 @@ public class OteTest
     @Before
     public void setUp()
     {
-        Path polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
+        Path polku = Paths.get("../aineistoja/Example.mp4");
         tallenne = new Tallenne(polku);
-        ote = new Ote(tallenne, 10.0, 20.0);
+        ote = new Ote(tallenne, 10.0, 20.0, "11-12", "joku.txt");
     }
     
     @Test
@@ -50,16 +50,47 @@ public class OteTest
     @Test
     public void KonstruktoriEiAsetaAlkuaJokaSuurempiKuinLoppu ()
     {
-        Ote ote2 = new Ote(tallenne, 20.0, 10.0);
+        Ote ote2 = new Ote(tallenne, 20.0, 10.0, "11-12", "joku.txt");
         Double testiLuku = 0.0;
         assertEquals(ote2.getAlku(), testiLuku);  
     }
     
-        public void KonstruktoriEiAsetaAlkuaJokaAlleNollan ()
+    @Test
+    public void KonstruktoriEiAsetaAlkuaJokaAlleNollan ()
     {
-        Path polku = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
-        Ote o = new Ote(tallenne, -1.0, 10.0);
+        Ote o = new Ote(tallenne, -1.0, 10.0, "11-12", "joku.txt");
         Double testiLuku = 0.0;
         assertEquals(o.getAlku(), testiLuku);  
     }
+    
+    @Test
+    public void testGetTunnusAsetetullaTunnuksella()
+    {
+        ote.setTunnus("kokeilu");
+        assertEquals("kokeilu", ote.getTunnus());
+    }
+    
+    @Test
+    public void testGetTunnusAIlmanTunnuksenAsettamista()
+    {
+        assertEquals("joku.txt 11-12", ote.getTunnus());
+    }
+    
+    @Test
+    public void testaaHiukanEqualsia() {
+       Ote ote2 = new Ote(tallenne, 10.0, 20.0, "11-12", "joku.txt");
+       assertEquals(true, ote.equals(ote2));
+        
+    }
+    
+    @Test
+    public void testaaHiukanEqualsia2() {
+       Ote ote2 = new Ote(tallenne, 1.0, 11.0, "11-13", "joku.txt");
+       assertEquals(false, ote.equals(ote2));
+        
+    }
+    
+    
+        
+        
 }

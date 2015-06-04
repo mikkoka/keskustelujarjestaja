@@ -5,12 +5,13 @@
  */
 package keskjarj.keskjarj;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- *
+ * Hallinnoi projektia ja sen resursseja, erityisesti projektin havaintokokoelmaa.
  * @author mikko
  */
 public class Projekti 
@@ -24,16 +25,25 @@ public class Projekti
         tallenteet = new ArrayList();
     }
     
-    public void tuoAnnotaatioita (Path polku)
+    /**
+    * Lisää Projektin havaintoihin uusia havaintoja tekstitiedostosta.
+    * Lisää vanhoihin havaintokategorioihin. uusia otteita silloin, kun 
+    * sellaisia on tuotu. 
+    * 
+    * @param   polku   polku annotaatioita sisältävään tekstitiedostoon 
+    * (tallennettu Elanilla, toisaalla annetuin ohjein)
+     * @return polun toimivuus
+    */
+    public boolean tuoAnnotaatioita (Path polku)
     {
+        if(!Files.isReadable(polku))
+            return false;
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku);
         HashSet<Havainto> uudetHavainnot = tuoja.tuo();
-        lisaaAnnotaatiot(uudetHavainnot);                  
+        lisaaAnnotaatiot(uudetHavainnot);   
+        return true;
     }
-    /**
-    * Lisää Projektin havaintoihin uudet havainnot. Lisää vanhoihin havaintokategorioihin
-    * uusia otteita silloin, kun sellaisia on tuotu.
-    */
+
     private void lisaaAnnotaatiot (HashSet<Havainto> uudetHavainnot)
     {        
         for (Havainto uusi : uudetHavainnot) 
@@ -48,18 +58,40 @@ public class Projekti
             }
     }
     
+    /**
+     * Luo uuden havaintokategorian merkkijonon perusteella, ja liittää sen 
+     * projektin havaintokokoelmaan. Mikäli tarjottu nimi on jo 
+     * käytössä, havaintokategorian luonti epäonnistuu.
+     * 
+     * @param nimi  nimi havaintokategorialle 
+     * @return onnistuiko kategorian luonti
+     */
     public boolean luoHaivaintokategoria(String nimi)
     {
         return havainnot.add(new OtettaKoskevaHavainto(nimi));
     }
     
+    /**
+     * Palauttaa kaikki projektin havaintokokoelman havainto-oliot.
+     * @return HashSet -kokoelma Havainto-olioita
+     */
     public HashSet<Havainto> havainnot()
     {
         return this.havainnot;
     }
-    
-    public void jarjestele(Ote[] ... otteet)
+
+    /**
+     * Palauttaa pyydettyyn havaintokategoriaan sisällytetyt otteet. 
+     * Saatetaan siirtää luokkaan Havainto, tai poistaa tarpeettomana
+     * @param nimi havaintokategorian nimi merkkijonona
+     * @return  HashSet -kokoelma Ote-olioita
+     */
+    public HashSet <Ote> otteet (String nimi)
     {
-        
+        HashSet<Ote> palautus = new HashSet();
+        for (Havainto h : havainnot)
+            if (h.getNimi().equals(nimi))
+                palautus =  h.otteet;
+        return palautus;         
     }
 }

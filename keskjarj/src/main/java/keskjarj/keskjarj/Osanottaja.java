@@ -7,7 +7,7 @@
 package keskjarj.keskjarj;
 
 /**
- *
+ * Luokkaan liittyvät toiminnallisuudet toteutetaan ehdittäessä.
  * @author mkahri
  */
 public class Osanottaja {
