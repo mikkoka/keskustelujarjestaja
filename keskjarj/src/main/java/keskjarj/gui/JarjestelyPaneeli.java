@@ -17,20 +17,20 @@ import javax.swing.*;
  */
 public class JarjestelyPaneeli extends JPanel {
 
-    Rectangle rect;
+    Rectangle suorakaide;
     int preX, preY;
-    boolean isFirstTime = true;
-    Rectangle area;
+    boolean ekaKerta = true;
+    Rectangle alue;
     boolean pressOut = false;
     private Dimension koko = new Dimension(1300, 800);
 
     public JarjestelyPaneeli() 
     {
-        this.rect = new Rectangle(0, 0, 100, 40);
+        this.suorakaide = new Rectangle(0, 0, 100, 40);
 
         setBackground(Color.white);
-        addMouseMotionListener(new MyMouseAdapter());
-        addMouseListener(new MyMouseAdapter());
+        addMouseMotionListener(new HiiriAdapteri());
+        addMouseListener(new HiiriAdapteri());
 
         setPreferredSize(new Dimension(1300, 800));
 
@@ -41,64 +41,57 @@ public class JarjestelyPaneeli extends JPanel {
         add(l2);
     }
 
- 
-
-//    @Override
-//    public Dimension getPreferredSize() {
-//        return koko;
-//    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        if (isFirstTime) {
-            area = new Rectangle(koko);
-            rect.setLocation(50, 50);
-            isFirstTime = false;
+        if (ekaKerta) {
+            alue = new Rectangle(koko);
+            suorakaide.setLocation(50, 50);
+            ekaKerta = false;
         }
 
         g2d.setColor(Color.black);
-        g2d.fill(rect);
+        g2d.fill(suorakaide);
     }
 
     boolean checkRect() {
-        if (area == null) {
+        if (alue == null) {
             return false;
         }
 
-        if (area.contains(rect.x, rect.y, rect.getWidth(), rect.getHeight())) {
+        if (alue.contains(suorakaide.x, suorakaide.y, suorakaide.getWidth(), suorakaide.getHeight())) {
             return true;
         }
 
-        int new_x = rect.x;
-        int new_y = rect.y;
+        int new_x = suorakaide.x;
+        int new_y = suorakaide.y;
 
-        if ((rect.x + rect.getWidth()) > area.getWidth()) {
-            new_x = (int) area.getWidth() - (int) (rect.getWidth() - 1);
+        if ((suorakaide.x + suorakaide.getWidth()) > alue.getWidth()) {
+            new_x = (int) alue.getWidth() - (int) (suorakaide.getWidth() - 1);
         }
-        if (rect.x < 0) {
+        if (suorakaide.x < 0) {
             new_x = -1;
         }
-        if ((rect.y + rect.getHeight()) > area.getHeight()) {
-            new_y = (int) area.getHeight() - (int) (rect.getHeight() - 1);
+        if ((suorakaide.y + suorakaide.getHeight()) > alue.getHeight()) {
+            new_y = (int) alue.getHeight() - (int) (suorakaide.getHeight() - 1);
         }
-        if (rect.y < 0) {
+        if (suorakaide.y < 0) {
             new_y = -1;
         }
-        rect.setLocation(new_x, new_y);
+        suorakaide.setLocation(new_x, new_y);
         return false;
     }
 
-    private class MyMouseAdapter extends MouseAdapter {
+    private class HiiriAdapteri extends MouseAdapter {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            preX = rect.x - e.getX();
-            preY = rect.y - e.getY();
+            preX = suorakaide.x - e.getX();
+            preY = suorakaide.y - e.getY();
 
-            if (rect.contains(e.getX(), e.getY())) {
+            if (suorakaide.contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = true;
@@ -115,7 +108,7 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (rect.contains(e.getX(), e.getY())) {
+            if (suorakaide.contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = false;
@@ -123,7 +116,7 @@ public class JarjestelyPaneeli extends JPanel {
         }
 
         public void updateLocation(MouseEvent e) {
-            rect.setLocation(preX + e.getX(), preY + e.getY());
+            suorakaide.setLocation(preX + e.getX(), preY + e.getY());
             checkRect();
 
             repaint();
