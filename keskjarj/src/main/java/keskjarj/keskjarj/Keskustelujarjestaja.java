@@ -28,7 +28,7 @@ public class Keskustelujarjestaja {
     public static void main(String[] args)
     {
         JMenuBar valikkorivi;
-        JMenu menu, submenu, menu2;
+        JMenu tiedostoValikko, submenu, tuomisValikko;
         JMenuItem menuItem;
         JRadioButtonMenuItem rbMenuItem;
         JCheckBoxMenuItem cbMenuItem;
@@ -37,11 +37,11 @@ public class Keskustelujarjestaja {
         valikkorivi = new JMenuBar();
 
 //Build the first menu.
-        menu = new JMenu("A Menu");
-        menu.setMnemonic(KeyEvent.VK_A);
-        menu.getAccessibleContext().setAccessibleDescription(
+        tiedostoValikko = new JMenu("Tiedosto");
+        tiedostoValikko.setMnemonic(KeyEvent.VK_A);
+        tiedostoValikko.getAccessibleContext().setAccessibleDescription(
                 "The only menu in this program that has menu items");
-        valikkorivi.add(menu);
+        valikkorivi.add(tiedostoValikko);
 
 //a group of JMenuItems
         menuItem = new JMenuItem("A text-only menu item",
@@ -50,43 +50,43 @@ public class Keskustelujarjestaja {
                 KeyEvent.VK_1, ActionEvent.ALT_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription(
                 "This doesn't really do anything");
-        menu.add(menuItem);
+        tiedostoValikko.add(menuItem);
 
         menuItem = new JMenuItem("Both text and icon",
                 new ImageIcon("images/middle.gif"));
         menuItem.setMnemonic(KeyEvent.VK_B);
-        menu.add(menuItem);
+        tiedostoValikko.add(menuItem);
 
         menuItem = new JMenuItem(new ImageIcon("images/middle.gif"));
         menuItem.setMnemonic(KeyEvent.VK_D);
-        menu.add(menuItem);
+        tiedostoValikko.add(menuItem);
 
 //a group of radio button menu items
-        menu.addSeparator();
+        tiedostoValikko.addSeparator();
         ButtonGroup group = new ButtonGroup();
         rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
         rbMenuItem.setSelected(true);
         rbMenuItem.setMnemonic(KeyEvent.VK_R);
         group.add(rbMenuItem);
-        menu.add(rbMenuItem);
+        tiedostoValikko.add(rbMenuItem);
 
         rbMenuItem = new JRadioButtonMenuItem("Another one");
         rbMenuItem.setMnemonic(KeyEvent.VK_O);
         group.add(rbMenuItem);
-        menu.add(rbMenuItem);
+        tiedostoValikko.add(rbMenuItem);
 
 //a group of check box menu items
-        menu.addSeparator();
+        tiedostoValikko.addSeparator();
         cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
         cbMenuItem.setMnemonic(KeyEvent.VK_C);
-        menu.add(cbMenuItem);
+        tiedostoValikko.add(cbMenuItem);
 
         cbMenuItem = new JCheckBoxMenuItem("Another one");
         cbMenuItem.setMnemonic(KeyEvent.VK_H);
-        menu.add(cbMenuItem);
+        tiedostoValikko.add(cbMenuItem);
 
 //a submenu
-        menu.addSeparator();
+        tiedostoValikko.addSeparator();
         submenu = new JMenu("A submenu");
         submenu.setMnemonic(KeyEvent.VK_S);
 
@@ -97,15 +97,15 @@ public class Keskustelujarjestaja {
 
         menuItem = new JMenuItem("Another item");
         submenu.add(menuItem);
-        menu.add(submenu);
+        tiedostoValikko.add(submenu);
 
 //Build second menu in the menu bar.
-        menu2 = new JMenu("Another Menu");
-        menu2.setMnemonic(KeyEvent.VK_N);
-        menu2.getAccessibleContext().setAccessibleDescription(
+        tuomisValikko = new JMenu("Tuo");
+        tuomisValikko.setMnemonic(KeyEvent.VK_N);
+        tuomisValikko.getAccessibleContext().setAccessibleDescription(
                 "This menu does nothing");
-        valikkorivi.add(menu);
-        valikkorivi.add(menu2);
+        valikkorivi.add(tiedostoValikko);
+        valikkorivi.add(tuomisValikko);
 
 
         

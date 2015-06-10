@@ -32,23 +32,21 @@ public class JarjestelyPaneeli extends JPanel {
         addMouseMotionListener(new MyMouseAdapter());
         addMouseListener(new MyMouseAdapter());
 
-        setPreferredSize(new Dimension());
+        setPreferredSize(new Dimension(1300, 800));
 
-        JLabel l1 = new JLabel("Layout Manager Demonstration\n\n");
-        JLabel l2 = new JLabel("Choose a tab to see an example of "
-                + "a layout manager.");
+        JLabel l1 = new JLabel("Hehe hehe");
+        JLabel l2 = new JLabel("Hoho hoho");
 
         add(l1);
-
         add(l2);
     }
 
  
 
-    @Override
-    public Dimension getPreferredSize() {
-        return koko;
-    }
+//    @Override
+//    public Dimension getPreferredSize() {
+//        return koko;
+//    }
 
     @Override
     public void paintComponent(Graphics g) {
