@@ -18,12 +18,14 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     private HashSet<Ote> otteet;
     private HashMap<String, List<String>> kategoriatJaAikajaksot; //Tässä String -muotoisina
     private Path polku;
+    private Tallenne tallenne;
     
-    public AnnotaatioidenTuoja(Path polku)
+    public AnnotaatioidenTuoja(Path polku, Tallenne tallenne)
     {
         kategoriatJaAikajaksot = new HashMap();
         otteet = new HashSet();
         this.polku = polku;
+        this.tallenne = tallenne;
     }
     
     /**
@@ -33,7 +35,6 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     public HashSet<Havainto> tuo() 
     {
         // Komentojen suoritusjärjestys ei ole yhdentekevä; muuta harkiten
-        Tallenne tallenne = new Tallenne(polku);
         rivit = tuoRivit(polku);        
         luoOtteet(listaaOtteet(), tallenne);
         eritteleRivit();
@@ -74,7 +75,9 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         {
             Double alku = puraAikajakso(o, 0); 
             Double loppu = puraAikajakso(o, 1);
-            tiedostonimi = tallenne.getTiedostoNimi();            
+            if (!(tallenne == null))
+                tiedostonimi = tallenne.getTiedostoNimi();
+            else tiedostonimi = polku.getFileName().toString();
             
             otteet.add(new Ote(tallenne, alku, loppu, o, tiedostonimi));
         }        

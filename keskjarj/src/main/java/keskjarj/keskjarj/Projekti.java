@@ -34,11 +34,11 @@ public class Projekti
     * (tallennettu Elanilla, toisaalla annetuin ohjein)
      * @return polun toimivuus
     */
-    public boolean tuoAnnotaatioita (Path polku)
+    public boolean tuoAnnotaatioita (Path polku, Tallenne tallenne)
     {
         if(!Files.isReadable(polku))
             return false;
-        AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku);
+        AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku, tallenne);
         HashSet<Havainto> uudetHavainnot = tuoja.tuo();
         lisaaAnnotaatiot(uudetHavainnot);   
         return true;

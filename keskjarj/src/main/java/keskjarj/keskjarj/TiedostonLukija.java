@@ -16,7 +16,7 @@ import java.util.List;
  * Lukee tiedostoja.
  * @author mkahri
  */
-public abstract class TiedostonLukija {
+public class TiedostonLukija {
     
     public static List<String> tuoRivit (Path polku) 
     {
