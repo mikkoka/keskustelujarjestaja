@@ -7,13 +7,7 @@
 package keskjarj.keskjarj;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.HashSet;
 import javax.swing.*;
 import keskjarj.gui.*;
@@ -51,10 +45,12 @@ public class Keskustelujarjestaja {
             System.out.println(h.nimi);
             for (Ote o : h.otteet) {
                 System.out.println(o.getTunnus());
-
-     
             }
         }
+        
+        Object[] havainnot = kokeilu.toArray();
+        Havainto temp = (Havainto) havainnot[0];
+        System.out.println(temp.nimi);
         
         ikkuna = new JFrame("Keskustelujarjestaja");
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

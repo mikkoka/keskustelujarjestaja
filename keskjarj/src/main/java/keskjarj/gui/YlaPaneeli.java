@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.*;
 import keskjarj.keskjarj.Projekti;
+import keskjarj.keskjarj.Tallenne;
 
 /**
  *
@@ -19,11 +20,11 @@ import keskjarj.keskjarj.Projekti;
  */
 public class YlaPaneeli extends JPanel {
 
-    JTabbedPane valilehdet;
-    JMenuBar valikkorivi;
-    JMenu projektivalikko, otevalikko, tuontivalikko;
-    JMenuItem tallennusrivi, latausrivi, elanrivi, lopetusrivi, VLCrivi, nimeamisrivi;
-    MenuKuuntelija kuuntelija;
+    private JTabbedPane valilehdet;
+    private JMenuBar valikkorivi;
+    private JMenu projektivalikko, otevalikko, tuontivalikko;
+    private JMenuItem tallennusrivi, latausrivi, elanrivi, lopetusrivi, VLCrivi, nimeamisrivi;
+    private MenuKuuntelija kuuntelija;
 
     Projekti projekti;
 
@@ -31,7 +32,7 @@ public class YlaPaneeli extends JPanel {
         this.projekti = projekti;
         kuuntelija = new MenuKuuntelija();
         valilehdet = new JTabbedPane();
-        valilehdet.addTab("Hakeminen", new hakuPaneeli(paneelinKoko));
+        valilehdet.addTab("Hakeminen", new hakuPaneeli(paneelinKoko, projekti));
         valilehdet.addTab("Järjesteleminen", new JarjestelyPaneeli(paneelinKoko));
         valikkorivi = new JMenuBar();
         
@@ -113,7 +114,8 @@ public class YlaPaneeli extends JPanel {
             else if (e.getSource() == elanrivi) {
                 if(tuoAnnotaatioTiedosto()) {
                     if (tuoMediatiedosto())
-                        projekti.tuoAnnotaatioita(polku1);
+                        projekti.tuoAnnotaatioita(polku1, new Tallenne(polku2));
+                    else projekti.tuoAnnotaatioita(polku1, null);
                                           
                 }
             } else if (e.getSource() == tallennusrivi) {
