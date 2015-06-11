@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keskjarj.keskjarj;
+package keskjarj.ohjelma;
 
+import keskjarj.ohjelma.MedianToistaja;
 import java.nio.file.*;
+import keskjarj.keskjarj.Ote;
+import keskjarj.keskjarj.Tallenne;
 import org.junit.*;
 import static org.junit.Assert.*;
 

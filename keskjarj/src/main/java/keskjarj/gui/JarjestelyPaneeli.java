@@ -34,11 +34,11 @@ public class JarjestelyPaneeli extends JPanel {
 
         setPreferredSize(koko);
 
-        JLabel l1 = new JLabel("Hehe hehe");
-        JLabel l2 = new JLabel("Hoho hoho");
+        JLabel l1 = new JLabel("Pahoillani, tääkin toiminto on aivan keskenräinen");
+
 
         add(l1);
-        add(l2);
+
     }
 
     @Override

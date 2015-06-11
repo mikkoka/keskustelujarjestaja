@@ -5,6 +5,7 @@
 */
 package keskjarj.keskjarj;
 
+import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import org.junit.*;
@@ -16,10 +17,12 @@ import static org.junit.Assert.*;
  */
 public class AnnotaatioidenTuojaTest {
     AnnotaatioidenTuoja tuoja;
+    Tallenne tallenne;
     
     @Before
     public void setUp() {
-        tuoja = new AnnotaatioidenTuoja(Paths.get("../aineistoja/ElanExample.txt"));
+        tallenne = new Tallenne (Paths.get("../aineistoja/Example.mp4"));
+        tuoja = new AnnotaatioidenTuoja(Paths.get("../aineistoja/ElanExample.txt"), tallenne);
     }
     
     @Test

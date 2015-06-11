@@ -5,6 +5,7 @@
  */
 package keskjarj.keskjarj;
 
+import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class Projekti
     * 
     * @param   polku   polku annotaatioita sisältävään tekstitiedostoon 
     * (tallennettu Elanilla, toisaalla annetuin ohjein)
+     * @param tallenne TÄYDENNÄ!
      * @return polun toimivuus
     */
     public boolean tuoAnnotaatioita (Path polku, Tallenne tallenne)
@@ -80,18 +82,37 @@ public class Projekti
         return this.havainnot;
     }
 
-    /**
-     * Palauttaa pyydettyyn havaintokategoriaan sisällytetyt otteet. 
-     * Saatetaan siirtää luokkaan Havainto, tai poistaa tarpeettomana
-     * @param nimi havaintokategorian nimi merkkijonona
-     * @return  HashSet -kokoelma Ote-olioita
-     */
-    public HashSet <Ote> otteet (String nimi)
+   
+    public HashSet <Ote> kaikkiOtteet ()
     {
-        HashSet<Ote> palautus = new HashSet();
+        HashSet <Ote> palautus = new HashSet();
+        HashSet <Ote> temp;
         for (Havainto h : havainnot)
-            if (h.getNimi().equals(nimi))
-                palautus =  h.otteet;
-        return palautus;         
+        {
+            temp = h.getOtteet();
+            for (Ote t : temp)
+                palautus.add(t);
+        }
+        return palautus;
     }
+    
+    public Havainto havainto (int nro) 
+    {
+        if (!havainnot.isEmpty() && nro < havainnot.size()) {
+            Object[] temp = havainnot().toArray();
+            return (Havainto) temp[nro];
+        } else return null;
+
+    }
+    
+    public Ote ote (int nro)
+    {
+        if (!havainnot.isEmpty()&& nro < havainnot.size()) {
+        Object[] otteet = kaikkiOtteet().toArray();
+        return (Ote) otteet[nro];
+        }
+        else return null;
+    }
+    
+
 }

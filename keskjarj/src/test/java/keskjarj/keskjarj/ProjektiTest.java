@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  */
 public class ProjektiTest {
     Projekti projekti;
+    Tallenne tallenne;
     
     public ProjektiTest() {
     }
@@ -24,6 +25,7 @@ public class ProjektiTest {
     @Before
     public void setUp() {
         projekti = new Projekti();
+        tallenne = new Tallenne (Paths.get("../aineistoja/Example.mp4"));
     }
 
     /**
@@ -32,13 +34,13 @@ public class ProjektiTest {
     @Test
     public void testTuoAnnotaatioitaKelvottomallaPolulla() {
         Path polku = Paths.get("liirumlaarum");
-        assertEquals(false, projekti.tuoAnnotaatioita(polku));
+        assertEquals(false, projekti.tuoAnnotaatioita(polku, tallenne));
     }
     
     @Test
     public void testTuoAnnotaatioitaKunnollisellaTiedostolla() {
         Path polku = Paths.get("../aineistoja/ElanExample.txt");
-        assertEquals(true, projekti.tuoAnnotaatioita(polku));
+        assertEquals(true, projekti.tuoAnnotaatioita(polku, tallenne));
     }
     
     @Test
@@ -53,11 +55,42 @@ public class ProjektiTest {
     }
     
     @Test
-    public void testOtteet() {
-        projekti.tuoAnnotaatioita(Paths.get("../aineistoja/ElanExample.txt"));
-        HashSet<Ote> otteet = projekti.otteet("Begin");
-        assertEquals(8, otteet.size());
+    public void havaintoPalauttaaNullinLiianSuurellaHavaintonumerolla() {
+        
+        assertEquals(null, projekti.havainto(1000));
     }
+    
+    @Test
+    public void otePalauttaaNullinLiianSuurellaOtenumerolla() {
+        
+        assertEquals(null, projekti.ote(1000));
+    }
+    
+    @Test
+    public void otePalauttaaNullinTyhjallaHavaintoluettelolla() {
+        Projekti projekti2 = new Projekti();
+        assertEquals(null, projekti2.ote(0));
+    }
+    
+    @Test
+    public void havaintoPalauttaaNullinTyhjallaHavaintoluettelolla() {
+        Projekti projekti2 = new Projekti();
+        assertEquals(null, projekti2.havainto(0));
+    }
+        
+        
+    @Test
+    public void kaikkiOtteetPalauttaaNullinTyhjallaHavaintoluettelolla() {
+        Projekti projekti2 = new Projekti();
+        assertEquals(true, projekti.kaikkiOtteet().isEmpty());
+    }
+    
+//    @Test
+//    public void testOtteet() {
+//        projekti.tuoAnnotaatioita(Paths.get("../aineistoja/ElanExample.txt"), tallenne);
+//        HashSet<Ote> otteet = projekti.otteet("Begin");
+//        assertEquals(8, otteet.size());
+//    }
     
     
 

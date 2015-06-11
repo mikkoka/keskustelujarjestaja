@@ -5,6 +5,7 @@
  */
 package keskjarj.keskjarj;
 
+import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.*;
 import org.junit.*;
 import static org.junit.Assert.*;

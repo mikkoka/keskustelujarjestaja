@@ -8,8 +8,7 @@ package keskjarj.gui;
 import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import keskjarj.keskjarj.Havainto;
-import keskjarj.keskjarj.Projekti;
+import keskjarj.keskjarj.*;
 
 /**
  *
@@ -30,51 +29,35 @@ public class hakuPaneeli extends JPanel {
 
     
     private class MyTableModel extends AbstractTableModel {
-        private Object[] objektit = projekti.havainnot().toArray();
-        private String[] columnNames;
-        
-        private MyTableModel()
-        {
-            
-        Havainto[] havainnot = (Havainto[]) objektit;
-        columnNames = new String[havainnot.length];
-        for (int a  = 0; a < havainnot.length; a++)
-            columnNames[a] = havainnot[a].getNimi();
-            
-    
-//    { "First Name", "Last Name", "Sport",
-//        "# of Years", "Vegetarian" };
-
-    private Object[][] data = {
-        { "Mary", "Campione", "Snowboarding", new Integer(5),
-            new Boolean(false) },
-        { "Alison", "Huml", "Rowing", new Integer(3), new Boolean(true) },
-        { "Kathy", "Walrath", "Knitting", new Integer(2),
-            new Boolean(false) },
-        { "Sharon", "Zakhour", "Speed reading", new Integer(20),
-            new Boolean(true) },
-        { "Philip", "Milne", "Pool", new Integer(10),
-            new Boolean(false) } };
-    }
 
     @Override
     public int getColumnCount() {
-      return columnNames.length;
+      return projekti.havainnot().size() + 1;//columnNames.length;
     }
 
     @Override
     public int getRowCount() {
-      return data.length;
+      return projekti.kaikkiOtteet().size();
     }
 
     @Override
     public String getColumnName(int col) {
-      return columnNames[col];
+        if (col == 0)
+            return "Ote";
+        else
+            return projekti.havainto(col - 1).getNimi();
     }
 
     @Override
     public Object getValueAt(int row, int col) {
-      return data[row][col];
+        Ote o = projekti.ote(row);
+        if (col == 0)
+            return o.getTunnus();
+        else {
+            Havainto h = projekti.havainto(col - 1);
+            return h.getOtteet().contains(o);
+        }
+
     }
 
     /*
@@ -94,12 +77,13 @@ public class hakuPaneeli extends JPanel {
     public boolean isCellEditable(int row, int col) {
       //Note that the data/cell address is constant,
       //no matter where the cell appears onscreen.
-      if (col < 2) {
         return false;
-      } else {
-        return true;
-      }
-    }
+//      if (col < 1) {
+//        return false;
+//      } else {
+//        return true;
+//      }
+   }
 
     /*
      * Don't need to implement this method unless your table's data can
@@ -107,7 +91,7 @@ public class hakuPaneeli extends JPanel {
      */
     @Override
     public void setValueAt(Object value, int row, int col) {
-      data[row][col] = value;
+      //data[row][col] = value;
       fireTableCellUpdated(row, col);
     }
   }

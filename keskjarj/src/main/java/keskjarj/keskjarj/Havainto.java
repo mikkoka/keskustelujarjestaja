@@ -38,6 +38,17 @@ public abstract class Havainto {
         for (Ote o : otteet)
             this.lisaaOte(o);
     }
+    
+        /**
+     * Palauttaa pyydettyyn havaintokategoriaan sisällytetyt otteet. 
+     * Saatetaan siirtää luokkaan Havainto, tai poistaa tarpeettomana
+     * @param havainto TÄYDENNÄ, KORJAA!
+     * @return  HashSet -kokoelma Ote-olioita
+     */
+    public HashSet <Ote> getOtteet (Havainto havainto)
+    {
+        return havainto.otteet;       
+    }
 
     @Override
     public int hashCode() {        

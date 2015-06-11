@@ -1,8 +1,13 @@
 
-package keskjarj.keskjarj;
+package keskjarj.ohjelma;
 
 import java.nio.file.*;
 import java.util.*;
+import keskjarj.keskjarj.Havainto;
+import keskjarj.keskjarj.Ote;
+import keskjarj.keskjarj.OtettaKoskevaHavainto;
+import keskjarj.keskjarj.Tallenne;
+import keskjarj.keskjarj.TiedostonLukija;
 
 /**
  * Luokasta luodaan instanssi jokaista annotaatiotiedoston tuontia varten.
