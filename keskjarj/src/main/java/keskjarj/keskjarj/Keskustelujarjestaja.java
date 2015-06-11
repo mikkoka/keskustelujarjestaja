@@ -6,6 +6,7 @@
 
 package keskjarj.keskjarj;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.nio.file.Path;
@@ -31,8 +32,8 @@ public class Keskustelujarjestaja {
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JTabbedPane tp = new JTabbedPane(); 
-        tp.addTab("Hakeminen", new JarjestelyPaneeli());
-        tp.addTab("Järjesteleminen", new JarjestelyPaneeli());
+        tp.addTab("Hakeminen", new hakuPaneeli(new Dimension(1300, 800)));
+        tp.addTab("Järjesteleminen", new JarjestelyPaneeli(new Dimension(1300, 800)));
 
         JMenuBar valikkorivi = new JMenuBar();
 

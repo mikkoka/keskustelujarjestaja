@@ -24,15 +24,15 @@ public class JarjestelyPaneeli extends JPanel {
     boolean pressOut = false;
     private Dimension koko = new Dimension(1300, 800);
 
-    public JarjestelyPaneeli() 
+    public JarjestelyPaneeli(Dimension koko) 
     {
         this.suorakaide = new Rectangle(0, 0, 100, 40);
 
-        setBackground(Color.white);
+//        setBackground(Color.lightGray);
         addMouseMotionListener(new HiiriAdapteri());
         addMouseListener(new HiiriAdapteri());
 
-        setPreferredSize(new Dimension(1300, 800));
+        setPreferredSize(koko);
 
         JLabel l1 = new JLabel("Hehe hehe");
         JLabel l2 = new JLabel("Hoho hoho");

@@ -11,4 +11,6 @@
  To 28.5.  |   6   |Tuskaa ja jumittamista tekstitiedostojen tuonnin kanssa, ja ennen kaikkea sen kanssa, mihinkä luokkaan mitäkin tietoa sijoitetaan, ja millaisiin tietorakenteisiin. Ei oo Objektiorientoituneesta ohjelmoinnista riittävästi kokemusta, että osaisi luonnostaan.
  Ti 2.6.   |   6   |Luokkarakenteen uudelleen ajatteluja, vastuitten uudelleen ajattelua, metodien uudelleen ajattelua
  Ke 3.6.   |   7   |Luokkien kanssa vääntämistä, erit. annotaatioiden tuonnin kanssa vääntämistä
- To 4.6.   |   10   |Luokkiin vissiin jotain tolkkua; javadocceja, testejä. En kuitenkaan saa hyödyllisiä sekvenssikaavioita aikaan. Ei ole voimia muokata luokkakaaviotakaan enää myöhään illalla. 
+ To 4.6.   |   10  |Luokkiin vissiin jotain tolkkua; javadocceja, testejä. En kuitenkaan saa hyödyllisiä sekvenssikaavioita aikaan. Ei ole voimia muokata luokkakaaviotakaan enää myöhään illalla. 
+ Ti 9.6.   |   4   |Googlettamista graafisten objektien järjestelystä hiirellä vetämällä swingissä. Malli (http://stackoverflow.com/questions/13220971/how-to-drag-object) löytyi helpolla; ongelma on sen ymmärtäminen. Tutustumista mm. JComponentiin. Tuntuu, etten ehdi ennen torstaita; suunnittelen, että kannattaa ehkä tehdä hakutaulukkotoiminto ensin ja tämä haastavampi ajan kanssa.JTabbedPane -malli kirjasta Lewis & Loftus: Java Software Solutions.
+ Ke 10.6.  |   4   |Swing -tutoriaaliin (http://docs.oracle.com/javase/tutorial/uiswing/index.html) tutustumista. Tiedon paljous hämmentää.Hakutaulukkotoiminnon haarukointia. Vaikea saada aikaan, on niin paljon mitä ei osaa.
