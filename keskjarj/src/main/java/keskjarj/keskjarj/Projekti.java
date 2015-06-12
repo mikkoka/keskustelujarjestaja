@@ -98,7 +98,7 @@ public class Projekti
     
     public Havainto havainto (int nro) 
     {
-        if (!havainnot.isEmpty() && nro < havainnot.size()) {
+        if (!havainnot.isEmpty() || nro < havainnot.size()) {
             Object[] temp = havainnot().toArray();
             return (Havainto) temp[nro];
         } else return null;
@@ -107,7 +107,7 @@ public class Projekti
     
     public Ote ote (int nro)
     {
-        if (!havainnot.isEmpty()&& nro < havainnot.size()) {
+        if (!havainnot.isEmpty() || nro < havainnot.size()) {
         Object[] otteet = kaikkiOtteet().toArray();
         return (Ote) otteet[nro];
         }
