@@ -6,7 +6,7 @@
 
 package keskjarj.keskjarj;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 
 
 
@@ -22,6 +22,6 @@ public class OtettaKoskevaHavainto extends Havainto {
     public OtettaKoskevaHavainto(String nimi) {
         
         this.nimi = nimi;
-        otteet = new HashSet();
+        otteet = new TreeSet();
     }
 }

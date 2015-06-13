@@ -9,7 +9,8 @@ import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.TreeSet;
 
 /**
  * Hallinnoi projektia ja sen resursseja, erityisesti projektin havaintokokoelmaa.
@@ -17,12 +18,12 @@ import java.util.HashSet;
  */
 public class Projekti 
 {
-    private HashSet<Havainto> havainnot;
+    private TreeSet<Havainto> havainnot;
     private ArrayList<Tallenne> tallenteet;  
     
     public Projekti ()
     {
-        havainnot = new HashSet();
+        havainnot = new TreeSet();
         tallenteet = new ArrayList();
     }
     
@@ -41,12 +42,12 @@ public class Projekti
         if(!Files.isReadable(polku))
             return false;
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku, tallenne);
-        HashSet<Havainto> uudetHavainnot = tuoja.tuo();
+        TreeSet<Havainto> uudetHavainnot = tuoja.tuo();
         lisaaAnnotaatiot(uudetHavainnot);   
         return true;
     }
 
-    private void lisaaAnnotaatiot (HashSet<Havainto> uudetHavainnot)
+    private void lisaaAnnotaatiot (TreeSet<Havainto> uudetHavainnot)
     {        
         for (Havainto uusi : uudetHavainnot) 
             if (!havainnot.contains(uusi))
@@ -74,44 +75,50 @@ public class Projekti
     }
     
     /**
-     * Palauttaa kaikki projektin havaintokokoelman havainto-oliot.
+     * Palauttaa kaikki projektin havaintokokoelman getHavainto-oliot.
      * @return HashSet -kokoelma Havainto-olioita
      */
-    public HashSet<Havainto> havainnot()
+    public TreeSet<Havainto> getHavainnot()
     {
         return this.havainnot;
     }
 
    
-    public HashSet <Ote> kaikkiOtteet ()
+    public TreeSet <Ote> getOtteet ()
     {
-        HashSet <Ote> palautus = new HashSet();
-        HashSet <Ote> temp;
+        TreeSet <Ote> palautus = new TreeSet();
         for (Havainto h : havainnot)
-        {
-            temp = h.getOtteet();
-            for (Ote t : temp)
-                palautus.add(t);
-        }
+            palautus.addAll(h.getOtteet());
         return palautus;
     }
     
-    public Havainto havainto (int nro) 
+    public Havainto getHavainto (int nro) 
     {
         if (!havainnot.isEmpty() || nro < havainnot.size()) {
-            Object[] temp = havainnot().toArray();
+            Object[] temp = getHavainnot().toArray();
             return (Havainto) temp[nro];
         } else return null;
 
     }
     
-    public Ote ote (int nro)
+    public Ote getOte (int nro)
     {
         if (!havainnot.isEmpty() || nro < havainnot.size()) {
-        Object[] otteet = kaikkiOtteet().toArray();
+        Object[] otteet = getOtteet().toArray();
         return (Ote) otteet[nro];
         }
         else return null;
+    }
+    
+    public void tulostaOtteet ()
+    {
+        for (Havainto h : havainnot) {
+            System.out.println(h.getNimi());
+            for (Ote o : h.getOtteet())
+                System.out.println(o.getTunnus());
+           
+        }
+      
     }
     
 

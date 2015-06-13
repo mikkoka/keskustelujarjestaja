@@ -57,32 +57,32 @@ public class ProjektiTest {
     @Test
     public void havaintoPalauttaaNullinLiianSuurellaHavaintonumerolla() {
         
-        assertEquals(null, projekti.havainto(1000));
+        assertEquals(null, projekti.getHavainto(1000));
     }
     
     @Test
     public void otePalauttaaNullinLiianSuurellaOtenumerolla() {
         
-        assertEquals(null, projekti.ote(1000));
+        assertEquals(null, projekti.getOte(1000));
     }
     
     @Test
     public void otePalauttaaNullinTyhjallaHavaintoluettelolla() {
         Projekti projekti2 = new Projekti();
-        assertEquals(null, projekti2.ote(0));
+        assertEquals(null, projekti2.getOte(0));
     }
     
     @Test
     public void havaintoPalauttaaNullinTyhjallaHavaintoluettelolla() {
         Projekti projekti2 = new Projekti();
-        assertEquals(null, projekti2.havainto(0));
+        assertEquals(null, projekti2.getHavainto(0));
     }
         
         
     @Test
     public void kaikkiOtteetPalauttaaNullinTyhjallaHavaintoluettelolla() {
         Projekti projekti2 = new Projekti();
-        assertEquals(true, projekti.kaikkiOtteet().isEmpty());
+        assertEquals(true, projekti.getOtteet().isEmpty());
     }
     
 //    @Test

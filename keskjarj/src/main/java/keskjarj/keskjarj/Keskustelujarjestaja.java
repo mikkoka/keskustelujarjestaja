@@ -8,7 +8,7 @@ package keskjarj.keskjarj;
 
 import java.awt.Dimension;
 import java.nio.file.*;
-import java.util.HashSet;
+import java.util.TreeSet;
 import javax.swing.*;
 import keskjarj.gui.*;
 
@@ -37,7 +37,7 @@ public class Keskustelujarjestaja {
         projekti.tuoAnnotaatioita(polku3, null);
         projekti.tuoAnnotaatioita(polku4, null);
 //        
-//        HashSet<Havainto> kokeilu = projekti.havainnot();
+//        TreeSet<Havainto> kokeilu = projekti.getHavainnot();
 //        
 //        System.out.println("\nOtteet havaintokategorioittain:");
 //        for (Havainto h : kokeilu)

@@ -11,8 +11,10 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.*;
+import keskjarj.keskjarj.Ote;
 import keskjarj.keskjarj.Projekti;
 import keskjarj.keskjarj.Tallenne;
+import keskjarj.ohjelma.MedianToistaja;
 
 /**
  *
@@ -22,17 +24,19 @@ public class YlaPaneeli extends JPanel {
 
     private JTabbedPane valilehdet;
     private JMenuBar valikkorivi;
-    private JMenu projektivalikko, otevalikko, tuontivalikko;
-    private JMenuItem tallennusrivi, latausrivi, elanrivi, lopetusrivi, VLCrivi, nimeamisrivi;
+    private JMenu projektivalikko, otevalikko, tuontivalikko, havaintovalikko;
+    private JMenuItem tallennusrivi, latausrivi, elanrivi, havaintorivi, lopetusrivi, VLCrivi, nimeamisrivi;
     private MenuKuuntelija kuuntelija;
+    private HakuPaneeli hakupaneeli;
 
     Projekti projekti;
 
     public YlaPaneeli(Dimension paneelinKoko, Projekti projekti) {
+        hakupaneeli = new HakuPaneeli(paneelinKoko, projekti);
         this.projekti = projekti;
         kuuntelija = new MenuKuuntelija();
         valilehdet = new JTabbedPane();
-        valilehdet.addTab("Hakeminen", new hakuPaneeli(paneelinKoko, projekti));
+        valilehdet.addTab("Hakeminen", hakupaneeli);
         valilehdet.addTab("Järjesteleminen", new JarjestelyPaneeli(paneelinKoko));
         valikkorivi = new JMenuBar();
         
@@ -48,11 +52,11 @@ public class YlaPaneeli extends JPanel {
     }
     
     private void luoOtevalikko () {
-        otevalikko = new JMenu("Ote");
+        otevalikko = new JMenu("Otteet");
         otevalikko.setMnemonic(KeyEvent.VK_O);
 
-        VLCrivi = new JMenuItem("Toista VLC:llä");
-        nimeamisrivi = new JMenuItem("Nimeä uudelleen");
+        VLCrivi = new JMenuItem("Toista valittu ote VLC:llä");
+        nimeamisrivi = new JMenuItem("Nimeä ote uudelleen");
         
         VLCrivi.setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_V, ActionEvent.ALT_MASK));
@@ -79,16 +83,22 @@ public class YlaPaneeli extends JPanel {
         tallennusrivi = new JMenuItem("Tallenna", KeyEvent.VK_T);
         latausrivi = new JMenuItem("Lataa", KeyEvent.VK_L);
         elanrivi = new JMenuItem("Elanista");
+        havaintorivi = new JMenuItem("Otetta koskeva");
         lopetusrivi = new JMenuItem("Lopeta");
         
         // Alivalikko tuonnille
         tuontivalikko = new JMenu("Tuo");
         tuontivalikko.add(elanrivi);
         
+        // Alivalikko havaintokategorioitten luonnille
+        havaintovalikko = new JMenu("Luo havaintokategoria");
+        havaintovalikko.add(havaintorivi);
+        
         // Tapahtumakuuntelijat valikon riveille
         tallennusrivi.addActionListener(kuuntelija);
         latausrivi.addActionListener(kuuntelija);
         elanrivi.addActionListener(kuuntelija);
+        havaintorivi.addActionListener(kuuntelija);
         lopetusrivi.addActionListener(kuuntelija);
         
         // Rivien järjestys valikossa
@@ -96,6 +106,8 @@ public class YlaPaneeli extends JPanel {
         projektivalikko.add(latausrivi);
         projektivalikko.addSeparator();
         projektivalikko.add(tuontivalikko);
+        projektivalikko.addSeparator();
+        projektivalikko.add(havaintovalikko);
         projektivalikko.addSeparator();
         projektivalikko.add(lopetusrivi);
     }
@@ -108,15 +120,18 @@ public class YlaPaneeli extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             
-            if (e.getSource() == VLCrivi)
-                System.out.println("heheVLC");
-            
-            else if (e.getSource() == elanrivi) {
+            if (e.getSource() == VLCrivi) {
+                Ote o = hakupaneeli.valittuOte();
+                MedianToistaja mt = new MedianToistaja();
+                System.out.println(o.getTunnus());
+                mt.toista(o);
+                
+            } else if (e.getSource() == elanrivi) {
                 if(tuoAnnotaatioTiedosto()) {
                     if (tuoMediatiedosto())
                         projekti.tuoAnnotaatioita(polku1, new Tallenne(polku2));
                     else projekti.tuoAnnotaatioita(polku1, null);
-                                          
+                    System.out.println("-Kategorianluontitoiminto ei toistaiseksi lisää tuotuja annotaatioita taulukkoon");
                 }
             } else if (e.getSource() == tallennusrivi) {
                 System.out.println("tallennushehe");
@@ -126,6 +141,14 @@ public class YlaPaneeli extends JPanel {
                 System.out.println("lopetushehe");
             } else if (e.getSource() == nimeamisrivi) {
                 System.out.println("nimeämishehe");
+            } else if (e.getSource() == havaintorivi) {
+                String s = (String)JOptionPane.showInputDialog("kerro", "hehe");
+                if (s == null)
+                    return;     
+                if (!projekti.luoHaivaintokategoria(s))
+                    JOptionPane.showMessageDialog(null, "Kategorian luonti epäonnistui");
+                else { System.out.println("-Kategorianluontitoiminto ei toistaiseksi lisää uutta kategoriaa taulukkoon");               
+                }
             } 
         }
         

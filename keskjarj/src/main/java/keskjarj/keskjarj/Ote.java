@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author mkahri
  */
-public class Ote
+public class Ote implements Comparable<Ote>
 {
     private Tallenne tallenne;
     private Osanottaja[] osanottajat;
@@ -88,10 +88,7 @@ public class Ote
     @Override
     public int hashCode() 
     {
-        int luku1 = alku.hashCode();
-        int luku2 = loppu.hashCode();
-        
-        return luku1 + luku2; //Emmätiiä, aattelin, jos tää ois aika ainutkertainen
+        return (ajat + tiedosto).hashCode();
     }
 
     @Override
@@ -121,4 +118,9 @@ public class Ote
         
         return true;
     } 
+    
+    @Override
+    public int compareTo(Ote o) {
+        return this.getTunnus().toLowerCase().compareTo(o.getTunnus().toLowerCase());
+    }
 }

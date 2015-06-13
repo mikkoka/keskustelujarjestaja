@@ -6,7 +6,7 @@
 package keskjarj.keskjarj;
 
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.TreeSet;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -58,7 +58,7 @@ public class HavaintoTest {
         testiotteet[2] = new Ote(tallenne, 30.0, 31.0, "10-11", "Example.mp4");
         
         havainto.lisaaOtteita(testiotteet);
-        HashSet<Ote> otteet = havainto.getOtteet();
+        TreeSet<Ote> otteet = havainto.getOtteet();
         
         assertEquals(3, otteet.size());
         

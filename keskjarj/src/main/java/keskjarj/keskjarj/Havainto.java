@@ -5,17 +5,18 @@
  */
 package keskjarj.keskjarj;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Objects;
+
 
 /**
  *
  * @author mikko
  */
-public abstract class Havainto {
+public abstract class Havainto implements Comparable <Havainto> {
 
     protected String nimi;
-    protected HashSet<Ote> otteet;
+    protected TreeSet<Ote> otteet;
 
     public String getNimi() {        
         return this.nimi;
@@ -25,7 +26,7 @@ public abstract class Havainto {
         this.nimi = nimi;
     }
     
-    public HashSet<Ote> getOtteet() {        
+    public TreeSet<Ote> getOtteet() {        
         return otteet;
     }
 
@@ -39,13 +40,18 @@ public abstract class Havainto {
             this.lisaaOte(o);
     }
     
+    public boolean poistaOte (Ote ote) 
+    {
+        return otteet.remove(ote);
+    }
+    
         /**
      * Palauttaa pyydettyyn havaintokategoriaan sisällytetyt otteet. 
      * Saatetaan siirtää luokkaan Havainto, tai poistaa tarpeettomana
      * @param havainto TÄYDENNÄ, KORJAA!
      * @return  HashSet -kokoelma Ote-olioita
      */
-    public HashSet <Ote> getOtteet (Havainto havainto)
+    public TreeSet <Ote> getOtteet (Havainto havainto)
     {
         return havainto.otteet;       
     }
@@ -72,5 +78,10 @@ public abstract class Havainto {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Havainto h) {
+        return this.getNimi().compareTo(h.getNimi());
     }
 }

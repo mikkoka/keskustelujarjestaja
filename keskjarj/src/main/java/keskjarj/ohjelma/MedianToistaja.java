@@ -5,11 +5,13 @@
 */
 package keskjarj.ohjelma;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import javax.swing.JFileChooser;
 import keskjarj.keskjarj.Ote;
 
 /**
@@ -31,7 +33,7 @@ public class MedianToistaja
     
     private boolean paikannaVLC() {
         //setVLCPolku (Paths.get("vlc")); //Väliaikainen, tarkoitus laittaa tiedostonhakuvalikko
-        return true;
+        return false;
     }
 
     /**
@@ -46,6 +48,7 @@ public class MedianToistaja
         VLCPolku = polku;
     }
     
+    
     /**
      * Toistaa mediatiedoston VLC -mediaplayerilla.
      * Ottaa argumenttina polun toistettavaan otteeseen. Tarkastaa otteen ja 
@@ -56,13 +59,17 @@ public class MedianToistaja
      * Se tarkoittaa ainoastaan, että komennon alku on kunnossa (käytännössä että 
      * se alkaa polulla, josta vlc:n tavoittaa)
      * @param ote
+     * @return toistokomennon lähettäminen
      */
-    public void toista (Ote ote) {
-        if (!oteMoitteeton(ote))
-            return;
-        if (!kutsuVLC(ote))
-            if (paikannaVLC())
-                kutsuVLC(ote);
+    public boolean toista(Ote ote) {
+        if (oteMoitteeton(ote)) {
+            if (!kutsuVLC(ote)) {
+                if (paikannaVLC()) {
+                    return kutsuVLC(ote);
+                }
+            }
+        }
+        return false;
     }
 
     protected String luoKomento (Ote ote) {
@@ -87,9 +94,9 @@ public class MedianToistaja
     }
     
     protected boolean oteMoitteeton (Ote ote) {
-        if (!(Objects.equals(ote.getAlku(), ote.getLoppu())))
+        if ((ote.getTallenne() == null) || Objects.equals(ote.getAlku(), ote.getLoppu()))
             return false;
-        else return !Files.isReadable(ote.getTallenne().getPolku());
+        else return Files.isReadable(ote.getTallenne().getPolku());
     }
             
     

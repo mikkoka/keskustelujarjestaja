@@ -20,7 +20,7 @@ import keskjarj.keskjarj.TiedostonLukija;
 public class AnnotaatioidenTuoja extends TiedostonLukija 
 {    
     private List<String> rivit;
-    private HashSet<Ote> otteet;
+    private TreeSet<Ote> otteet;
     private HashMap<String, List<String>> kategoriatJaAikajaksot; //Tässä String -muotoisina
     private Path polku;
     private Tallenne tallenne;
@@ -28,7 +28,7 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     public AnnotaatioidenTuoja(Path polku, Tallenne tallenne)
     {
         kategoriatJaAikajaksot = new HashMap();
-        otteet = new HashSet();
+        otteet = new TreeSet();
         this.polku = polku;
         this.tallenne = tallenne;
     }
@@ -37,7 +37,7 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
      * Lukee tekstitiedostosta havaintoja ja otteita ja luo niistä olioita
      * @return  Havainto -olioita sisältävä HashSet
      */
-    public HashSet<Havainto> tuo() 
+    public TreeSet<Havainto> tuo() 
     {
         // Komentojen suoritusjärjestys ei ole yhdentekevä; muuta harkiten
         rivit = tuoRivit(polku);        
@@ -46,12 +46,12 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         return luoHavainnot();
     }
 
-    private HashSet<String> listaaOtteet()
+    private TreeSet<String> listaaOtteet()
     {
         if (rivit.isEmpty())
             return null;
         String[] rivi;
-        HashSet<String> palautus = new HashSet();
+        TreeSet<String> palautus = new TreeSet();
         
         for (String r : rivit) 
         {
@@ -73,7 +73,7 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     }
         
     
-    private void luoOtteet(HashSet<String> stringOtteet, Tallenne tallenne)
+    private void luoOtteet(TreeSet<String> stringOtteet, Tallenne tallenne)
     {
         String tiedostonimi;
         for (String o : stringOtteet)
@@ -112,10 +112,10 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         }
     }
         
-    private HashSet<Havainto> luoHavainnot()
+    private TreeSet<Havainto> luoHavainnot()
     {
         Havainto havainto; List<String> aikaJaksot;
-        HashSet<Havainto> palautus = new HashSet();
+        TreeSet<Havainto> palautus = new TreeSet();
         
         for (String k : kategoriatJaAikajaksot.keySet())
         {
