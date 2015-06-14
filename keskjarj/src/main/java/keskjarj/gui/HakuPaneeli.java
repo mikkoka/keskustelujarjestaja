@@ -33,30 +33,43 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
         malli.addTableModelListener(this);
         taulukko.setAutoCreateRowSorter(true);
-        JScrollPane scrollPane = new JScrollPane(taulukko);
+        JScrollPane scrollPane = new JScrollPane(taulukko, 
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        taulukko.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         taulukko.setPreferredScrollableViewportSize(koko);
         taulukko.setFillsViewportHeight(true);
-//        TableColumn uusi = new TableColumn();
-//        int modelIndex = uusi.getModelIndex();
-//        uusi.setHeaderValue((Object)"nimi");
-//        
-//        taulukko.addColumn(uusi);
+
+       
 
         add(scrollPane);
+    }
+    
+    public void paivitaSarakkeet (String otsikko) {
+        TableColumn temp = new TableColumn();
+        temp.setHeaderValue((Object)otsikko);
+        malli.fireTableStructureChanged();
+        taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
+    }
+    
+        public void paivitaTaulukko() {
+        malli.fireTableStructureChanged();
+        taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
     }
     
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
-        Havainto h = projekti.getHavainto(column - 1);
-        Ote ote = projekti.getOte(row);
-        if (h.getOtteet().contains(ote)) {
-            h.poistaOte(ote);
-        } else {
-            h.lisaaOte(ote);
+        if (row > -1 || column > -1) {
+            Havainto h = projekti.getHavainto(column - 1);
+            Ote ote = projekti.getOte(row);
+            if (h.getOtteet().contains(ote)) {
+                h.poistaOte(ote);
+            } else {
+                h.lisaaOte(ote);
+            }
             projekti.tulostaHavainnot();
-
         }
     }
         
@@ -64,7 +77,6 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         int nro = taulukko.getSelectedRow();
         return malli.annaOte(nro);
     }
-
 
     private class TaulukkoMalli extends AbstractTableModel {
 

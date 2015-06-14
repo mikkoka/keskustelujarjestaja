@@ -131,7 +131,7 @@ public class YlaPaneeli extends JPanel {
                     if (tuoMediatiedosto())
                         projekti.tuoAnnotaatioita(polku1, new Tallenne(polku2));
                     else projekti.tuoAnnotaatioita(polku1, null);
-                    System.out.println("-Kategorianluontitoiminto ei toistaiseksi lisää tuotuja annotaatioita taulukkoon");
+                    hakupaneeli.paivitaTaulukko();
                 }
             } else if (e.getSource() == tallennusrivi) {
                 System.out.println("tallennushehe");
@@ -142,12 +142,12 @@ public class YlaPaneeli extends JPanel {
             } else if (e.getSource() == nimeamisrivi) {
                 System.out.println("nimeämishehe");
             } else if (e.getSource() == havaintorivi) {
-                String s = (String)JOptionPane.showInputDialog("kerro", "hehe");
+                String s = (String)JOptionPane.showInputDialog("Anna havaintokategotian nimi", "nimi");
                 if (s == null)
                     return;     
                 if (!projekti.luoHaivaintokategoria(s))
                     JOptionPane.showMessageDialog(null, "Kategorian luonti epäonnistui");
-                else { System.out.println("-Kategorianluontitoiminto ei toistaiseksi lisää uutta kategoriaa taulukkoon");               
+                else { hakupaneeli.paivitaTaulukko();
                 }
             } 
         }

@@ -109,11 +109,10 @@ public class Projekti
      */
     public Havainto getHavainto (int nro) 
     {
-        if (!havainnot.isEmpty() || nro < havainnot.size()) { //tarkasta vielä tää ehtolause!!
-            Object[] temp = getHavainnot().toArray();
-            return (Havainto) temp[nro];
-        } else return null;
-
+        if (havainnot.isEmpty() || nro >= havainnot.size() || nro < 0)
+            return null; 
+        Object[] temp = getHavainnot().toArray();
+        return (Havainto) temp[nro];
     }
     
     /**
@@ -124,11 +123,12 @@ public class Projekti
      */
     public Ote getOte (int nro)
     {
-        if (!havainnot.isEmpty() || nro < havainnot.size()) {
+        if (havainnot.isEmpty() || nro < 0) 
+            return null;            
         Object[] otteet = getOtteet().toArray();
-        return (Ote) otteet[nro];
-        }
-        else return null;
+        if (nro >= otteet.length)
+            return null;
+        return (Ote)otteet[nro];
     }
     
     /**

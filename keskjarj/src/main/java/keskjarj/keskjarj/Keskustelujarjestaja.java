@@ -26,16 +26,16 @@ public class Keskustelujarjestaja {
     {
         Projekti projekti = new Projekti();
         
-        Path polku1 = Paths.get("../aineistoja/ElanExample.txt");
+        //Path polku1 = Paths.get("../aineistoja/ElanExample.txt");
         Path polku2 = Paths.get("../aineistoja/ElanExample2.txt");
-        Path polku3 = Paths.get("../aineistoja/ElanExample3.txt"); //sis. 2 uutta riviä edell. verrattuna
+        //Path polku3 = Paths.get("../aineistoja/ElanExample3.txt"); //sis. 2 uutta riviä edell. verrattuna
         Path polku4 = Paths.get("../aineistoja/ElanExample4.txt");
         Path polku5 = Paths.get("../aineistoja/Example.mp4");
         Tallenne tallenne = new Tallenne (polku5);
     
-        projekti.tuoAnnotaatioita(polku1, tallenne);
+        //projekti.tuoAnnotaatioita(polku1, tallenne);
         projekti.tuoAnnotaatioita(polku2, null);
-        projekti.tuoAnnotaatioita(polku3, null);
+        //projekti.tuoAnnotaatioita(polku3, null);
         projekti.tuoAnnotaatioita(polku4, null);
         
         
