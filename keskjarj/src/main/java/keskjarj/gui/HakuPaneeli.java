@@ -7,11 +7,8 @@ package keskjarj.gui;
 
 import java.awt.Dimension;
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
+import javax.swing.event.*;
+import javax.swing.table.*;
 import keskjarj.keskjarj.*;
 
 /**
@@ -24,6 +21,11 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     JTable taulukko;
     TaulukkoMalli malli;
 
+    /**
+     * 
+     * @param koko
+     * @param projekti
+     */
     public HakuPaneeli(Dimension koko, Projekti projekti) {
         malli = new TaulukkoMalli();
         this.projekti = projekti;
@@ -53,7 +55,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
             h.poistaOte(ote);
         } else {
             h.lisaaOte(ote);
-            projekti.tulostaOtteet();
+            projekti.tulostaHavainnot();
 
         }
     }

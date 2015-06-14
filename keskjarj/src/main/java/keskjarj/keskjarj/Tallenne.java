@@ -8,44 +8,71 @@ package keskjarj.keskjarj;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 /**
  * Hallinnoi ääni- ja videotallenteiden tietoja, ja tietoja niitten 
- * keskinäisistä suhteista. Toim. huom. suhde tekstitiedostoihin epäselvä.
- * @author mkahri
+ * keskinäisistä suhteista. 
  */
 public class Tallenne {
     private Path polku; 
     private Tallenne edellinen, seuraava;
    
-    
+    /**
+     * Konstruktori tarkastaa parametrinä annetun, mediatiedostoon vievän polun 
+     * luettavuuden ja luo luettavalle tiedostolle tallenteen. Luettavuuden 
+     * tarkistus ei valitettavasti varmista, että ko. tiedosto on toistettavissa 
+     * oleva *mediatiedosto*, vaan ainoastaan, että se on olemassa ja luettavissa.
+     * @param polku polku mediatiedostoon 
+     */
     public Tallenne (Path polku) 
     {
         if(Files.isReadable(polku))
         this.polku = polku;
     }
     
+    /**
+     * Tämä ominaisuus poistettaneen kiireen vuoksi.
+     * @param edellinen sarjan edellinen tallenne
+     */
     public void setEdellinen (Tallenne edellinen)
     {
         this.edellinen = edellinen;
     }
     
+    /**
+     * Tämä ominaisuus poistettaneen kiireen vuoksi.
+     * @return sarjan edellinen tallenne
+     */
     public Tallenne getEdellinen ()
     {
         return edellinen;
     }
     
-        public void setSeuraava (Tallenne seuraava)
+    /**
+     * Tämä ominaisuus poistettaneen kiireen vuoksi.
+     * @param seuraava sarjan seuraava tallenne
+     */
+    public void setSeuraava (Tallenne seuraava)
     {
         this.seuraava = seuraava;
     }
     
+    /**
+     * Tämä ominaisuus poistettaneen kiireen vuoksi.
+     * @return sarjan seuraava tallenne
+     */
     public Tallenne getSeuraava ()
     {
         return seuraava;
     }
     
+    /**
+     * Asettaa polun mediatiedostoon, mikäli polku luettavissa. Luettavuuden 
+     * tarkistus ei valitettavasti varmista, että ko. tiedosto on toistettavissa 
+     * oleva *mediatiedosto*, vaan ainoastaan, että se on olemassa ja luettavissa.
+     * @param polku polku mediatiedostoon 
+     * @return
+     */
     public boolean setPolku (Path polku)
     {
         if(Files.notExists(polku))
@@ -55,6 +82,10 @@ public class Tallenne {
         return true;
     }
     
+    /**
+     * Palauttaa polun mediatiedostoon.
+     * @return polku mediatiedostoon 
+     */
     public Path getPolku ()
     {
         return this.polku;
@@ -68,18 +99,4 @@ public class Tallenne {
     {
         return polku.getFileName().toString();   
     }
-    
-//
-//    
-//    public static void main (String[] args )
-//    {
-//        Path p = Paths.get("/home/mikko/keskustelujarjestaja/aineistoja/Example.mp4");
-//        Tallenne tallenne = new Tallenne(p);
-//        System.out.println(tallenne.getPolku().subpath(0, tallenne.polku.getNameCount() - 1));
-//        System.out.println(tallenne.getPolku());
-//        System.out.println(tallenne.getTiedostoNimi());
-//        System.out.println(tallenne.setPolku(Paths.get("hehe")));
-//        System.out.println(tallenne.setPolku(p));
-//        
-//    }
 }           

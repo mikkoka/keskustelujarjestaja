@@ -12,7 +12,11 @@ import java.util.TreeSet;
 
 
 /**
- * 
+ * Otetta koskeva havainto on ajateltu ikään kuin otetta koskevaksi 
+ * "binäärikseksi" havainnoksi. Se on joko totta, tai ei ole totta. Havaintoja 
+ * voisi tehdä myös osanottajasta, tai kuulumisesta johonkin toisensa 
+ * poissulkevista vaihtoehtoisista kategorioista, esimerkiksi. Muita mahdollisuuksia 
+ * ei vaan (toistaiseksi) ole toteutettu.
  * @author mkahri
  */
 public class OtettaKoskevaHavainto extends Havainto {

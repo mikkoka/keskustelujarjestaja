@@ -13,7 +13,7 @@ import java.nio.file.*;
 import java.util.List;
 
 /**
- * Lukee tiedostoja.
+ * Lukee tiedostoja. Toistaiseksi ainoastaan tekstitiedostoja. 
  * @author mkahri
  */
 public class TiedostonLukija {

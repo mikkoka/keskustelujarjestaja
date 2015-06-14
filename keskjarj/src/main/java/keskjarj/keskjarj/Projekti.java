@@ -6,15 +6,12 @@
 package keskjarj.keskjarj;
 
 import keskjarj.ohjelma.AnnotaatioidenTuoja;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.TreeSet;
+import java.nio.file.*;
+import java.util.*;
 
 /**
- * Hallinnoi projektia ja sen resursseja, erityisesti projektin havaintokokoelmaa.
- * @author mikko
+ * Hallinnoi projektia ja sen resursseja, erityisesti havaintokokoelmaa. 
+ * mm. tallennusominaisuus puuttuu toistaiseksi.
  */
 public class Projekti 
 {
@@ -34,8 +31,8 @@ public class Projekti
     * 
     * @param   polku   polku annotaatioita sisältävään tekstitiedostoon 
     * (tallennettu Elanilla, toisaalla annetuin ohjein)
-     * @param tallenne TÄYDENNÄ!
-     * @return polun toimivuus
+     * @param tallenne viite mediatallenteen tiedot sisältävään Tallenne -olioon
+     * @return annetun polun toimivuus
     */
     public boolean tuoAnnotaatioita (Path polku, Tallenne tallenne)
     {
@@ -46,7 +43,12 @@ public class Projekti
         lisaaAnnotaatiot(uudetHavainnot);   
         return true;
     }
-
+    
+    /**
+    * Lisää parametrinä saadut annotaatiot projektin havaintokokoelmaan. 
+    * TreeSetin käytön ansiosta dublikaatteja ei synny, ja havainnot tulevat 
+    * aakkosjärjestykseen.
+    */
     private void lisaaAnnotaatiot (TreeSet<Havainto> uudetHavainnot)
     {        
         for (Havainto uusi : uudetHavainnot) 
@@ -75,15 +77,20 @@ public class Projekti
     }
     
     /**
-     * Palauttaa kaikki projektin havaintokokoelman getHavainto-oliot.
-     * @return HashSet -kokoelma Havainto-olioita
+     * Palauttaa kaikki projektin havaintokokoelman Havainto-oliot.
+     * @return TreeSet -joukko Havainto-olioita
      */
     public TreeSet<Havainto> getHavainnot()
     {
         return this.havainnot;
     }
 
-   
+    /**
+     * Etsii projektin havaintokokoelmasta projektin kaikki otteet, 
+     * ja palauttaa ne. TreeSetin käytön ansiosta joukossa ei dublikaatteja,
+     * ja otteet tunnuksen mukaisessa aakkosjärjestyksessä.
+     * @return TreeSet -joukko Ote-olioita
+     */
     public TreeSet <Ote> getOtteet ()
     {
         TreeSet <Ote> palautus = new TreeSet();
@@ -92,15 +99,29 @@ public class Projekti
         return palautus;
     }
     
+    /**
+     * Palauttaa yksittäisen Havainto -olion projektin havaintokokoelmasta, 
+     * sen "järjestysnumeron" perusteella. (Järjestysnumero viittaa Havainnon 
+     * paikkaan nimen perusteella aakkosjärjestetyssä havaintokokoelmassa. 
+     * Metodia tarvitaan mm. GUI-taulukon ylläpidossa.)
+     * @param nro havainnon järjestysnumero aakkosjärjestetyssä havaintokokoelmassa
+     * @return Havainto -olio
+     */
     public Havainto getHavainto (int nro) 
     {
-        if (!havainnot.isEmpty() || nro < havainnot.size()) {
+        if (!havainnot.isEmpty() || nro < havainnot.size()) { //tarkasta vielä tää ehtolause!!
             Object[] temp = getHavainnot().toArray();
             return (Havainto) temp[nro];
         } else return null;
 
     }
     
+    /**
+     * Palauttaa yksittäisen otteen projektin havaintokokoelmasta, sen 
+     * järjestysnumeron aakkosjärjestetyssä otekokoelmassa perusteella.
+     * @param nro otteen järjestysnumero aakkosjärjestetyssä otejoukossa
+     * @return Ote -olio
+     */
     public Ote getOte (int nro)
     {
         if (!havainnot.isEmpty() || nro < havainnot.size()) {
@@ -110,7 +131,10 @@ public class Projekti
         else return null;
     }
     
-    public void tulostaOtteet ()
+    /**
+     * Tulostaa projektin havainnot. Hyödyllinen guin toiminnan tarkastamisessa.
+     */
+    public void tulostaHavainnot ()
     {
         for (Havainto h : havainnot) {
             System.out.println(h.getNimi());

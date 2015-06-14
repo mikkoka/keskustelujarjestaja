@@ -14,7 +14,8 @@ import keskjarj.gui.*;
 
 /**
  * Tämä on Keskustelunjärjestäjän pääluokka, josta ohjelman suoritus alkaa.
- * Tarkoitus on, että täältä lähinnä käynnistetään GUI.
+ * Tarkoitus on, että täältä lähinnä käynnistetään GUI. 
+ * Toistaiseksi myös ladataan aineistoja. Kenttänä ikkuna, jota sovellus käyttää.
  * @author mkahri
  */
 public class Keskustelujarjestaja {
@@ -31,22 +32,13 @@ public class Keskustelujarjestaja {
         Path polku4 = Paths.get("../aineistoja/ElanExample4.txt");
         Path polku5 = Paths.get("../aineistoja/Example.mp4");
         Tallenne tallenne = new Tallenne (polku5);
-//        
+    
         projekti.tuoAnnotaatioita(polku1, tallenne);
         projekti.tuoAnnotaatioita(polku2, null);
         projekti.tuoAnnotaatioita(polku3, null);
         projekti.tuoAnnotaatioita(polku4, null);
-//        
-//        TreeSet<Havainto> kokeilu = projekti.getHavainnot();
-//        
-//        System.out.println("\nOtteet havaintokategorioittain:");
-//        for (Havainto h : kokeilu)
-//        {
-//            System.out.println(h.nimi);
-//            for (Ote o : h.otteet) {
-//                System.out.println(o.getTunnus());
-//            }
-//        }       
+        
+        
         
         ikkuna = new JFrame("Keskustelujarjestaja");
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
