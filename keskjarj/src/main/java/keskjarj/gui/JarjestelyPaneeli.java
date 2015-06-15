@@ -21,16 +21,22 @@ public class JarjestelyPaneeli extends JPanel {
     int preX, preY;
     boolean ekaKerta = true;
     Rectangle alue;
-    boolean pressOut = false;
+    boolean pressOut;
     private Dimension koko;
-    int valittuna;
+    int valittuna = -1;
+    JLabel l1;
+    String[] tekstit;
 
     public JarjestelyPaneeli(Dimension koko) 
     {
-        this.koko = koko = koko;
+        this.pressOut = false;
+        this.koko = koko;
         this.suorakaiteet = new Rectangle[2];
+        this.tekstit = new String[2];
         suorakaiteet[0] = new Rectangle(0, 0, 200, 22);
         suorakaiteet[1] = new Rectangle(50, 50, 200, 22);
+        tekstit[0] = "hehe";
+        tekstit[1] = "hoho";
 
 //        setBackground(Color.lightGray);
         addMouseMotionListener(new HiiriAdapteri());
@@ -38,7 +44,7 @@ public class JarjestelyPaneeli extends JPanel {
 
         setPreferredSize(koko);
 
-        JLabel l1 = new JLabel("Pahoillani, tääkin toiminto on aivan keskenräinen");
+        l1 = new JLabel("Pahoillani, tääkin toiminto on aivan keskenräinen");
 
 
         add(l1);
@@ -57,14 +63,15 @@ public class JarjestelyPaneeli extends JPanel {
             suorakaiteet[1].setLocation(100, 100);
             ekaKerta = false;
         }
-        point = suorakaiteet[valittuna].getLocation();
-        int x = point.x + 5; int y = point.y +15;
-        for (int a = 0; a < suorakaiteet.length; a++) 
-        {
+
+        for (int i =0; i < suorakaiteet.length; i++) {
+            point = suorakaiteet[i].getLocation();
+            int x = point.x + 5; int y = point.y +15;
             g2d.setColor(Color.LIGHT_GRAY);
-            g2d.fill(suorakaiteet[a]);
+            g2d.draw(suorakaiteet[i]);
             g2d.setColor(Color.black);
-            g2d.drawString("Esimerkki 123-456", x, y);
+            g2d.drawString(tekstit[i], x, y);
+            
         }
 
         
@@ -103,9 +110,11 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-//            valittuna = -1;
-            for (int i = 0; i < suorakaiteet.length; i++) {
-                if (e.getSource() == suorakaiteet[i]) {
+            System.out.println(e.paramString());
+            System.out.println(e.isAltGraphDown());//suorakaiteet[0].equals(e.getSource()));
+            System.out.println(e.getButton());
+            for (int i =0; i < suorakaiteet.length; i++) {
+                if (suorakaiteet[i].contains(e.getPoint())) {
                     valittuna = i;
                     break;
                 } 
