@@ -17,16 +17,20 @@ import javax.swing.*;
  */
 public class JarjestelyPaneeli extends JPanel {
 
-    Rectangle suorakaide;
+    Rectangle[] suorakaiteet;
     int preX, preY;
     boolean ekaKerta = true;
     Rectangle alue;
     boolean pressOut = false;
-    private Dimension koko = new Dimension(1300, 800);
+    private Dimension koko;
+    int valittuna;
 
     public JarjestelyPaneeli(Dimension koko) 
     {
-        this.suorakaide = new Rectangle(0, 0, 100, 40);
+        this.koko = koko = koko;
+        this.suorakaiteet = new Rectangle[2];
+        suorakaiteet[0] = new Rectangle(0, 0, 200, 22);
+        suorakaiteet[1] = new Rectangle(50, 50, 200, 22);
 
 //        setBackground(Color.lightGray);
         addMouseMotionListener(new HiiriAdapteri());
@@ -44,43 +48,54 @@ public class JarjestelyPaneeli extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Point point;
 
         Graphics2D g2d = (Graphics2D) g;
         if (ekaKerta) {
             alue = new Rectangle(koko);
-            suorakaide.setLocation(50, 50);
+            suorakaiteet[0].setLocation(50, 50); 
+            suorakaiteet[1].setLocation(100, 100);
             ekaKerta = false;
         }
+        point = suorakaiteet[valittuna].getLocation();
+        int x = point.x + 5; int y = point.y +15;
+        for (int a = 0; a < suorakaiteet.length; a++) 
+        {
+            g2d.setColor(Color.LIGHT_GRAY);
+            g2d.fill(suorakaiteet[a]);
+            g2d.setColor(Color.black);
+            g2d.drawString("Esimerkki 123-456", x, y);
+        }
 
-        g2d.setColor(Color.black);
-        g2d.fill(suorakaide);
+        
+
     }
 
     boolean checkRect() {
-        if (alue == null) {
+        if (alue == null || valittuna == -1) {
             return false;
         }
 
-        if (alue.contains(suorakaide.x, suorakaide.y, suorakaide.getWidth(), suorakaide.getHeight())) {
+        if (alue.contains(suorakaiteet[valittuna].x, suorakaiteet[valittuna].y, suorakaiteet[valittuna].getWidth(), suorakaiteet[valittuna].getHeight())) {
             return true;
         }
 
-        int new_x = suorakaide.x;
-        int new_y = suorakaide.y;
+        int new_x = suorakaiteet[valittuna].x;
+        int new_y = suorakaiteet[valittuna].y;
 
-        if ((suorakaide.x + suorakaide.getWidth()) > alue.getWidth()) {
-            new_x = (int) alue.getWidth() - (int) (suorakaide.getWidth() - 1);
+        if ((suorakaiteet[valittuna].x + suorakaiteet[valittuna].getWidth()) > alue.getWidth()) {
+            new_x = (int) alue.getWidth() - (int) (suorakaiteet[valittuna].getWidth() - 1);
         }
-        if (suorakaide.x < 0) {
+        if (suorakaiteet[valittuna].x < 0) {
             new_x = -1;
         }
-        if ((suorakaide.y + suorakaide.getHeight()) > alue.getHeight()) {
-            new_y = (int) alue.getHeight() - (int) (suorakaide.getHeight() - 1);
+        if ((suorakaiteet[valittuna].y + suorakaiteet[valittuna].getHeight()) > alue.getHeight()) {
+            new_y = (int) alue.getHeight() - (int) (suorakaiteet[valittuna].getHeight() - 1);
         }
-        if (suorakaide.y < 0) {
+        if (suorakaiteet[valittuna].y < 0) {
             new_y = -1;
         }
-        suorakaide.setLocation(new_x, new_y);
+        suorakaiteet[valittuna].setLocation(new_x, new_y);
         return false;
     }
 
@@ -88,10 +103,21 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            preX = suorakaide.x - e.getX();
-            preY = suorakaide.y - e.getY();
+//            valittuna = -1;
+            for (int i = 0; i < suorakaiteet.length; i++) {
+                if (e.getSource() == suorakaiteet[i]) {
+                    valittuna = i;
+                    break;
+                } 
+            }
+            
+            if (valittuna == -1) 
+                return;
 
-            if (suorakaide.contains(e.getX(), e.getY())) {
+            preX = suorakaiteet[valittuna].x - e.getX();
+            preY = suorakaiteet[valittuna].y - e.getY();
+
+            if (suorakaiteet[valittuna].contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = true;
@@ -100,6 +126,8 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            if (valittuna == -1) 
+                return;
             if (!pressOut) {
                 updateLocation(e);
             } else {
@@ -108,7 +136,9 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (suorakaide.contains(e.getX(), e.getY())) {
+            if (valittuna == -1) 
+                return;
+            if (suorakaiteet[valittuna].contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = false;
@@ -116,7 +146,9 @@ public class JarjestelyPaneeli extends JPanel {
         }
 
         public void updateLocation(MouseEvent e) {
-            suorakaide.setLocation(preX + e.getX(), preY + e.getY());
+            if (valittuna == -1) 
+                return;
+            suorakaiteet[valittuna].setLocation(preX + e.getX(), preY + e.getY());
             checkRect();
 
             repaint();

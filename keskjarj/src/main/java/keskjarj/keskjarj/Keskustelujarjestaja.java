@@ -6,9 +6,7 @@
 
 package keskjarj.keskjarj;
 
-import java.awt.Dimension;
-import java.nio.file.*;
-import java.util.TreeSet;
+import java.awt.*;
 import javax.swing.*;
 import keskjarj.gui.*;
 
@@ -24,26 +22,13 @@ public class Keskustelujarjestaja {
 
     public static void main(String[] args)
     {
-        Projekti projekti = new Projekti();
-        
-        //Path polku1 = Paths.get("../aineistoja/ElanExample.txt");
-        Path polku2 = Paths.get("../aineistoja/ElanExample2.txt");
-        //Path polku3 = Paths.get("../aineistoja/ElanExample3.txt"); //sis. 2 uutta riviä edell. verrattuna
-        Path polku4 = Paths.get("../aineistoja/ElanExample4.txt");
-        Path polku5 = Paths.get("../aineistoja/Example.mp4");
-        Tallenne tallenne = new Tallenne (polku5);
-    
-        //projekti.tuoAnnotaatioita(polku1, tallenne);
-        projekti.tuoAnnotaatioita(polku2, null);
-        //projekti.tuoAnnotaatioita(polku3, null);
-        projekti.tuoAnnotaatioita(polku4, null);
-        
-        
+        Projekti projekti = new Projekti();        
         
         ikkuna = new JFrame("Keskustelujarjestaja");
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension paneelinKoko = new Dimension(1400, 800);       
+        Dimension paneelinKoko = new Dimension(1024, 768);       
         ikkuna.getContentPane().add(new YlaPaneeli(paneelinKoko, projekti));
+        ikkuna.setResizable(true);
         ikkuna.pack();
         ikkuna.setVisible(true);        
     }

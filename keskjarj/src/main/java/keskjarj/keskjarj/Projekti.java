@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package keskjarj.keskjarj;
 
 import keskjarj.ohjelma.AnnotaatioidenTuoja;
@@ -26,7 +22,7 @@ public class Projekti
     
     /**
     * Lisää Projektin havaintoihin uusia havaintoja tekstitiedostosta.
-    * Lisää vanhoihin havaintokategorioihin. uusia otteita silloin, kun 
+    * Lisää vanhoihin havaintokategorioihin uusia otteita silloin, kun 
     * sellaisia on tuotu. 
     * 
     * @param   polku   polku annotaatioita sisältävään tekstitiedostoon 
@@ -100,8 +96,8 @@ public class Projekti
     }
     
     /**
-     * Palauttaa yksittäisen Havainto -olion projektin havaintokokoelmasta, 
-     * sen "järjestysnumeron" perusteella. (Järjestysnumero viittaa Havainnon 
+     * Palauttaa yksittäisen Havainto -olion projektin havaintokokoelmasta 
+     * annetun "järjestysnumeron" perusteella. (Järjestysnumero viittaa Havainnon 
      * paikkaan nimen perusteella aakkosjärjestetyssä havaintokokoelmassa. 
      * Metodia tarvitaan mm. GUI-taulukon ylläpidossa.)
      * @param nro havainnon järjestysnumero aakkosjärjestetyssä havaintokokoelmassa

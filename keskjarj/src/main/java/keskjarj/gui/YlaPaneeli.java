@@ -122,8 +122,11 @@ public class YlaPaneeli extends JPanel {
             
             if (e.getSource() == VLCrivi) {
                 Ote o = hakupaneeli.valittuOte();
+                if (o == null) {
+                    JOptionPane.showMessageDialog(null, "Valitse yksi ote!");
+                return;
+                }
                 MedianToistaja mt = new MedianToistaja();
-                System.out.println(o.getTunnus());
                 mt.toista(o);
                 
             } else if (e.getSource() == elanrivi) {

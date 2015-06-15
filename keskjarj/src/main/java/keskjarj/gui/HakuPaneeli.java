@@ -5,6 +5,7 @@
  */
 package keskjarj.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -33,16 +34,14 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
         malli.addTableModelListener(this);
         taulukko.setAutoCreateRowSorter(true);
-        JScrollPane scrollPane = new JScrollPane(taulukko, 
+        JScrollPane vierityspaneeli = new JScrollPane(taulukko, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         taulukko.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         taulukko.setPreferredScrollableViewportSize(koko);
         taulukko.setFillsViewportHeight(true);
-
-       
-
-        add(scrollPane);
+        
+        add(vierityspaneeli);
     }
     
     public void paivitaSarakkeet (String otsikko) {
@@ -61,7 +60,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
-        if (row > -1 || column > -1) {
+        if (row > -1 || column > -1) { //-1 tarkoittaa, ettei taulukkoa ole muutettu (data voi silti olla muuttunut)
             Havainto h = projekti.getHavainto(column - 1);
             Ote ote = projekti.getOte(row);
             if (h.getOtteet().contains(ote)) {
@@ -74,15 +73,17 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     }
         
     public Ote valittuOte() {
-        int nro = taulukko.getSelectedRow();
-        return malli.annaOte(nro);
+        int[] temp = taulukko.getSelectedRows();
+        if (temp.length > 1)
+            return null;
+        return malli.annaOte(temp[0]);
     }
 
     private class TaulukkoMalli extends AbstractTableModel {
 
         @Override
         public int getColumnCount() {
-            return projekti.getHavainnot().size() + 1;//columnNames.length;
+            return projekti.getHavainnot().size() + 1;
         }
 
         @Override

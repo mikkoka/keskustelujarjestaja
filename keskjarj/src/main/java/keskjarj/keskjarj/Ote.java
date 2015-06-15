@@ -1,8 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
 
 package keskjarj.keskjarj;
 
@@ -11,8 +6,7 @@ import java.util.Objects;
 /**
  * Luokka tallettaa tiedot otteesta ja sisältää tiedon mediatiedostosta, 
  * johon se liittyy, sekä sen alku- ja loppuajat kyseisessä tiedostossa. 
- * Toteuttaa rajapinnan Comparable. Ote -olioita säilytetään Havainto-olioitten 
- * TreeSet[Ote] -joukoissa, tunnuksen mukaisessa aakkosjärjestyksessä.  
+ * Toteuttaa rajapinnan Comparable.   
  */
 public class Ote implements Comparable<Ote>
 {
