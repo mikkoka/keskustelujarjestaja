@@ -5,6 +5,8 @@
 */
 package keskjarj.ohjelma;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +14,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import keskjarj.keskjarj.Ote;
 
 /**
@@ -19,8 +24,9 @@ import keskjarj.keskjarj.Ote;
  * Vaihtoehtoinen lähestymistapa vlcj, http://capricasoftware.co.uk/#/projects/vlcj
  */
 
-public class MedianToistaja
-{
+public class MedianToistaja  { //implements ActionListener
+        JFileChooser tiedostonvalitsija;
+         Path polku1, polku2;
     private Path VLCPolku;
     
     public MedianToistaja() 
@@ -41,8 +47,34 @@ public class MedianToistaja
      * @return Polku VLC -mediaplayeriin
      */
     public Path getVLCPolku () {
+//            tiedostonvalitsija = new JFileChooser();
+//            tiedostonvalitsija.addActionListener(this);
+//            //tiedostonvalitsija.setMultiSelectionEnabled(true);
+//            tiedostonvalitsija.setDialogTitle("Paikanna VLC -mediaplayer");
+//            tiedostonvalitsija.setCurrentDirectory(Paths.get("..").toFile());
+//            int paluuArvo = tiedostonvalitsija.showOpenDialog(new JFrame());
+//            if (paluuArvo == JFileChooser.APPROVE_OPTION) {
+//                File file = tiedostonvalitsija.getSelectedFile();
+//                polku1 = file.toPath();
+//                return true;
+//            } else {
+//                return false;
+//            }
         return VLCPolku;
     }
+    
+//            @Override
+//        public void actionPerformed(ActionEvent e) {
+//
+//            
+//            if (e.getSource() == tiedostonvalitsija) {
+//                Ote o = hakupaneeli.valittuOte();
+//                if (o == null) {
+//                    JOptionPane.showMessageDialog(null, "Valitse yksi ote!");
+//                return;
+//                }
+//                toistaja.toista(o);
+//            }
 
     protected void setVLCPolku(Path polku) {
         VLCPolku = polku;

@@ -70,6 +70,12 @@ public abstract class Havainto implements Comparable <Havainto> {
         return otteet.remove(ote);
     }
     
+    public boolean sisaltaa (Ote ote)
+    {
+        return otteet.contains(ote);
+    }
+            
+    
     @Override
     public int hashCode() {        
         return nimi.hashCode();  

@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import javax.swing.*;
+import keskjarj.keskjarj.Ote;
+import keskjarj.keskjarj.Projekti;
+import keskjarj.ohjelma.MedianToistaja;
 
 /**
  *
@@ -27,9 +30,13 @@ public class JarjestelyPaneeli extends JPanel {
     JLabel l1;
     String[][] tekstit;
     Line2D viiva1, viiva2;
+    MedianToistaja toistaja;
+    Projekti projekti;
 
-    public JarjestelyPaneeli(Dimension koko, String[][] tekstit, String ohje) 
+    public JarjestelyPaneeli(Dimension koko, String[][] tekstit, String ohje, Projekti projekti) 
     {
+        this.projekti = projekti;
+        toistaja = new MedianToistaja();
         this.pressOut = false;
         this.koko = koko;
         int lsk = 0;
@@ -86,7 +93,10 @@ public class JarjestelyPaneeli extends JPanel {
                 int x = point.x + 5;
                 int y = point.y + 15;
                 g2d.setColor(Color.LIGHT_GRAY);
-                g2d.draw(suorakaiteet[laskuri]);
+                if (val == laskuri)
+                    g2d.fill(suorakaiteet[laskuri]);
+                else
+                    g2d.draw(suorakaiteet[laskuri]);
                 g2d.setColor(Color.black);
                 g2d.drawString(tekstit[a][b], x, y);
                 laskuri++;
@@ -105,6 +115,7 @@ public class JarjestelyPaneeli extends JPanel {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.draw(viiva1);
         g2d.draw(viiva2);
+
 
         
 
@@ -142,9 +153,6 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            System.out.println(e.paramString());
-            System.out.println(e.isAltGraphDown());//suorakaiteet[0].equals(e.getSource()));
-            System.out.println(e.getButton());
             for (int i =0; i < suorakaiteet.length; i++) {
                 if (suorakaiteet[i].contains(e.getPoint())) {
                     val = i;
@@ -154,6 +162,8 @@ public class JarjestelyPaneeli extends JPanel {
             
             if (val == -1) 
                 return;
+            if (e.isAltGraphDown())
+                toistaTallenne(val);
 
             preX = suorakaiteet[val].x - e.getX();
             preY = suorakaiteet[val].y - e.getY();
@@ -193,6 +203,23 @@ public class JarjestelyPaneeli extends JPanel {
             checkRect();
 
             repaint();
+        }
+        
+        public void toistaTallenne(int valittu) {
+            System.out.println("TOISTETAAN VIDEO!\nValittu: " + valittu);
+            String nimi;
+            int ekassa, tokassa;
+            ekassa = tekstit[0].length;
+            tokassa = tekstit[1].length;
+            if (ekassa > valittu) {
+                nimi = tekstit[0][valittu];
+            } else if (ekassa + tokassa > valittu) {
+                System.out.println("ekassa = " + ekassa + " tokassa = " + tokassa);
+                nimi = tekstit[1][valittu - ekassa];
+            } else {
+                nimi = tekstit[2][valittu - ekassa - tokassa];
+            }
+            toistaja.toista(projekti.getOte(nimi));
         }
     }
 }

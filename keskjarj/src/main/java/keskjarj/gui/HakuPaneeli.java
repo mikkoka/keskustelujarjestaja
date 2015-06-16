@@ -60,6 +60,13 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
+//        if (row > -1 && column == 0) {
+//            Ote ote = projekti.getOte(row);
+//            TaulukkoMalli hmm = (TaulukkoMalli)e.getSource();
+//            hmm.
+//            ote.setTunnus((String) hmm);
+//        }
+        
         if (row > -1 || column > -1) { //-1 tarkoittaa, ettei taulukkoa ole muutettu (data voi silti olla muuttunut)
             Havainto h = projekti.getHavainto(column - 1);
             Ote ote = projekti.getOte(row);
@@ -79,9 +86,10 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         return malli.annaOte(temp[0]);
     }
     
-        public Ote[] valitutOtteet() {
-        int[] temp = taulukko.getSelectedRows();
-        return projekti.getOtteet(temp); 
+        public int[] valitutOtteet() {
+        //int[] temp = 
+            return taulukko.getSelectedRows();
+        //return projekti.getOtteet(temp); 
     }
 
     private class TaulukkoMalli extends AbstractTableModel {

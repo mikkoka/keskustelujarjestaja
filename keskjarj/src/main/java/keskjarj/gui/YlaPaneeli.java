@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.TreeSet;
 import javax.swing.*;
 import keskjarj.keskjarj.Havainto;
@@ -168,28 +169,80 @@ public class YlaPaneeli extends JPanel {
             } else if (e.getSource() == lopetusrivi) {
                 System.out.println("lopetushehe");
             } else if (e.getSource() == jarjestelyrivi) {
-                Ote[] otteet = hakupaneeli.valitutOtteet();
-                TreeSet<Ote> ottehet = projekti.getOtteet();
-                Havainto havainto1 = projekti.getHavainto(0);
-                Havainto havainto2 = projekti.getHavainto(1);
+                
+                Havainto havainto1, havainto2;
+
+                int[] valittujenIndeksit = hakupaneeli.valitutOtteet();
+                if (valittujenIndeksit.length == 0) {
+                    JOptionPane.showMessageDialog(null, "Valitse otteita!");
+                    return;
+                }
+                Ote[] valitutOtteet = projekti.getOtteet(valittujenIndeksit);
+                
+                
+                String s1 = (String)JOptionPane.showInputDialog("Anna 1. havaintokategorian nimi", "nimi");
+                
+                if (s1 == null)
+                    return;     
+                if (!projekti.havaintoOlemassa(s1))
+                    return;   
+                else havainto1 = projekti.getHavainto(s1);
+                            
+                    String s2 = (String)JOptionPane.showInputDialog("Anna 2. havaintokategorian nimi", "nimi");
+                
+                if (s2 == null)
+                    return;     
+                if (!projekti.havaintoOlemassa(s2))
+                    return;   
+                else havainto2 = projekti.getHavainto(s2);
+                
+                ArrayList<String> temp1 = new ArrayList();
+                ArrayList<String> temp2 = new ArrayList();
+                ArrayList<String> temp3 = new ArrayList();
+                
+                for (Ote o : valitutOtteet)
+                {
+                    if (havainto1.sisaltaa(o))
+                        temp1.add(o.getTunnus());
+                    else if (havainto2.sisaltaa(o))
+                        temp3.add(o.getTunnus());
+                    else temp2.add(o.getTunnus());
+                }
                 String[][] tekstit = new String[3][];
-                tekstit[0] = new String[2];
-                tekstit[0][0] = "ykköseen";
-                tekstit[0][1] = "tääki ykköseen!!";
-                tekstit[1] = new String[3];
-                tekstit[1][0] = "no huh huh";
-                tekstit[1][1] = "pellet"; 
-                tekstit[1][2] = "ääliöt";
-                tekstit[2] = new String[2];
-                tekstit[2][0] = "ollaan oikeella";
-                tekstit[2][1] = "vasemmisto haisee"; 
-                jarjestelypaneeli = new JarjestelyPaneeli(paneelinKoko, tekstit, "tee sitä ja tätä; kyllä se siitä");
+                tekstit[0] = new String[temp1.size()];
+                for (int a = 0; a < temp1.size(); a++) {
+                    tekstit[0][a] = temp1.get(a);                    
+                }
+                
+                tekstit[1] = new String[temp2.size()];
+                for (int a = 0; a < temp2.size(); a++) {
+                    tekstit[1][a] = temp2.get(a);                    
+                }
+                
+                tekstit[2] = new String[temp3.size()];
+                for (int a = 0; a < temp3.size(); a++) {
+                    tekstit[2][a] = temp3.get(a);                    
+                }
+                String ohje = "\"" + havainto1.getNimi() + "\" vasemmalle, \"" + havainto2.getNimi() + "\" oikealle.";
+                
+//                tekstit[0] = new String[2];
+//                tekstit[0][0] = "ykköseen";
+//                tekstit[0][1] = "tääki ykköseen!!";
+//                tekstit[1] = new String[3];
+//                tekstit[1][0] = "no huh huh";
+//                tekstit[1][1] = "pellet"; 
+//                tekstit[1][2] = "ääliöt";
+//                tekstit[2] = new String[2];
+//                tekstit[2][0] = "ollaan oikeella";
+//                tekstit[2][1] = "vasemmisto haisee"; 
+                jarjestelypaneeli = new JarjestelyPaneeli(paneelinKoko, tekstit, ohje, projekti);
                 valilehdet.remove(1);
                 valilehdet.addTab("Järjesteleminen", jarjestelypaneeli);
                 valilehdet.setSelectedIndex(1);
                 
 
                 System.out.println("hehehöhö");
+
             } else if (e.getSource() == havaintorivi) {
                 String s = (String)JOptionPane.showInputDialog("Anna havaintokategotian nimi", "nimi");
                 if (s == null)

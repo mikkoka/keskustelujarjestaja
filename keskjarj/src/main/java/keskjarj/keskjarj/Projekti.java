@@ -80,6 +80,22 @@ public class Projekti
     {
         return this.havainnot;
     }
+    
+    public boolean havaintoOlemassa (String nimi)
+    {
+        for (Havainto h : havainnot)
+            if (h.getNimi().equals(nimi))
+                return true;
+        return false;
+    }
+    
+    public Havainto getHavainto (String nimi)
+    {
+        for (Havainto h : havainnot)
+            if (h.getNimi().equals(nimi))
+                return h;
+        return null;
+    }
 
     /**
      * Etsii projektin havaintokokoelmasta projektin kaikki otteet, 
@@ -111,6 +127,7 @@ public class Projekti
         for (int nro : nrot)
         {
             palautus[laskuri] = (Ote)otteet[nro];
+            laskuri++;
         }
         return palautus;
     }
@@ -161,6 +178,20 @@ public class Projekti
         if (nro >= otteet.length)
             return null;
         return (Ote)otteet[nro];
+    }
+    
+        public Ote getOte (String nimi)
+    {
+        if (havainnot.isEmpty() || nimi.isEmpty()) 
+            return null;
+        for (Ote o : getOtteet()) 
+        {
+            if (o.getTunnus().equals(nimi)) 
+            {
+                return o;
+            }
+        }
+        return null;
     }
     
     /**
