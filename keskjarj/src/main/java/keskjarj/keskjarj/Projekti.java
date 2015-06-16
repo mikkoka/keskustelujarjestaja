@@ -95,6 +95,42 @@ public class Projekti
         return palautus;
     }
     
+    public Ote[] getOtteet (int[] nrot)
+    {
+        Ote[] palautus;
+        if (nrot == null)
+            return null;
+        if (havainnot.isEmpty()) 
+            return null;            
+        Object[] otteet = getOtteet().toArray();
+        for (int nro : nrot)
+            if (nro >= otteet.length || nro < 0)
+                return null;
+        palautus = new Ote[nrot.length];
+        int laskuri = 0;
+        for (int nro : nrot)
+        {
+            palautus[laskuri] = (Ote)otteet[nro];
+        }
+        return palautus;
+    }
+    
+//    public TreeSet <Ote> getOtteet (int[] nrot)
+//    {
+//        TreeSet <Ote> palautus = new TreeSet();
+//        if (nrot == null)
+//            return null;
+//        if (havainnot.isEmpty()) 
+//            return null;            
+//        Object[] otteet = getOtteet().toArray(); //tää on aika garmeeta ohjelmointia
+//        for (int nro : nrot)
+//            if (nro >= otteet.length || nro < 0)
+//                return null;
+//        for (int nro : nrot)
+//            palautus.add(getOte(nro));
+//        return palautus;
+//    }
+    
     /**
      * Palauttaa yksittäisen Havainto -olion projektin havaintokokoelmasta 
      * annetun "järjestysnumeron" perusteella. (Järjestysnumero viittaa Havainnon 

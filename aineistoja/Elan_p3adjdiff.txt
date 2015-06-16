@@ -1,0 +1,44 @@
+Noname-1		5.719	8.036	Begin H
+Noname-1		8.036	14.831	Middle H
+Noname-1		14.831	18.339	Transition H
+Noname-1		18.339	28.207	Begin I
+Noname-1		28.207	46.201	Middle I
+Noname-1		46.201	47.001	Transition I
+Noname-1		47.001	56.947	Begin J
+Noname-1		56.947	65.878	Middle J
+Noname-1		65.878	68.8	Transition J
+Noname-1		68.8	72.726	Begin K
+Noname-1		72.726	87.769	Middle K
+Noname-1		87.769	88.54	Transition K
+Noname-1		88.54	91.468	Begin L
+Noname-1		91.468	120.316	Middle L
+Noname-1		120.316	124.183	Transition L
+Noname-1		124.183	133.923	Begin M
+Noname-1		133.923	162.4	Middle M
+Noname-1		162.4	166.719	Transition M
+Noname-1		166.719	168.077	Begin N
+Noname-1		168.077	169.863	Middle N
+Noname-2-1		8.036	8.729	Choice L
+Noname-2-1		8.729	11.459	Response
+Noname-2-1		11.459	12.277	Choice R
+Noname-2-1		12.277	14.831	Response
+Noname-2-1		28.207	29.103	Choice R
+Noname-2-1		29.103	42.052	Response 
+Noname-2-1		42.052	42.897	Choice L
+Noname-2-1		42.897	46.201	Response
+Noname-2-1		56.947	57.585	Choice L
+Noname-2-1		57.585	59.913	Response
+Noname-2-1		59.913	60.512	Choice R
+Noname-2-1		60.512	65.878	Response
+Noname-2-1		72.726	73.685	Choice L
+Noname-2-1		73.685	76.029	Response
+Noname-2-1		76.029	76.967	Choice R
+Noname-2-1		76.967	87.769	Response
+Noname-2-1		91.468	92.213	Choice R
+Noname-2-1		92.213	115.961	Response
+Noname-2-1		115.961	116.715	Choice R
+Noname-2-1		116.715	120.316	Response
+Noname-2-1		133.923	134.783	Choice R
+Noname-2-1		134.783	157.14	Response
+Noname-2-1		157.14	157.583	Choice L
+Noname-2-1		157.583	162.4	Response

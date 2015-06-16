@@ -7,8 +7,8 @@
 package keskjarj.gui;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.awt.geom.Line2D;
 import javax.swing.*;
 
 /**
@@ -23,33 +23,36 @@ public class JarjestelyPaneeli extends JPanel {
     Rectangle alue;
     boolean pressOut;
     private Dimension koko;
-    int valittuna = -1;
+    int val = -1;
     JLabel l1;
-    String[] tekstit;
+    String[][] tekstit;
+    Line2D viiva1, viiva2;
 
-    public JarjestelyPaneeli(Dimension koko) 
+    public JarjestelyPaneeli(Dimension koko, String[][] tekstit, String ohje) 
     {
         this.pressOut = false;
         this.koko = koko;
-        this.suorakaiteet = new Rectangle[2];
-        this.tekstit = new String[2];
-        suorakaiteet[0] = new Rectangle(0, 0, 200, 22);
-        suorakaiteet[1] = new Rectangle(50, 50, 200, 22);
-        tekstit[0] = "hehe";
-        tekstit[1] = "hoho";
-
-//        setBackground(Color.lightGray);
+        int lsk = 0;
+        for(int i = 0; i < 3; i++)
+            lsk += tekstit[i].length;        
+        this.suorakaiteet = new Rectangle[lsk];
+        this.tekstit = tekstit;
+        //this.setFont(new Font(this.getFont().getName(), 16, 16));
+        
+        for (int i = 0; i < suorakaiteet.length; i++) {
+            suorakaiteet[i] = new Rectangle(0, 0, 250, 22);
+        }
+        viiva1 = new Line2D.Double(koko.getWidth()/3 - 20, 20, koko.getWidth()/3 - 20, koko.getHeight() - 10);
+        viiva2 = new Line2D.Double(2*koko.getWidth()/3 + 20, 20, 2*koko.getWidth()/3 + 20, koko.getHeight() - 10);
         addMouseMotionListener(new HiiriAdapteri());
         addMouseListener(new HiiriAdapteri());
 
         setPreferredSize(koko);
-
-        l1 = new JLabel("Pahoillani, tääkin toiminto on aivan keskenräinen");
-
-
+        l1 = new JLabel(ohje);
+        
         add(l1);
-
     }
+    
 
     @Override
     public void paintComponent(Graphics g) {
@@ -59,50 +62,79 @@ public class JarjestelyPaneeli extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         if (ekaKerta) {
             alue = new Rectangle(koko);
-            suorakaiteet[0].setLocation(50, 50); 
-            suorakaiteet[1].setLocation(100, 100);
+            int vert;
+            int hor[] = new int[3];
+            hor[0] = 20;
+            hor[1] = (int)alue.getCenterX() - (int)suorakaiteet[0].getWidth()/2;
+            hor[2] = (int)viiva2.getX1() + 20;
+            int laskuri = 0;
+            for (int a = 0; a < 3; a++) {
+                vert = 50;
+                for (int b = 0; b < tekstit[a].length; b++) {
+                    suorakaiteet[laskuri].setLocation(hor[a], vert);
+                    laskuri++;
+                    vert += 25;
+                }
+            }            
             ekaKerta = false;
         }
-
-        for (int i =0; i < suorakaiteet.length; i++) {
-            point = suorakaiteet[i].getLocation();
-            int x = point.x + 5; int y = point.y +15;
-            g2d.setColor(Color.LIGHT_GRAY);
-            g2d.draw(suorakaiteet[i]);
-            g2d.setColor(Color.black);
-            g2d.drawString(tekstit[i], x, y);
-            
+        
+        int laskuri = 0;
+        for (int a = 0; a < 3; a++) {
+            for (int b = 0; b < tekstit[a].length; b++) {
+                point = suorakaiteet[laskuri].getLocation();
+                int x = point.x + 5;
+                int y = point.y + 15;
+                g2d.setColor(Color.LIGHT_GRAY);
+                g2d.draw(suorakaiteet[laskuri]);
+                g2d.setColor(Color.black);
+                g2d.drawString(tekstit[a][b], x, y);
+                laskuri++;
+            }
         }
+
+//        for (int i =0; i < suorakaiteet.length; i++) {
+//            point = suorakaiteet[i].getLocation();
+//            int x = point.x + 5; int y = point.y +15;
+//            g2d.setColor(Color.LIGHT_GRAY);
+//            g2d.draw(suorakaiteet[i]);
+//            g2d.setColor(Color.black);
+//            g2d.drawString(tekstit[i], x, y);
+//            
+//        }
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.draw(viiva1);
+        g2d.draw(viiva2);
 
         
 
     }
 
     boolean checkRect() {
-        if (alue == null || valittuna == -1) {
+        if (alue == null || val == -1) {
             return false;
         }
 
-        if (alue.contains(suorakaiteet[valittuna].x, suorakaiteet[valittuna].y, suorakaiteet[valittuna].getWidth(), suorakaiteet[valittuna].getHeight())) {
+        if (alue.contains(suorakaiteet[val].x, suorakaiteet[val].y, suorakaiteet[val].getWidth(), suorakaiteet[val].getHeight())) {
             return true;
         }
 
-        int new_x = suorakaiteet[valittuna].x;
-        int new_y = suorakaiteet[valittuna].y;
+        int new_x = suorakaiteet[val].x;
+        int new_y = suorakaiteet[val].y;
 
-        if ((suorakaiteet[valittuna].x + suorakaiteet[valittuna].getWidth()) > alue.getWidth()) {
-            new_x = (int) alue.getWidth() - (int) (suorakaiteet[valittuna].getWidth() - 1);
+        if ((suorakaiteet[val].x + suorakaiteet[val].getWidth()) > alue.getWidth()) {
+            new_x = (int) alue.getWidth() - (int) (suorakaiteet[val].getWidth() - 1);
         }
-        if (suorakaiteet[valittuna].x < 0) {
+        if (suorakaiteet[val].x < 0) {
             new_x = -1;
         }
-        if ((suorakaiteet[valittuna].y + suorakaiteet[valittuna].getHeight()) > alue.getHeight()) {
-            new_y = (int) alue.getHeight() - (int) (suorakaiteet[valittuna].getHeight() - 1);
+        if ((suorakaiteet[val].y + suorakaiteet[val].getHeight()) > alue.getHeight()) {
+            new_y = (int) alue.getHeight() - (int) (suorakaiteet[val].getHeight() - 1);
         }
-        if (suorakaiteet[valittuna].y < 0) {
+        if (suorakaiteet[val].y < 0) {
             new_y = -1;
         }
-        suorakaiteet[valittuna].setLocation(new_x, new_y);
+        suorakaiteet[val].setLocation(new_x, new_y);
         return false;
     }
 
@@ -115,18 +147,18 @@ public class JarjestelyPaneeli extends JPanel {
             System.out.println(e.getButton());
             for (int i =0; i < suorakaiteet.length; i++) {
                 if (suorakaiteet[i].contains(e.getPoint())) {
-                    valittuna = i;
+                    val = i;
                     break;
                 } 
             }
             
-            if (valittuna == -1) 
+            if (val == -1) 
                 return;
 
-            preX = suorakaiteet[valittuna].x - e.getX();
-            preY = suorakaiteet[valittuna].y - e.getY();
+            preX = suorakaiteet[val].x - e.getX();
+            preY = suorakaiteet[val].y - e.getY();
 
-            if (suorakaiteet[valittuna].contains(e.getX(), e.getY())) {
+            if (suorakaiteet[val].contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = true;
@@ -135,7 +167,7 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (valittuna == -1) 
+            if (val == -1) 
                 return;
             if (!pressOut) {
                 updateLocation(e);
@@ -145,9 +177,9 @@ public class JarjestelyPaneeli extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (valittuna == -1) 
+            if (val == -1) 
                 return;
-            if (suorakaiteet[valittuna].contains(e.getX(), e.getY())) {
+            if (suorakaiteet[val].contains(e.getX(), e.getY())) {
                 updateLocation(e);
             } else {
                 pressOut = false;
@@ -155,9 +187,9 @@ public class JarjestelyPaneeli extends JPanel {
         }
 
         public void updateLocation(MouseEvent e) {
-            if (valittuna == -1) 
+            if (val == -1) 
                 return;
-            suorakaiteet[valittuna].setLocation(preX + e.getX(), preY + e.getY());
+            suorakaiteet[val].setLocation(preX + e.getX(), preY + e.getY());
             checkRect();
 
             repaint();

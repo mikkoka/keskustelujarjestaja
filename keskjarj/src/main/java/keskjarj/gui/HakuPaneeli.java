@@ -74,9 +74,14 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         
     public Ote valittuOte() {
         int[] temp = taulukko.getSelectedRows();
-        if (temp.length > 1)
+        if (temp == null || temp.length != 1)
             return null;
         return malli.annaOte(temp[0]);
+    }
+    
+        public Ote[] valitutOtteet() {
+        int[] temp = taulukko.getSelectedRows();
+        return projekti.getOtteet(temp); 
     }
 
     private class TaulukkoMalli extends AbstractTableModel {
@@ -117,6 +122,10 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
 
         public Ote annaOte(int row) {
             return projekti.getOte(row);
+        }
+        
+        public Ote[] annaOtteet(int[] rows) {
+            return projekti.getOtteet(rows);
         }
 
 
