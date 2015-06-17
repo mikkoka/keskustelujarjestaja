@@ -74,6 +74,20 @@ public abstract class Havainto implements Comparable <Havainto> {
     {
         return otteet.contains(ote);
     }
+    
+    public boolean sisaltaaSamojaOtteita (Havainto toinen)
+    {
+        for (Ote o : otteet)
+            for (Ote t : toinen.getOtteet())
+                if (o.equals(t))
+                    return true;
+        return false;
+    }
+    
+    public void lisaaNimenPerusteella(String nimi) {
+
+            
+    }
             
     
     @Override

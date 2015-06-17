@@ -9,6 +9,7 @@ package keskjarj.gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import javax.swing.*;
 import keskjarj.keskjarj.Ote;
 import keskjarj.keskjarj.Projekti;
@@ -20,7 +21,7 @@ import keskjarj.ohjelma.MedianToistaja;
  */
 public class JarjestelyPaneeli extends JPanel {
 
-    Rectangle[] suorakaiteet;
+    SuoraKaide[] suorakaiteet;
     int preX, preY;
     boolean ekaKerta = true;
     Rectangle alue;
@@ -42,13 +43,19 @@ public class JarjestelyPaneeli extends JPanel {
         int lsk = 0;
         for(int i = 0; i < 3; i++)
             lsk += tekstit[i].length;        
-        this.suorakaiteet = new Rectangle[lsk];
+        this.suorakaiteet = new SuoraKaide[lsk];
         this.tekstit = tekstit;
         //this.setFont(new Font(this.getFont().getName(), 16, 16));
         
-        for (int i = 0; i < suorakaiteet.length; i++) {
-            suorakaiteet[i] = new Rectangle(0, 0, 250, 22);
+        int count = 0;
+        for (int a = 0; a < 3; a++)
+        for (int b = 0; b < tekstit[a].length; b++) {
+            suorakaiteet[count] = new SuoraKaide(0, 0, 250, 22, tekstit[a][b]);
+            count++;
         }
+//        for (int i = 0; i < suorakaiteet.length; i++) {
+//            suorakaiteet[i] = new SuoraKaide(0, 0, 250, 22, "hehe");
+//        }
         viiva1 = new Line2D.Double(koko.getWidth()/3 - 20, 20, koko.getWidth()/3 - 20, koko.getHeight() - 10);
         viiva2 = new Line2D.Double(2*koko.getWidth()/3 + 20, 20, 2*koko.getWidth()/3 + 20, koko.getHeight() - 10);
         addMouseMotionListener(new HiiriAdapteri());
@@ -115,6 +122,8 @@ public class JarjestelyPaneeli extends JPanel {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.draw(viiva1);
         g2d.draw(viiva2);
+        g2d.setColor(Color.black);
+        g2d.drawString("AltGR -klikkaus toistaa videon", (int)koko.getWidth()/2 - 70, (int)koko.getHeight() - 5);
 
 
         
@@ -148,7 +157,50 @@ public class JarjestelyPaneeli extends JPanel {
         suorakaiteet[val].setLocation(new_x, new_y);
         return false;
     }
+    
+    public void toistaTallenneValikosta() {
+        if (val > -1) {
+            toistaTallenne(val);
+        }
+    }
 
+    public void toistaTallenne(int valittu) {
+        String nimi = suorakaiteet[valittu].tunnus;
+        toistaja.toista(projekti.getOte(nimi));
+    }
+    
+    public String[][] jarjestelyTilanne () {
+        ArrayList<String> temp1 = new ArrayList();
+        ArrayList<String> temp2 = new ArrayList();
+
+        for (SuoraKaide r : suorakaiteet)
+        {
+            if (r.getCenterX() < viiva1.getX1())
+                temp1.add(r.tunnus);
+            else if (r.getCenterX() > viiva2.getX1())
+                temp2.add(r.tunnus);
+        }
+        String[][] palautus = new String[2][];
+        palautus[0] = new String[temp1.size()];
+        for (int a = 0; a < temp1.size(); a++) {
+             palautus[0][a] = temp1.get(a);
+        }
+        
+        palautus[1] = new String[temp2.size()];
+        for (int a = 0; a < temp2.size(); a++) {
+             palautus[1][a] = temp2.get(a);
+        }
+        return palautus;
+    }
+
+    private class SuoraKaide extends Rectangle {
+        String tunnus;
+        public SuoraKaide(int x, int y, int width, int height, String tunnus) {
+            super(x, y, width, height);
+            this.tunnus = tunnus;
+        }
+    }
+    
     private class HiiriAdapteri extends MouseAdapter {
 
         @Override
@@ -164,6 +216,7 @@ public class JarjestelyPaneeli extends JPanel {
                 return;
             if (e.isAltGraphDown())
                 toistaTallenne(val);
+            System.out.println("Valittu: " + suorakaiteet[val].tunnus);
 
             preX = suorakaiteet[val].x - e.getX();
             preY = suorakaiteet[val].y - e.getY();
@@ -203,23 +256,6 @@ public class JarjestelyPaneeli extends JPanel {
             checkRect();
 
             repaint();
-        }
-        
-        public void toistaTallenne(int valittu) {
-            System.out.println("TOISTETAAN VIDEO!\nValittu: " + valittu);
-            String nimi;
-            int ekassa, tokassa;
-            ekassa = tekstit[0].length;
-            tokassa = tekstit[1].length;
-            if (ekassa > valittu) {
-                nimi = tekstit[0][valittu];
-            } else if (ekassa + tokassa > valittu) {
-                System.out.println("ekassa = " + ekassa + " tokassa = " + tokassa);
-                nimi = tekstit[1][valittu - ekassa];
-            } else {
-                nimi = tekstit[2][valittu - ekassa - tokassa];
-            }
-            toistaja.toista(projekti.getOte(nimi));
-        }
-    }
+        }    
+    }    
 }

@@ -18,4 +18,6 @@
  Pe 12.6.  |   2   |Pikkuvirheen, joka esti ohjelman toiminnan, etsimistä ja alustava korjaus. Swing -tutoriaaliin tutustumista.
  La 13.6.  |   7   |Luokkakaavion päivitys, yksi sekvenssikaavio, joka yksinkertaistaa aika lailla monimutkaista ilmiötä, jota se yrittää kuvata. Hakutoiminnon päivitystä, Swing -tutoriaaleja, kaikenlaista tietokoneen äärellä istumista. Saatan parannella huomenna aamupäivällä koodin kommentteja ja javadocceja.
  Su 14.6.  |   10  |Javadoc -päivitystä, hakutoiminnon kanssa puurtamista, järjestelytoimintoa varten löydetyn mallin ymmärtämisyrityksiä. Koodikatselmus.
- Ma 15.6.  |   8   |Järjestelytoiminnon kanssa puurtamista, saattaa tämäkin onnistua, jos aika ei lopu kesken. Hieman demoa varten valmistautumista. 
+ Ma 15.6.  |   8   |Järjestelytoiminnon kanssa puurtamista, saattaa tämäkin onnistua, jos aika ei lopu kesken. Hieman demoa varten valmistautumista.
+ Ti 16.6.  |   6   |Järjestelytoiminnon kehittämistä, demoa varten valmistautumista, demossa käynti.
+ Ke 17.6.  |       |Järjestelytoiminnon kehittämistä, virhetilanteisiin varautumista,... 

@@ -81,6 +81,15 @@ public class Projekti
         return this.havainnot;
     }
     
+    public Object[] getHavainnotString ()
+    {
+        String[] palautus = new String[havainnot.size()];
+        for (int i = 0; i < havainnot.size(); i++)
+            palautus[i] = this.getHavainto(i).getNimi();
+        return palautus;
+                    
+    }
+    
     public boolean havaintoOlemassa (String nimi)
     {
         for (Havainto h : havainnot)

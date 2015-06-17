@@ -33,14 +33,12 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko = new JTable(malli);
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
         malli.addTableModelListener(this);
-        taulukko.setAutoCreateRowSorter(true);
         JScrollPane vierityspaneeli = new JScrollPane(taulukko, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         taulukko.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         taulukko.setPreferredScrollableViewportSize(koko);
-        taulukko.setFillsViewportHeight(true);
-        
+        taulukko.setFillsViewportHeight(true); 
         add(vierityspaneeli);
     }
     
@@ -49,6 +47,10 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         temp.setHeaderValue((Object)otsikko);
         malli.fireTableStructureChanged();
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
+    }
+    
+    public void hakuMahdollista () {
+        taulukko.setAutoCreateRowSorter(true);
     }
     
         public void paivitaTaulukko() {
@@ -106,6 +108,8 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
 
         @Override
         public String getColumnName(int col) {
+//            if (projekti.getHavainto(0) == null)
+//                return null;
             if (col == 0) {
                 return "Ote";
             } else {
@@ -116,6 +120,8 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         @Override
         public Object getValueAt(int row, int col) {
             Ote o = projekti.getOte(row);
+            if (o == null)
+                return null;  
             if (col == 0) {
                 return o.getTunnus();
             } else {
@@ -139,7 +145,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
 
         /*
          * JTable uses this method to determine the default renderer/ editor for
-         * each cell. If we didn't implement this method, then the last column
+         * each cell. If we didn't implement this method, then the boolean columns
          * would contain text ("true"/"false"), rather than a check box.
          */
         @Override
