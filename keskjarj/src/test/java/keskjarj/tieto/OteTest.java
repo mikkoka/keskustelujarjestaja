@@ -3,8 +3,10 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
+import keskjarj.tieto.Tallenne;
+import keskjarj.tieto.Ote;
 import java.nio.file.*;
 import org.junit.*;
 import static org.junit.Assert.*;

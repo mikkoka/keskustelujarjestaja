@@ -1,5 +1,5 @@
 
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
 import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.*;
@@ -36,6 +36,8 @@ public class Projekti
             return false;
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(polku, tallenne);
         TreeSet<Havainto> uudetHavainnot = tuoja.tuo();
+        if (uudetHavainnot == null)
+            return false;
         lisaaAnnotaatiot(uudetHavainnot);   
         return true;
     }
@@ -55,6 +57,8 @@ public class Projekti
     {
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(rivit, tallenne);
         TreeSet<Havainto> uudetHavainnot = tuoja.tuo();
+        if (uudetHavainnot == null)
+            return false;
         lisaaAnnotaatiot(uudetHavainnot);   
         return true;
     }
@@ -252,21 +256,5 @@ public class Projekti
             }
         }
         return null;
-    }
-    
-    /**
-     * Tulostaa projektin havainnot. Hyödyllinen guin toiminnan tarkastamisessa.
-     */
-    public void tulostaHavainnot ()
-    {
-        for (Havainto h : havainnot) {
-            System.out.println(h.getNimi());
-            for (Ote o : h.getOtteet())
-                System.out.println(o.getTunnus());
-           
-        }
-      
-    }
-    
-
+    }   
 }

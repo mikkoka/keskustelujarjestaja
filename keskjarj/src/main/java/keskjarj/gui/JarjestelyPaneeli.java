@@ -6,13 +6,12 @@
 
 package keskjarj.gui;
 
+import keskjarj.tieto.Projekti;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.*;
-import keskjarj.keskjarj.Ote;
-import keskjarj.keskjarj.Projekti;
 import keskjarj.ohjelma.MedianToistaja;
 
 /**
@@ -221,7 +220,6 @@ public class JarjestelyPaneeli extends JPanel {
                 return;
             if (e.isAltGraphDown())
                 toistaTallenne(val);
-            System.out.println("Valittu: " + suorakaiteet[val].tunnus);
 
             preX = suorakaiteet[val].x - e.getX();
             preY = suorakaiteet[val].y - e.getY();

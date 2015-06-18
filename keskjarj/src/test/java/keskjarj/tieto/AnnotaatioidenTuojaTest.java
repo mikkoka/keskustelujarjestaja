@@ -3,11 +3,13 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
+import keskjarj.tieto.Tallenne;
 import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.TreeSet;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -21,8 +23,8 @@ public class AnnotaatioidenTuojaTest {
     
     @Before
     public void setUp() {
-        tallenne = new Tallenne (Paths.get("../aineistoja/Example.mp4"));
-        tuoja = new AnnotaatioidenTuoja(Paths.get("../aineistoja/ElanExample.txt"), tallenne);
+        tallenne = new Tallenne (Paths.get("../aineistoja/p3adjsame.mp4"));
+        tuoja = new AnnotaatioidenTuoja(Paths.get("../aineistoja/Elan_p3adjsame.txt"), tallenne);
     }
     
     @Test
@@ -32,8 +34,8 @@ public class AnnotaatioidenTuojaTest {
     }
     
     @Test
-    public void testTuoHashSetin() {   
-        HashSet koe = new HashSet<>();
+    public void testTuoTreeSetin() {   
+        TreeSet koe = new TreeSet<>();
         assertEquals(tuoja.tuo().getClass(), koe.getClass());
     }
     

@@ -1,5 +1,5 @@
 
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
 import java.util.Objects;
 

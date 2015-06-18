@@ -1,27 +1,29 @@
 package keskjarj.gui;
 
+import keskjarj.tieto.Tallenne;
+import keskjarj.tieto.Havainto;
+import keskjarj.tieto.Projekti;
+import keskjarj.tieto.Ote;
 import java.awt.*;
 import java.awt.event.*;
 import java.nio.file.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import keskjarj.keskjarj.*;
 import keskjarj.ohjelma.*;
 
 /**
  * Keskustelunjärjestäjän graafinen käyttöliittymä. Luokassa suuri yksityinen
  * sisäluokka MenuKuuntelija, joka toteuttaa kaikki GUIn valikoihin liittyät
- * toiminnallisuudet. Metodit luoProjektivalikko() ja luoOtevalikko() valikoiden
- * luomista varten. Luokalla on paljon yksityisiä kenttiä jotta kommunikaatio
+ * toiminnallisuudet. Luokalla on paljon yksityisiä kenttiä, jotta kommunikaatio
  * luokkien ja metodien välillä onnistuisi.
  *
  * Luokan luomassa ikkunassa on valikko ja kaksi välilehteä. Ensimmäinen
  * välilehti sisältää HakuPaneelin ilmentymän, joka puolestaan sisältää
  * taulukon, jossa projektin otteet ja havainnot näytetään (ja jossa niitä voi
  * järjestellä). Toinen välilehti sisältää aluksi tyhjän JPanelin, mutta
- * valikoista sinne voi luoda JarjestelyPaneelin ilmentymän, jossa järjestellä
- * otteitaan.
+ * valikoista sinne voi luoda JarjestelyPaneelin ilmentymän, jossa otteita
+ * järjestellään.
  *
  * @author mkahri
  */
@@ -110,13 +112,13 @@ public class GUI extends JPanel {
             }
         }
 
-        private Path yhteinenValitseTiedosto(String kehotus, int tyyppi, String fil1, String fil2) {
+        private Path yhteinenValitseTiedosto(String kehotus, int tyyppi, String... extensions) {
 
             JFileChooser tiedostonvalitsija = new JFileChooser();
             tiedostonvalitsija.addActionListener(this);
             tiedostonvalitsija.setDialogTitle(kehotus);
             tiedostonvalitsija.setDialogType(tyyppi);
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(fil1, fil2);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(extensions[0], extensions[1]);
             tiedostonvalitsija.setFileFilter(filter);
             tiedostonvalitsija.setCurrentDirectory(Paths.get("../aineistoja/").toFile());
 
@@ -129,19 +131,19 @@ public class GUI extends JPanel {
 
         private void valikkoTuoAnnotaatioita() {
             Path polku1, polku2;
-
             polku1 = yhteinenValitseTiedosto("Valitse tuotava tekstitiedosto", JFileChooser.OPEN_DIALOG, "Tektstitiedosto", "txt");
             if (polku1 == null) {
                 return;
             }
-
             polku2 = yhteinenValitseTiedosto("Valitse tuotavaan tekstitiedostoon liittyvä mediatiedosto", JFileChooser.OPEN_DIALOG, "Mediatiedosto", "mp4");
             if (polku2 == null) {
-                projekti.tuoAnnotaatioita(polku1, null);
-            } else {
-                projekti.tuoAnnotaatioita(polku1, new Tallenne(polku2));
+                if (!projekti.tuoAnnotaatioita(polku1, null))
+                    JOptionPane.showMessageDialog(null, "Tuonti epäonnistui.");
+                    return;
+            } else if (!projekti.tuoAnnotaatioita(polku1, new Tallenne(polku2))){
+                    JOptionPane.showMessageDialog(null, "Tuonti epäonnistui.");
+                    return;
             }
-
             hakupaneeli.hakuMahdollista(true);
             hakupaneeli.paivitaTaulukko();
             valilehdet.setSelectedIndex(0);
@@ -165,26 +167,46 @@ public class GUI extends JPanel {
         }
 
         private void valikkoLataaTiedostosta() {
+            if (hakupaneeli.hakuMahdollista())
+                if(!lataaminenTarkistaTallentaminen())
+                    return;
             Path temp = yhteinenValitseTiedosto("Ladattava tiedosto", JFileChooser.FILES_ONLY, "Keskustelujärjestäjän tallennus", "keskjarj");
             if (temp != null) {
                 projekti = new Projekti();
                 hakupaneeli = new HakuPaneeli(paneelinKoko, projekti);
-                valilehdet.remove(0);
+                valilehdet.removeAll();
                 valilehdet.addTab("Hakeminen", hakupaneeli);
+                valilehdet.addTab("Järjesteleminen", jarjestelypaneeli);
                 ikkuna.getContentPane().add(valilehdet);
+
                 
                 Lataaja.lataa(temp, projekti);
                 hakupaneeli.paivitaTaulukko();
+                hakupaneeli.hakuMahdollista(true);
             }
+        }
+        
+        private boolean lataaminenTarkistaTallentaminen() {
+            int lopetus = kysySulkemisesta("Uusi projekti");
+            if (lopetus == JOptionPane.CANCEL_OPTION) {
+                return false;
+            } else if (lopetus == JOptionPane.YES_OPTION) {
+                    this.valikkoTallennaTiedostoon();
+                    return true;
+                }
+            return true;
         }
 
         private void valikkoTallennaTiedostoon() {
-            if (!hakupaneeli.taulukko.getAutoCreateRowSorter()) //tän on tarkoitus olla sen indeksi, että taulukossa dataa
+            if (!hakupaneeli.hakuMahdollista()) {
+                JOptionPane.showMessageDialog(null, "Katsothan, että taulukossa on dataa, ja että olet lopettanut järjestelyn!");
                 return;
+            }
             Tallentaja tallentaja = new Tallentaja(projekti);
-            tallentaja.tallenna(yhteinenValitseTiedosto("Tallennettavan tiedoston nimi?", JFileChooser.SAVE_DIALOG,
-                    "Keskustelujärjestäjän tallennus",
-                    "keskjarj"));
+            Path tallennuspolku = yhteinenValitseTiedosto("Tallennettavan tiedoston nimi?", JFileChooser.SAVE_DIALOG,
+                    "Käytä päätettä \"*.keskjarj\", please",
+                    "keskjarj");
+            tallentaja.tallenna(tallennuspolku);
         }
 
         private void valikkoLopetaJarjestely() {
@@ -228,21 +250,12 @@ public class GUI extends JPanel {
             valilehdet.addTab("Järjesteleminen", jarjestelypaneeli);
             valilehdet.setSelectedIndex(0);
             jarjesteltava1 = jarjesteltava2 = null;
+            hakupaneeli.hakuMahdollista(true);
 
         }
 
         private void valikkoSuljeOhjelma() {
-            Object[] options = {"Kyllä",
-                "Ei kiitos",
-                "Peruuta"};
-            int lopetus = JOptionPane.showOptionDialog(jarjestelypaneeli,
-                    "Haluatko tallentaa?",
-                    "Lopettaminen",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[2]);
+            int lopetus = kysySulkemisesta("Lopettaminen");
             if (lopetus == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (lopetus == JOptionPane.YES_OPTION) {
@@ -250,6 +263,21 @@ public class GUI extends JPanel {
                 }
             System.exit(0);
             } 
+        
+        private int kysySulkemisesta (String otsikko)
+        {
+           Object[] options = {"Kyllä",
+                "Ei kiitos",
+                "Peruuta"};
+            return JOptionPane.showOptionDialog(jarjestelypaneeli,
+                    "Haluatko tallentaa?",
+                    otsikko,
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[2]);
+        }
 
         private void valikkoJarjestelePaneelissa() {
             int[] valittujenIndeksit = hakupaneeli.valitutOtteet();           
@@ -271,6 +299,7 @@ public class GUI extends JPanel {
             valilehdet.setSelectedIndex(1);
             jarjestelynlopetusrivi.setEnabled(true);
             jarjestelyrivi.setEnabled(false);
+            hakupaneeli.hakuMahdollista(false);
         }
 
         

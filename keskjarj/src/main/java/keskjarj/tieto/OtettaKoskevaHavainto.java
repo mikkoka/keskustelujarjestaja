@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
 import java.util.TreeSet;
 

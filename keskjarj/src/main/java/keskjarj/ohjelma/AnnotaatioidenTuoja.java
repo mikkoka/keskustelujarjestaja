@@ -3,10 +3,10 @@ package keskjarj.ohjelma;
 
 import java.nio.file.*;
 import java.util.*;
-import keskjarj.keskjarj.Havainto;
-import keskjarj.keskjarj.Ote;
-import keskjarj.keskjarj.OtettaKoskevaHavainto;
-import keskjarj.keskjarj.Tallenne;
+import keskjarj.tieto.Havainto;
+import keskjarj.tieto.Ote;
+import keskjarj.tieto.OtettaKoskevaHavainto;
+import keskjarj.tieto.Tallenne;
 
 /**
  * Luokasta luodaan instanssi jokaista annotaatiotiedoston tuontia varten.
@@ -60,10 +60,13 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
     {
         // Komentojen suoritusjärjestys ei ole yhdentekevä; muuta harkiten
         if (this.rivit == null)
-            rivit = tuoRivit(polku);        
-        luoOtteet(listaaOtteet(), tallenne);
-        eritteleRivit();
-        return luoHavainnot();
+            rivit = tuoRivit(polku);
+        if (rivit != null) {
+            luoOtteet(listaaOtteet(), tallenne);
+            eritteleRivit();
+            return luoHavainnot();
+        }
+        return null;
     }
      /**
      * Lukee merkkijonoja ja poimii niistä ainutkertaisten otteiden aikatiedot.

@@ -5,10 +5,9 @@
  */
 package keskjarj.ohjelma;
 
-import keskjarj.ohjelma.MedianToistaja;
 import java.nio.file.*;
-import keskjarj.keskjarj.Ote;
-import keskjarj.keskjarj.Tallenne;
+import keskjarj.tieto.Ote;
+import keskjarj.tieto.Tallenne;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -26,7 +25,7 @@ public class MedianToistajaTest {
     @Before
     public void setUp() {
         mt = new MedianToistaja();
-        polku = Paths.get("../aineistoja/Example.mp4");
+        polku = Paths.get("../aineistoja/p3adjsame.mp4");
         tallenne = new Tallenne(polku);
         ote = new Ote(tallenne, 10.0, 20.0, "11-12", "joku.txt");
     }
@@ -47,22 +46,4 @@ public class MedianToistajaTest {
         ote = new Ote(tallenne, 20.0, 10.0, "11-12", "joku.txt");
         assertEquals(mt.oteMoitteeton(ote), false);
     }
-    
-        @Test
-    public void testaaOteMoitteeton_ToistoEstyyJosPolkuKelvoton() {
-        Path p = Paths.get("../aineistoja/Example.hehe");
-        Tallenne t = new Tallenne(p);
-        Ote o = new Ote(t, 10.0, 11.0, "11-12", "joku.txt");
-        assertEquals(mt.oteMoitteeton(o), false);
-    }
-
-//    @Test
-//    public void testaaEttaKomennossaOikeitaMerkkeja() {
-//        String komento = mt.luoKomento(ote);
-//        if (!komento.contains("vlc --play-and-stop ")) {
-//            fail();
-//        }
-//        
-//        assertEquals(mt.oteMoitteeton(ote), false);
-//    }
 }

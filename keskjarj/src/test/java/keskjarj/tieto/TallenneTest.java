@@ -3,8 +3,9 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
+import keskjarj.tieto.Tallenne;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.*;
@@ -35,7 +36,7 @@ public class TallenneTest
     @Test
     public void SetPolkuAsettaaTiedostonJokaOnOlemassa()
     {
-        Path polku2 = Paths.get("../aineistoja/ElanExample.txt");
+        Path polku2 = Paths.get("../aineistoja/Elan_p3adjsame.txt");
         assertEquals(tallenne.setPolku(polku2), true);
     }
     

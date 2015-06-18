@@ -9,9 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.TreeSet;
-import keskjarj.keskjarj.Havainto;
-import keskjarj.keskjarj.Ote;
-import keskjarj.keskjarj.Projekti;
+import keskjarj.tieto.Havainto;
+import keskjarj.tieto.Ote;
+import keskjarj.tieto.Projekti;
 
 /**
  * Luokasta luodaan instanssi, joka tallentaa projektin havainnot, otteet ja 

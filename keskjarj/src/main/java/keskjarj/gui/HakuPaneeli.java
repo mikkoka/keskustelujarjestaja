@@ -5,12 +5,13 @@
  */
 package keskjarj.gui;
 
-import java.awt.Color;
+import keskjarj.tieto.Havainto;
+import keskjarj.tieto.Projekti;
+import keskjarj.tieto.Ote;
 import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-import keskjarj.keskjarj.*;
 
 /**
  *
@@ -54,6 +55,11 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko.setAutoCreateRowSorter(mahdollista);
     }
     
+    public boolean hakuMahdollista()
+    {
+        return taulukko.getAutoCreateRowSorter();
+    }
+    
         public void paivitaTaulukko() {
         malli.fireTableStructureChanged();
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -63,12 +69,6 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
-//        if (row > -1 && column == 0) {
-//            Ote ote = projekti.getProjektinOte(row);
-//            TaulukkoMalli hmm = (TaulukkoMalli)e.getSource();
-//            hmm.
-//            ote.setTunnus((String) hmm);
-//        }
         
         if (row > -1 || column > -1) { //-1 tarkoittaa, ettei taulukkoa ole muutettu (data voi silti olla muuttunut)
             Havainto h = projekti.getHavainto(column - 1);
@@ -78,7 +78,6 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
             } else {
                 h.lisaaOte(ote);
             }
-            projekti.tulostaHavainnot();
         }
     }
         
@@ -90,9 +89,8 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     }
     
         public int[] valitutOtteet() {
-        //int[] temp = 
             return taulukko.getSelectedRows();
-        //return projekti.getOtteet(temp); 
+
     }
 
     private class TaulukkoMalli extends AbstractTableModel {
@@ -109,8 +107,6 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
 
         @Override
         public String getColumnName(int col) {
-//            if (projekti.getHavainto(0) == null)
-//                return null;
             if (col == 0) {
                 return "Ote";
             } else {

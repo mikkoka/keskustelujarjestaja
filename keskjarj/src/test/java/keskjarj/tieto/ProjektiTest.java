@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
+import keskjarj.tieto.Tallenne;
+import keskjarj.tieto.Havainto;
+import keskjarj.tieto.Ote;
+import keskjarj.tieto.Projekti;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -25,7 +29,7 @@ public class ProjektiTest {
     @Before
     public void setUp() {
         projekti = new Projekti();
-        tallenne = new Tallenne (Paths.get("../aineistoja/Example.mp4"));
+        tallenne = new Tallenne (Paths.get("../aineistoja/p3adjsame.mp4"));
     }
 
     /**
@@ -39,7 +43,7 @@ public class ProjektiTest {
     
     @Test
     public void testTuoAnnotaatioitaKunnollisellaTiedostolla() {
-        Path polku = Paths.get("../aineistoja/ElanExample.txt");
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
         assertEquals(true, projekti.tuoAnnotaatioita(polku, tallenne));
     }
     
@@ -84,6 +88,55 @@ public class ProjektiTest {
         Projekti projekti2 = new Projekti();
         assertEquals(true, projekti.getOtteet().isEmpty());
     }
+    
+    
+    @Test
+    public void testListaaHavaintoMerkkijonojenMaaranOikein () {
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
+        projekti.tuoAnnotaatioita(polku, tallenne);
+        assertEquals(projekti.getHavainnotString().length, projekti.getHavainnot().size());
+    } 
+    
+    @Test
+    public void testaaHavainnonOlemassaolo () {
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
+        projekti.tuoAnnotaatioita(polku, tallenne);
+        String nimi1 = projekti.getHavainto(0).nimi;
+        assertEquals(projekti.havaintoOlemassa(nimi1), true);  
+    } 
+    
+    @Test
+    public void testaaHavainnonTuontiNimenPerusteella() {
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
+        projekti.tuoAnnotaatioita(polku, tallenne);
+        String nimi1 = projekti.getHavainto(0).nimi;
+        Havainto h = projekti.getHavainto(nimi1);
+        assertEquals(h.getNimi(), nimi1);
+
+    }
+    
+        @Test
+    public void testaaOtteenTuontiNimenPerusteella() {
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
+        projekti.tuoAnnotaatioita(polku, tallenne);
+        String nimi1 = projekti.getHavainto(0).getOte(0).getTunnus();
+        Ote o = projekti.getProjektinOte(nimi1);
+        assertEquals(o.getTunnus(), nimi1);
+
+    }
+    
+    @Test
+    public void testaaOtteenTuontiNumeronPerusteella() {
+        Path polku = Paths.get("../aineistoja/Elan_p3adjsame.txt");
+        projekti.tuoAnnotaatioita(polku, tallenne);
+        Ote o1 = projekti.getProjektinOte(0);
+        Ote o2 = projekti.getOtteet().first();
+        assertEquals(o1, o2);
+
+    }
+    
+    
+    
     
 //    @Test
 //    public void testOtteet() {

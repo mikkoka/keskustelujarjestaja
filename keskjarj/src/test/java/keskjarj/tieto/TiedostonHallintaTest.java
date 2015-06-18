@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keskjarj.keskjarj;
+package keskjarj.tieto;
 
 import keskjarj.ohjelma.AnnotaatioidenTuoja;
 import java.nio.file.*;
@@ -23,7 +23,7 @@ public class TiedostonHallintaTest {
 
     @Test
     public void testTulostaTekstitiedosto() {
-      assertEquals(tuoja.tulostaTekstitiedosto(Paths.get("../aineistoja/ElanExample.txt")), true);
+      assertEquals(tuoja.tulostaTekstitiedosto(Paths.get("../aineistoja/Elan_p3adjsame.txt")), true);
     }
     
 }

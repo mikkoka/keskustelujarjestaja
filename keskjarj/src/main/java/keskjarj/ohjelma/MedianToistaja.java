@@ -17,7 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import keskjarj.keskjarj.Ote;
+import keskjarj.tieto.Ote;
 
 /**
  * Luokkaa käytetään mediatiedostojen toistamiseen VLC -mediaplayerilla.
@@ -126,7 +126,9 @@ public class MedianToistaja  { //implements ActionListener
     }
     
     protected boolean oteMoitteeton (Ote ote) {
-        if ((ote.getTallenne() == null) || Objects.equals(ote.getAlku(), ote.getLoppu()))
+        if (ote == null)
+            return false;
+        if (ote.getTallenne() == null || Objects.equals(ote.getAlku(), ote.getLoppu()))
             return false;
         else return Files.isReadable(ote.getTallenne().getPolku());
     }

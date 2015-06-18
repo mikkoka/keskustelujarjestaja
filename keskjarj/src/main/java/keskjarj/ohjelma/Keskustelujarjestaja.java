@@ -4,10 +4,11 @@
 * and open the template in the editor.
 */
 
-package keskjarj.keskjarj;
+package keskjarj.ohjelma;
 
 import java.awt.*;
 import keskjarj.gui.*;
+import keskjarj.tieto.Projekti;
 
 /**
  * Tämä on Keskustelunjärjestäjän pääluokka, josta ohjelman suoritus alkaa.

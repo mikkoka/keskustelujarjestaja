@@ -9,8 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import keskjarj.keskjarj.Projekti;
-import keskjarj.keskjarj.Tallenne;
+import keskjarj.tieto.Projekti;
+import keskjarj.tieto.Tallenne;
 
 /**
  * Luokan staattista metodia lataa() käytetään luokan Tallentaja metodilla tallenna()
@@ -46,10 +46,12 @@ public class Lataaja
      * @param polku polku tekstitiedostoon, joka ladataan
      * @param projekti projekti, johon tiedot tuodaan
      */
-    public static void lataa(Path polku, Projekti projekti)
+    public static boolean lataa(Path polku, Projekti projekti)
     {
         List<String> osa; //
         List<String> listarivit = TiedostonHallinta.tuoRivit(polku);
+        if (listarivit == null || listarivit.isEmpty())
+            return false;
         String[] rivit = listarivit.toArray(new String[listarivit.size()]);
 
         int laskuri = 1;
@@ -69,6 +71,7 @@ public class Lataaja
                 tallenne = new Tallenne(Paths.get(rivit[laskuri].substring(6)));
             }
             laskuri++;
-        }     
+        } 
+        return true;
     }   
 }
