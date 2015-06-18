@@ -29,21 +29,32 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
      * @param projekti
      */
     public HakuPaneeli(Dimension koko, Projekti projekti) {
-        malli = new TaulukkoMalli();
+        
         this.projekti = projekti;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        taulukko = new JTable(malli);
-        taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
+        
+        // Taulukkomalliin liittyviä
+        malli = new TaulukkoMalli();
         malli.addTableModelListener(this);
+        
+        // Taulukkoon liittyviä
+        taulukko = new JTable(malli);
+        taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);       
         JScrollPane vierityspaneeli = new JScrollPane(taulukko, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);      
         taulukko.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         taulukko.setPreferredScrollableViewportSize(koko);
         taulukko.setFillsViewportHeight(true); 
-        add(vierityspaneeli);
+        
+        // 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(vierityspaneeli);
     }
     
+    /**
+     * Metodi, jota käytetään luokassa GUI, kun lisätty uusia sarakkeita.
+     * @param otsikko
+     */
     public void paivitaSarakkeet (String otsikko) {
         TableColumn temp = new TableColumn();
         temp.setHeaderValue((Object)otsikko);
@@ -51,6 +62,15 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
     }
     
+    /**
+     * Asettaa, onko taulukosta mahdollista hakea. Itse asiassa kun 
+     * AutoCreateRowSorter on kerran ollut asetettuna tilaan true, 
+     * taulukon hakutoiminnot toimivat aina. Osittain tämän metodin käytössä on kysymys
+     * siitäkin, että jos alusta asti taulukossa on AutoCreateRowSorter == true,
+     * syntyy virhetilanteita, jos tyhjää taulukkoa, jossa ei vielä ole dataa,
+     * klikkailee. 
+     * @param mahdollista
+     */
     public void hakuMahdollista (boolean mahdollista) {
         taulukko.setAutoCreateRowSorter(mahdollista);
     }
@@ -60,11 +80,14 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         return taulukko.getAutoCreateRowSorter();
     }
     
-        public void paivitaTaulukko() {
+    /**
+     * Luokassa GUI käytetään tätä metodia, kun dataa, jonka pitäisi näkyä taulukossa, on muokattu
+     */
+    public void paivitaTaulukko() {
         malli.fireTableStructureChanged();
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
     }
-    
+
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();

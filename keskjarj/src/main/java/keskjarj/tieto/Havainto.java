@@ -105,13 +105,7 @@ public abstract class Havainto implements Comparable <Havainto> {
                 if (o.equals(t))
                     return true;
         return false;
-    }
-    
-    public void lisaaNimenPerusteella(String nimi) {
-
-            
-    }
-            
+    }           
     
     @Override
     public int hashCode() {        

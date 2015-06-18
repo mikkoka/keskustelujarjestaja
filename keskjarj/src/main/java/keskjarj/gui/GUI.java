@@ -24,6 +24,10 @@ import keskjarj.ohjelma.*;
  * järjestellä). Toinen välilehti sisältää aluksi tyhjän JPanelin, mutta
  * valikoista sinne voi luoda JarjestelyPaneelin ilmentymän, jossa otteita
  * järjestellään.
+ * 
+ * Luokassa ei ole julkisia metodeja. Sen hallinnoidessa valikkoa, jonka 
+ * kautta käyttäjä vuorovaikuttaa sovelluksen kanssa, se tarvitsee paljon muita 
+ * luokkia, joille se välittää käyttäjän tarpeita.
  *
  * @author mkahri
  */

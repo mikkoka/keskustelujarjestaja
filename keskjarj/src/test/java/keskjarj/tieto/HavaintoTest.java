@@ -83,6 +83,19 @@ public class HavaintoTest {
         
     }
     
+    @Test
+    public void testaaSisaltaaSamojaOtteita_metodia() {
+       Tallenne tallenne = new Tallenne (Paths.get("../aineistoja/p3adjsame.mp4"));
+       Ote testiote1 = new Ote(tallenne, 10.0, 11.0, "10-11", "p3adjsame.mp4");
+       Ote testiote2 = new Ote(tallenne, 20.0, 21.0, "11-12", "p3adjsame.mp4");
+       OtettaKoskevaHavainto havainto2 = new OtettaKoskevaHavainto("nim"); 
+       havainto.lisaaOte(testiote1);
+       havainto.lisaaOte(testiote2);
+       havainto2.lisaaOte(testiote2);
+       assertEquals(true, havainto.sisaltaaSamojaOtteita(havainto2));
+        
+    }
+    
     
     
 }

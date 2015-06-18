@@ -15,7 +15,11 @@ import javax.swing.*;
 import keskjarj.ohjelma.MedianToistaja;
 
 /**
- *
+ * Luokka luo paneelin, jolla voi  hiirellä vetää suorakaiteita,
+ * jotka edustavat keskusteluotteita, ikkunan eri osiin. Ikkunan eri osat 
+ * puolestaan edustavat eri havaintokategorioita.
+ * Malli, josta luokkaa lähdettiin muokkaamaan, täältä:
+ * http://stackoverflow.com/questions/13220971/how-to-drag-object
  * @author mkahri
  */
 public class JarjestelyPaneeli extends JPanel {
@@ -152,17 +156,33 @@ public class JarjestelyPaneeli extends JPanel {
         return false;
     }
     
+    /**
+     * Luokasta GUI käsin käytetään tätä metodia, kun käyttäjä on valikossa ilmaissut
+     * haluavansa katsoa otteeseen liittyvän videon. Kentän val kokonaisluku kertoo
+     * valittuna olevan suorakaiteen
+     */
     public void toistaTallenneValikosta() {
         if (val > -1) {
             toistaTallenne(val);
         }
     }
 
+    /**
+     * 
+     * @param valittu
+     */
     public void toistaTallenne(int valittu) {
         String nimi = suorakaiteet[valittu].tunnus;
         toistaja.toista(projekti.getProjektinOte(nimi));
     }
     
+    /**
+     * Luokasta GUI käsin käytetään tätä metodia, kun halutaan tietää, miten 
+     * otteita edustavat suorakaiteet ovat järjestettyinä ikkunassa. Palauttaa kolmirivisen
+     * taulukon, jonka riveillä tieto siitä, ovatko otteet ruutua jakavien viivojen
+     * vasemmalla tai oikealla puolella, tai niitten välissä
+     * @return
+     */
     public String[][] jarjestelyTilanne () {
         ArrayList<String> temp1 = new ArrayList();
         ArrayList<String> temp2 = new ArrayList();
@@ -196,7 +216,7 @@ public class JarjestelyPaneeli extends JPanel {
  
         return palautus;
     }
-
+    
     private class SuoraKaide extends Rectangle {
         String tunnus;
         public SuoraKaide(int x, int y, int width, int height, String tunnus) {
