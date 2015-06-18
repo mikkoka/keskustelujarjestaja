@@ -30,7 +30,7 @@ Keskustelujärjestelijä -sovellus lukee otteita Elanilla tallennetuista UTF-8 -
 
 **Otteiden järjestely järjestelypaneelissa**
 
-* Valitse otteita hakupaneelista, ja sitten `Otteet >Järjestele` valittuja otteita.
+* Valitse otteita hakupaneelista, ja sitten `Otteet > Järjestele valittuja otteita`.
 * Valitse aukeavasta listasta havaintokategoria, johonka liittyviä havaintoja haluat järjestelypaneelissa tehdä. 
 * Halutessasi valitse toinenkin havaintokategoria, johonka liittyviä havaintoja teet.
 * Mikäli valintasi olivat ongelmattomat (ei ole olemassa otteita, jotka kuuluvat mahd. molempiin valitsemiisi kategorioihin), otteet ilmaantuvat nyt *järjestelypaneeliin*, asettuen siinä ikkunan eri osiin sen mukaan, kuuluvatko ne jompaan kumpaan valitsemistasi havaintokategorioista. 
@@ -38,7 +38,7 @@ Keskustelujärjestelijä -sovellus lukee otteita Elanilla tallennetuista UTF-8 -
 
 **Otteeseen liittyvän nauhoitteen tarkastelu järjestelypaneelissa**
 
-* Valitse haluamasi ote hiirellä, ja klikkaa sitä AltGR- näppäimen ollessa painettuna (tai vaihtoehtoisesti valitse valikosta Otteet > oista valittu ote VLC:llä). VLC toistaa nyt otteen.
+* Valitse haluamasi ote hiirellä, ja klikkaa sitä AltGR- näppäimen ollessa painettuna (tai vaihtoehtoisesti valitse valikosta `Otteet > Toista valittu ote VLC:llä`). VLC toistaa nyt otteen.
 
 **Järjestelyn lopettaminen ja sen tulosten tuominen hakupaneelin taulukkoon**
 
