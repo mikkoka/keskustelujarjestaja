@@ -8,7 +8,7 @@ Annotaatioitten tekoon käytettyistä ohjelmista esimerkiksi käy Elan (https://
 
 **Otteiden tuominen  Elanissa tallennetusta tekstitiedostosta**
 
-* Valitse `Projekti > Tuo > Elanista`, ja etsi sitten aukeavista tiedostonhakuvalikoista ensin Elan -annotaatioita sisältävä tekstitiedosto, sitten ko. tekstitiedostoon liittyvä mediatiedosto. Valittuasi molemmat otteet sekä tekstitiedostossa olleet havaintokategoriat aukeavat eteesi projekti hakupaneeliin. 
+* Valitse `Projekti > Tuo > Elanista`, ja etsi sitten aukeavista tiedostonhakuvalikoista ensin Elan -annotaatioita sisältävä tekstitiedosto, sitten ko. tekstitiedostoon liittyvä mediatiedosto. Otteet sekä tekstitiedostossa olleet havaintokategoriat aukeavat eteesi projekti hakupaneeliin. 
 
 **Aiemmin luotujen ja tallennettujen otteiden ja havaintojen lataaminen**
 
