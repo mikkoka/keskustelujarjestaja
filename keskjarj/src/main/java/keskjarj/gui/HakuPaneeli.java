@@ -30,6 +30,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
     public HakuPaneeli(Dimension koko, Projekti projekti) {
         malli = new TaulukkoMalli();
         this.projekti = projekti;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         taulukko = new JTable(malli);
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
         malli.addTableModelListener(this);
@@ -49,8 +50,8 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         taulukko.getColumnModel().getColumn(0).setPreferredWidth(200);
     }
     
-    public void hakuMahdollista () {
-        taulukko.setAutoCreateRowSorter(true);
+    public void hakuMahdollista (boolean mahdollista) {
+        taulukko.setAutoCreateRowSorter(mahdollista);
     }
     
         public void paivitaTaulukko() {

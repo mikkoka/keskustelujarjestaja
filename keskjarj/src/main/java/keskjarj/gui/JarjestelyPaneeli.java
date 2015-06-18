@@ -21,18 +21,18 @@ import keskjarj.ohjelma.MedianToistaja;
  */
 public class JarjestelyPaneeli extends JPanel {
 
-    SuoraKaide[] suorakaiteet;
-    int preX, preY;
-    boolean ekaKerta = true;
-    Rectangle alue;
-    boolean pressOut;
+    private SuoraKaide[] suorakaiteet;
+    private int preX, preY;
+    private boolean ekaKerta = true;
+    private Rectangle alue;
+    private boolean pressOut;
     private Dimension koko;
-    int val = -1;
-    JLabel l1;
-    String[][] tekstit;
-    Line2D viiva1, viiva2;
-    MedianToistaja toistaja;
-    Projekti projekti;
+    private int val = -1;
+    private JLabel l1;
+    private String[][] tekstit;
+    private Line2D viiva1, viiva2;
+    private MedianToistaja toistaja;
+    private Projekti projekti;
 
     public JarjestelyPaneeli(Dimension koko, String[][] tekstit, String ohje, Projekti projekti) 
     {
@@ -48,22 +48,28 @@ public class JarjestelyPaneeli extends JPanel {
         //this.setFont(new Font(this.getFont().getName(), 16, 16));
         
         int count = 0;
-        for (int a = 0; a < 3; a++)
-        for (int b = 0; b < tekstit[a].length; b++) {
-            suorakaiteet[count] = new SuoraKaide(0, 0, 250, 22, tekstit[a][b]);
-            count++;
+        for (int a = 0; a < 3; a++) {
+            for (int b = 0; b < tekstit[a].length; b++) {
+                suorakaiteet[count] = new SuoraKaide(0, 0, 250, 22, tekstit[a][b]);
+                count++;
+            }
         }
-//        for (int i = 0; i < suorakaiteet.length; i++) {
-//            suorakaiteet[i] = new SuoraKaide(0, 0, 250, 22, "hehe");
-//        }
-        viiva1 = new Line2D.Double(koko.getWidth()/3 - 20, 20, koko.getWidth()/3 - 20, koko.getHeight() - 10);
-        viiva2 = new Line2D.Double(2*koko.getWidth()/3 + 20, 20, 2*koko.getWidth()/3 + 20, koko.getHeight() - 10);
+        viiva1 = new Line2D.Double(koko.getWidth() / 3 - 20, 
+                20, 
+                koko.getWidth() / 3 - 20, 
+                koko.getHeight() - 10);
+        
+        viiva2 = new Line2D.Double(2 * koko.getWidth() / 3 + 20, 
+                20, 
+                2 * koko.getWidth() / 3 + 20, 
+                koko.getHeight() - 10);
+        
         addMouseMotionListener(new HiiriAdapteri());
         addMouseListener(new HiiriAdapteri());
 
         setPreferredSize(koko);
         l1 = new JLabel(ohje);
-        
+
         add(l1);
     }
     
@@ -110,24 +116,13 @@ public class JarjestelyPaneeli extends JPanel {
             }
         }
 
-//        for (int i =0; i < suorakaiteet.length; i++) {
-//            point = suorakaiteet[i].getLocation();
-//            int x = point.x + 5; int y = point.y +15;
-//            g2d.setColor(Color.LIGHT_GRAY);
-//            g2d.draw(suorakaiteet[i]);
-//            g2d.setColor(Color.black);
-//            g2d.drawString(tekstit[i], x, y);
-//            
-//        }
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.draw(viiva1);
         g2d.draw(viiva2);
         g2d.setColor(Color.black);
-        g2d.drawString("AltGR -klikkaus toistaa videon", (int)koko.getWidth()/2 - 70, (int)koko.getHeight() - 5);
-
-
-        
-
+        g2d.drawString("AltGR -klikkaus toistaa videon", 
+                (int)koko.getWidth()/2 - 70, 
+                (int)koko.getHeight() - 5);
     }
 
     boolean checkRect() {
@@ -172,15 +167,18 @@ public class JarjestelyPaneeli extends JPanel {
     public String[][] jarjestelyTilanne () {
         ArrayList<String> temp1 = new ArrayList();
         ArrayList<String> temp2 = new ArrayList();
+        ArrayList<String> temp3 = new ArrayList();
 
         for (SuoraKaide r : suorakaiteet)
         {
             if (r.getCenterX() < viiva1.getX1())
                 temp1.add(r.tunnus);
             else if (r.getCenterX() > viiva2.getX1())
-                temp2.add(r.tunnus);
+                temp3.add(r.tunnus);
+            else temp2.add(r.tunnus);
         }
-        String[][] palautus = new String[2][];
+        String[][] palautus = new String[3][];
+        
         palautus[0] = new String[temp1.size()];
         for (int a = 0; a < temp1.size(); a++) {
              palautus[0][a] = temp1.get(a);
@@ -190,6 +188,13 @@ public class JarjestelyPaneeli extends JPanel {
         for (int a = 0; a < temp2.size(); a++) {
              palautus[1][a] = temp2.get(a);
         }
+        
+        palautus[2] = new String[temp3.size()];
+        for (int a = 0; a < temp3.size(); a++) {
+             palautus[2][a] = temp3.get(a);
+        }
+        
+ 
         return palautus;
     }
 

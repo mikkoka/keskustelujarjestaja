@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package keskjarj.keskjarj;
+package keskjarj.ohjelma;
 
 import java.io.IOException;
 
@@ -12,12 +12,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 
+
 /**
  * Lukee tiedostoja. Toistaiseksi ainoastaan tekstitiedostoja. 
  * @author mkahri
  */
-public class TiedostonLukija {
+public class TiedostonHallinta {
     
+    /**
+     *
+     * @param polku
+     * @return
+     */
     public static List<String> tuoRivit (Path polku) 
     {
         List<String> palautus = null;        
@@ -27,7 +33,23 @@ public class TiedostonLukija {
 
         }
         return palautus;
-    }  
+    }
+    
+    /**
+     *
+     * @param rivit
+     * @param polku
+     * @return
+     */
+    public static boolean tallennaRivit (List<String> rivit, Path polku)
+    {
+        try {
+            Files.write(polku, rivit, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+    }
  
     public static boolean tulostaTekstitiedosto(Path polku) 
     {

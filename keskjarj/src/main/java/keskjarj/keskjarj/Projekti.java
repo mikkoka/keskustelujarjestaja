@@ -40,6 +40,14 @@ public class Projekti
         return true;
     }
     
+    public boolean tuoAnnotaatioita (List<String> rivit, Tallenne tallenne)
+    {
+        AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(rivit, tallenne);
+        TreeSet<Havainto> uudetHavainnot = tuoja.tuo();
+        lisaaAnnotaatiot(uudetHavainnot);   
+        return true;
+    }
+    
     /**
     * Lisää parametrinä saadut annotaatiot projektin havaintokokoelmaan. 
     * TreeSetin käytön ansiosta dublikaatteja ei synny, ja havainnot tulevat 

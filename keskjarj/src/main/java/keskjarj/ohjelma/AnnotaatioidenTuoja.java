@@ -7,7 +7,6 @@ import keskjarj.keskjarj.Havainto;
 import keskjarj.keskjarj.Ote;
 import keskjarj.keskjarj.OtettaKoskevaHavainto;
 import keskjarj.keskjarj.Tallenne;
-import keskjarj.keskjarj.TiedostonLukija;
 
 /**
  * Luokasta luodaan instanssi jokaista annotaatiotiedoston tuontia varten.
@@ -15,9 +14,9 @@ import keskjarj.keskjarj.TiedostonLukija;
  * instanssiin luettavan tiedoston polkua voi muuttaa instanssin luonnin jälkeen. 
  * Käyttää tekstitiedostojen lukemiseen yliluokan metodia.
  * 
- * @see    keskjarj.keskjarj.TiedostonLukija
+ * @see    keskjarj.keskjarj.TiedostonHallinta
  */
-public class AnnotaatioidenTuoja extends TiedostonLukija 
+public class AnnotaatioidenTuoja extends TiedostonHallinta 
 {    
     private List<String> rivit;
     private TreeSet<Ote> otteet;
@@ -33,6 +32,15 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         this.tallenne = tallenne;
     }
     
+    public AnnotaatioidenTuoja(List<String> rivit, Tallenne tallenne)
+    {
+        kategoriatJaAikajaksot = new HashMap();
+        otteet = new TreeSet();
+        this.polku = null;
+        this.tallenne = tallenne;
+        this.rivit = rivit;
+    }
+    
     /**
      * Lukee tekstitiedostosta havaintoja ja otteita ja luo niistä olioita
      * @return  Havainto -olioita sisältävä HashSet
@@ -40,7 +48,8 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
     public TreeSet<Havainto> tuo() 
     {
         // Komentojen suoritusjärjestys ei ole yhdentekevä; muuta harkiten
-        rivit = tuoRivit(polku);        
+        if (this.rivit == null)
+            rivit = tuoRivit(polku);        
         luoOtteet(listaaOtteet(), tallenne);
         eritteleRivit();
         return luoHavainnot();
@@ -71,7 +80,12 @@ public class AnnotaatioidenTuoja extends TiedostonLukija
         String[] ajat = aikaJakso.split("-");
         return Double.parseDouble(ajat[sarake]);
     }
+    
+    protected String[] puraAikajakso(String jakso) 
+    {
+        return jakso.split("-");
         
+    }  
     
     private void luoOtteet(TreeSet<String> stringOtteet, Tallenne tallenne)
     {

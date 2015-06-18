@@ -20,4 +20,5 @@
  Su 14.6.  |   10  |Javadoc -päivitystä, hakutoiminnon kanssa puurtamista, järjestelytoimintoa varten löydetyn mallin ymmärtämisyrityksiä. Koodikatselmus.
  Ma 15.6.  |   8   |Järjestelytoiminnon kanssa puurtamista, saattaa tämäkin onnistua, jos aika ei lopu kesken. Hieman demoa varten valmistautumista.
  Ti 16.6.  |   6   |Järjestelytoiminnon kehittämistä, demoa varten valmistautumista, demossa käynti.
- Ke 17.6.  |       |Järjestelytoiminnon kehittämistä, virhetilanteisiin varautumista,... 
+ Ke 17.6.  |   12  |Järjestelytoiminnon kehittämistä, virhetilanteisiin varautumista, tallennuksen luomista, virhetilanteisiin varautumista, ei sentään vielä lopullisen palautuksen vaatimusten ja muistilistan vilkaisua...
+ To 18.6.  |       | 

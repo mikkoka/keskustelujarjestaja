@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author mikko
  */
-public class TiedostonLukijaTest {
+public class TiedostonHallintaTest {
     AnnotaatioidenTuoja tuoja;
     
     @Before

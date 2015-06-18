@@ -97,6 +97,6 @@ public class Tallenne {
      */
     public String getTiedostoNimi()
     {
-        return polku.getFileName().toString();   
+        return polku.getFileName().toString();
     }
 }           

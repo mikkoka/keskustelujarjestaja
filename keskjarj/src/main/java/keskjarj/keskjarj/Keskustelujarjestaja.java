@@ -25,7 +25,7 @@ public class Keskustelujarjestaja {
         Projekti projekti = new Projekti();        
         
         ikkuna = new JFrame("Keskustelujarjestaja");
-        ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ikkuna.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         Dimension paneelinKoko = new Dimension(1024, 768);       
         ikkuna.getContentPane().add(new YlaPaneeli(paneelinKoko, projekti));
         ikkuna.setResizable(true);

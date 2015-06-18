@@ -40,6 +40,11 @@ public abstract class Havainto implements Comparable <Havainto> {
     public TreeSet<Ote> getOtteet() {        
         return otteet;
     }
+    
+    public Ote getOte(int nro) {
+        return otteet.first();
+    }
+            
 
     /**
      * Lisää otekokoelmaan Ote -olion
