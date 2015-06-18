@@ -13,19 +13,45 @@ import keskjarj.keskjarj.Projekti;
 import keskjarj.keskjarj.Tallenne;
 
 /**
- *
+ * Luokan staattista metodia lataa() käytetään luokan Tallentaja metodilla tallenna()
+ * tallennettujen tietojen lukemiseen.
  * @author mikko
  */
 public class Lataaja
 {
 
+    /**
+     * Lataa tallennetut otteet ja havainnot luokan Tallentaja metodilla tallenna()
+     * tallennetusta tekstitiedostosta. Lataaminen todennäköisesti epäonnoistuu,
+     * jos tallennus on suoritettu eri koneella, kuin millä lataaminen tehdään, JA
+     * on toisaalta käytetty mediatiedostoja, jotka sijaitsevat muualla kuin 
+     * kansion keskustelujarjestaja alikansioissa. Ongelmatilanteen voi pakottavan
+     * tarpeen sitä vaatiessa korjata muokkaamalla käsin polkuja tallennetussa 
+     * tekstitiedostossa.
+     * 
+     * Tallentajan tallenna() -metodi tallentaa projektin havainnot ja otteet 
+     * tekstitiedostoihin, jotka ovat muuten samanlaisia kuin Elan -ohjelman
+     * exporttaamat tekstitiedostot, paitsi että niihin on lisätty väliin
+     * polkuja mediatiedostoihin. Metodi lataa() "pätkii" tallennetun tekstitiedoston
+     * pätkiin aina mediatiedoston nimen kohdalta, ja kutsuu jokaista pätkää koden
+     * luokan AnnotaatioidenTuoja metodia tuo(), mediatiedoston nimen perusteella 
+     * luotu Tallenne -luokan instanssi mukanaan.
+     * 
+     * Ongelma, että lataaminen epäonnistuu jos tallennuskone on eri kuin latauskone
+     * ja polku mediatiedostoon toisaalta monimutkaisempi, johtuu siitä, että luokan
+     * Tallenne konstruktori tarkastaa mediatiedoston polun luettavuutta ennen sen 
+     * hyväksymistä. 
+     * 
+     * 
+     * @param polku polku tekstitiedostoon, joka ladataan
+     * @param projekti projekti, johon tiedot tuodaan
+     */
     public static void lataa(Path polku, Projekti projekti)
     {
-        List<String> osa; 
+        List<String> osa; //
         List<String> listarivit = TiedostonHallinta.tuoRivit(polku);
         String[] rivit = listarivit.toArray(new String[listarivit.size()]);
 
-        
         int laskuri = 1;
         Tallenne tallenne = new Tallenne(Paths.get(rivit[0].substring(6)));
         
@@ -38,8 +64,10 @@ public class Lataaja
                 laskuri++;
             }
             projekti.tuoAnnotaatioita(osa, tallenne);
-            if (laskuri < rivit.length)
+            if (laskuri < rivit.length) {
+                System.out.println(rivit[laskuri].substring(6));
                 tallenne = new Tallenne(Paths.get(rivit[laskuri].substring(6)));
+            }
             laskuri++;
         }     
     }   
