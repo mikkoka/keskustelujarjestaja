@@ -12,7 +12,7 @@ Annotaatioitten tekoon käytettyistä ohjelmista esimerkiksi käy Elan (https://
 
 **Aiemmin luotujen ja tallennettujen otteiden ja havaintojen lataaminen**
 
-* Valitse `Projekti > Lataa` ja sitten aukeavasta  tiedostonhakuvalikosta aiemmin tallennetut otteet ja havainnot sisältävä tiedosto. 
+* Valitse `Projekti > Lataa` ja sitten aukeavasta  tiedostonhakuvalikosta aiemmin tallennetut otteet ja havainnot sisältävä tekstitiedosto. 
 * Koska *Keskustelujärjestäjä* ei tule hyvin toimeen "vääränlaiseen" formaattiin muotoiltujen tekstitiedostojen kanssa, on erittäin suositeltavaa, että ladatessasi ja tallentaessasi otteita ja havaintoja käytät tiedostoissa päätettä "keskjarj". 
 * Valittuasi tiedoston, sen sisältämät otteet ja havainnot aukeavat eteesi, ja aiemmin mahd. esillä olleet otteet ja havainnot ovat kadonneet.
 
