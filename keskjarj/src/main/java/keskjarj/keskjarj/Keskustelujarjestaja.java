@@ -7,29 +7,18 @@
 package keskjarj.keskjarj;
 
 import java.awt.*;
-import javax.swing.*;
 import keskjarj.gui.*;
 
 /**
  * Tämä on Keskustelunjärjestäjän pääluokka, josta ohjelman suoritus alkaa.
- * Tarkoitus on, että täältä lähinnä käynnistetään GUI. 
- * Toistaiseksi myös ladataan aineistoja. Kenttänä ikkuna, jota sovellus käyttää.
  * @author mkahri
  */
-public class Keskustelujarjestaja {
-    
-    private static JFrame ikkuna;  
+public class Keskustelujarjestaja {  
 
     public static void main(String[] args)
     {
-        Projekti projekti = new Projekti();        
-        
-        ikkuna = new JFrame("Keskustelujarjestaja");
-        ikkuna.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        Dimension paneelinKoko = new Dimension(1024, 768);       
-        ikkuna.getContentPane().add(new YlaPaneeli(paneelinKoko, projekti));
-        ikkuna.setResizable(true);
-        ikkuna.pack();
-        ikkuna.setVisible(true);        
+        Projekti projekti = new Projekti(); 
+        Dimension paneelinKoko = new Dimension(1024, 768);
+        GUI gui = new GUI(projekti, paneelinKoko);
     }
 }

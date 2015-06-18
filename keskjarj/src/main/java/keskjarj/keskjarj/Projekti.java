@@ -136,6 +136,8 @@ public class Projekti
      */
     public Havainto getHavainto (String nimi)
     {
+        if (nimi == null)
+            return null;
         for (Havainto h : havainnot)
             if (h.getNimi().equals(nimi))
                 return h;

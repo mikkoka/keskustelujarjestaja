@@ -98,6 +98,8 @@ public abstract class Havainto implements Comparable <Havainto> {
     
     public boolean sisaltaaSamojaOtteita (Havainto toinen)
     {
+        if (toinen == null)
+            return false;
         for (Ote o : otteet)
             for (Ote t : toinen.getOtteet())
                 if (o.equals(t))
