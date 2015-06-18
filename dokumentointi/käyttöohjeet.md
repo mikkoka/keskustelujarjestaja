@@ -4,7 +4,7 @@ Keskusteluntutkijat tekevät annotaatioita keskusteluista tehtyihin nauhotteisii
 
 Annotaatioitten tekoon käytettyistä ohjelmista esimerkiksi käy Elan (https://tla.mpi.nl/tools/tla-tools/elan/). Annotaatioita voi Elanin kaltaisista ohjelmista viedä tekstitiedostoihin.
 
-*Keskustelujärjestäjä* -sovellus lukee otteita Elanilla tallennetuista UTF-8 -muotoisista tekstitiedostoista (tallennusohjeita toisaalla), ja tarjoaa välineitä niitten "annotointiin". Sovelluksen käynnistyttyä käyttäjän eteen ilmaantuu ikkuna, jossa on kaksi pudotusvalikkoa ("Projekti" ja "Otteet") sekä kaksi (tyhjää) välilehteä. Valikosta "Projekti" voi ladata aiemmin tallentamiaan, otteisiin liittyviä annotaatioita, tai tuoda uusia otteita Elan -tiedostoista. Valikosta "Otteet" käyttäjä voi puolestaan tehdä joitakin otteisiin liittyviä toimia. 
+*Keskustelujärjestäjä* -sovellus lukee otteita Elanilla tallennetuista UTF-8 -muotoisista tekstitiedostoista (tallennusohjeita toisaalla), ja tarjoaa välineitä niitten "annotointiin". Sovelluksen käynnistyttyä käyttäjän eteen ilmaantuu ikkuna, jossa on kaksi pudotusvalikkoa ("Projekti" ja "Otteet") sekä kaksi (tyhjää) välilehteä. 
 
 **Otteiden tuominen  Elanissa tallennetusta tekstitiedostosta**
 
