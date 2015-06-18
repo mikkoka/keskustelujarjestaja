@@ -40,6 +40,17 @@ public class Projekti
         return true;
     }
     
+        /**
+    * Lisää Projektin havaintoihin uusia havaintoja merkkijonolistasta.
+    * Lisää vanhoihin havaintokategorioihin uusia otteita silloin, kun 
+    * sellaisia on tuotu. Pääosan työstä tekee luokan AnnotaatioidenTuoja
+    * metodi tuo().
+    * 
+    * @param   rivit   lista merkkijonoja
+     * @param tallenne viite mediatallenteen tiedot sisältävään Tallenne -olioon
+     * @return annetun polun toimivuus
+    */
+    
     public boolean tuoAnnotaatioita (List<String> rivit, Tallenne tallenne)
     {
         AnnotaatioidenTuoja tuoja = new AnnotaatioidenTuoja(rivit, tallenne);
@@ -89,6 +100,12 @@ public class Projekti
         return this.havainnot;
     }
     
+    /**
+     * Palauttaa projektin havainnot objektitauluihin tallennettuina merkkijoina. 
+     * Metodi on kätevä luotaessa valikoita, joissa on mukana kaikkien havaintojen 
+     * nimet.
+     * @return
+     */
     public Object[] getHavainnotString ()
     {
         String[] palautus = new String[havainnot.size()];
@@ -98,6 +115,12 @@ public class Projekti
                     
     }
     
+    /**
+     * Palauttaa tiedon, onko parametrinä saadun merkkijonon niminen havainto 
+     * jo olemassa projektin havaintokokoelmassa. 
+     * @param nimi merkkijono
+     * @return annetun merkkijonon kanssa samannimisen havaintotyypin olemassaolo 
+     */
     public boolean havaintoOlemassa (String nimi)
     {
         for (Havainto h : havainnot)
@@ -106,6 +129,11 @@ public class Projekti
         return false;
     }
     
+    /**
+     * Palauttaa viitteen Havainto -olioon nimen perusteella
+     * @param nimi
+     * @return Havainto -olio jonka nimi pyydetyn mukainen, tai null
+     */
     public Havainto getHavainto (String nimi)
     {
         for (Havainto h : havainnot)
@@ -128,6 +156,12 @@ public class Projekti
         return palautus;
     }
     
+    /**
+     * Palauttaa taulukollisen viitteitä Ote -oliohin, parametrinä saatujen 
+     * järjestysnumeroiden perusteella. Hyödyllinen esim. taulukon päivityksessä
+     * @param nrot
+     * @return
+     */
     public Ote[] getOtteet (int[] nrot)
     {
         Ote[] palautus;
@@ -161,7 +195,7 @@ public class Projekti
 //            if (nro >= otteet.length || nro < 0)
 //                return null;
 //        for (int nro : nrot)
-//            palautus.add(getOte(nro));
+//            palautus.add(getProjektinOte(nro));
 //        return palautus;
 //    }
     
@@ -187,7 +221,7 @@ public class Projekti
      * @param nro otteen järjestysnumero aakkosjärjestetyssä otejoukossa
      * @return Ote -olio
      */
-    public Ote getOte (int nro)
+    public Ote getProjektinOte (int nro)
     {
         if (havainnot.isEmpty() || nro < 0) 
             return null;            
@@ -197,7 +231,14 @@ public class Projekti
         return (Ote)otteet[nro];
     }
     
-        public Ote getOte (String nimi)
+     /**
+     * Palauttaa yksittäisen otteen projektin havaintokokoelmasta, sen 
+     * tunnus -merkkijonon perusteella.
+     * @param nro otteen tunnus
+     * @return Ote -olio
+     */
+    
+        public Ote getProjektinOte (String nimi)
     {
         if (havainnot.isEmpty() || nimi.isEmpty()) 
             return null;

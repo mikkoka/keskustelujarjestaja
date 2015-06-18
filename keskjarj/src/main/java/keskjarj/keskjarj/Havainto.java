@@ -41,8 +41,24 @@ public abstract class Havainto implements Comparable <Havainto> {
         return otteet;
     }
     
+     /**
+     * Palauttaa havainnon otekokoelmasta otteen järjestysnumeron perusteella.
+     * Metodi eroaa luokan Projekti vastaavasta metodista siten, että ko. metodi
+     * palauttaa koko projektin havaintokokoelmasta otteen järjestysnumeron perusteella
+     * @return ote järjestysnumeron perusteella
+     */
     public Ote getOte(int nro) {
-        return otteet.first();
+        if (otteet.isEmpty() || nro < 0) 
+            return null;
+        if (nro == 0)
+            return otteet.first();
+        else {                               
+        Object[] oteObj = getOtteet().toArray();
+        if (nro >= oteObj.length)
+            return null;
+        return (Ote)oteObj[nro];
+                
+        }
     }
             
 

@@ -95,7 +95,7 @@ public class YlaPaneeli extends JPanel {
                 String[][] tilanne = jp.jarjestelyTilanne();
 
                 for (String s : tilanne[0]) {
-                    Ote temp = projekti.getOte(s);
+                    Ote temp = projekti.getProjektinOte(s);
                     jarjesteltava1.lisaaOte(temp);
                     if (jarjesteltava2 != null) {
                         jarjesteltava2.poistaOte(temp);
@@ -103,24 +103,24 @@ public class YlaPaneeli extends JPanel {
                 }
                 if (jarjesteltava2 != null) {
                     for (String s : tilanne[2]) {
-                        Ote temp = projekti.getOte(s);
-                        jarjesteltava2.lisaaOte(projekti.getOte(s));
-                        jarjesteltava1.poistaOte(projekti.getOte(s));
+                        Ote temp = projekti.getProjektinOte(s);
+                        jarjesteltava2.lisaaOte(projekti.getProjektinOte(s));
+                        jarjesteltava1.poistaOte(projekti.getProjektinOte(s));
 
                     }
                 } else {
                     for (String s : tilanne[2]) {
-                        Ote temp = projekti.getOte(s);
-                        jarjesteltava1.poistaOte(projekti.getOte(s)); // jos j2 oli null, täytyy silti poistaa j1:stä oikeassa reunassa olleet
+                        Ote temp = projekti.getProjektinOte(s);
+                        jarjesteltava1.poistaOte(projekti.getProjektinOte(s)); // jos j2 oli null, täytyy silti poistaa j1:stä oikeassa reunassa olleet
                     }
                 }
                 
                 
                 for (String s : tilanne[1]) {
-                    Ote temp = projekti.getOte(s);
-                    jarjesteltava1.poistaOte(projekti.getOte(s));
+                    Ote temp = projekti.getProjektinOte(s);
+                    jarjesteltava1.poistaOte(projekti.getProjektinOte(s));
                     if (jarjesteltava2 != null)
-                        jarjesteltava2.poistaOte(projekti.getOte(s));
+                        jarjesteltava2.poistaOte(projekti.getProjektinOte(s));
                 }
 
                 hakupaneeli.paivitaTaulukko();

@@ -14,15 +14,16 @@ import java.util.List;
 
 
 /**
- * Lukee tiedostoja. Toistaiseksi ainoastaan tekstitiedostoja. 
+ * Lukee ja tallentaa tiedostoja. Toistaiseksi ainoastaan tekstitiedostoja. 
  * @author mkahri
  */
 public class TiedostonHallinta {
     
     /**
-     *
-     * @param polku
-     * @return
+     * Tuo tekstirivit parametrinä annetusta polusta merkkijonolistana. 
+     * Lukee luotettavasti ainoastaan UTF-8 -tallennettuja tekstitiedostoja.
+     * @param polku polku tekstitiedostoon, joka luetaan
+     * @return rivit merkkijonolistana. Jos lukeminen epäonnistuu, palauttaa nullin.
      */
     public static List<String> tuoRivit (Path polku) 
     {
@@ -36,10 +37,10 @@ public class TiedostonHallinta {
     }
     
     /**
-     *
-     * @param rivit
-     * @param polku
-     * @return
+     * Tallentaa parametrinä annetut merkkijonot tekstitiedoston riveiksi.
+     * @param rivit lista merkkijonoja
+     * @param polku tiedosto, johon merkkijonot tallennetaan
+     * @return tallennuksen onnistuminen
      */
     public static boolean tallennaRivit (List<String> rivit, Path polku)
     {
@@ -51,6 +52,11 @@ public class TiedostonHallinta {
         return true;
     }
  
+    /**
+     * Tulostaa tekstitiedoston sisällön system.outtiin. 
+     * @param polku polku tekstitiedostoon
+     * @return tulostuksen onnistuminen
+     */
     public static boolean tulostaTekstitiedosto(Path polku) 
     {
         List<String> rivit = tuoRivit(polku);

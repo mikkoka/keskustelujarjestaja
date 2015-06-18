@@ -161,7 +161,7 @@ public class JarjestelyPaneeli extends JPanel {
 
     public void toistaTallenne(int valittu) {
         String nimi = suorakaiteet[valittu].tunnus;
-        toistaja.toista(projekti.getOte(nimi));
+        toistaja.toista(projekti.getProjektinOte(nimi));
     }
     
     public String[][] jarjestelyTilanne () {

@@ -63,13 +63,13 @@ public class ProjektiTest {
     @Test
     public void otePalauttaaNullinLiianSuurellaOtenumerolla() {
         
-        assertEquals(null, projekti.getOte(1000));
+        assertEquals(null, projekti.getProjektinOte(1000));
     }
     
     @Test
     public void otePalauttaaNullinTyhjallaHavaintoluettelolla() {
         Projekti projekti2 = new Projekti();
-        assertEquals(null, projekti2.getOte(0));
+        assertEquals(null, projekti2.getProjektinOte(0));
     }
     
     @Test

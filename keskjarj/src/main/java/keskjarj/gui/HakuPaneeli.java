@@ -64,7 +64,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         int row = e.getFirstRow();
         int column = e.getColumn();
 //        if (row > -1 && column == 0) {
-//            Ote ote = projekti.getOte(row);
+//            Ote ote = projekti.getProjektinOte(row);
 //            TaulukkoMalli hmm = (TaulukkoMalli)e.getSource();
 //            hmm.
 //            ote.setTunnus((String) hmm);
@@ -72,7 +72,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         
         if (row > -1 || column > -1) { //-1 tarkoittaa, ettei taulukkoa ole muutettu (data voi silti olla muuttunut)
             Havainto h = projekti.getHavainto(column - 1);
-            Ote ote = projekti.getOte(row);
+            Ote ote = projekti.getProjektinOte(row);
             if (h.getOtteet().contains(ote)) {
                 h.poistaOte(ote);
             } else {
@@ -120,7 +120,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
 
         @Override
         public Object getValueAt(int row, int col) {
-            Ote o = projekti.getOte(row);
+            Ote o = projekti.getProjektinOte(row);
             if (o == null)
                 return null;  
             if (col == 0) {
@@ -136,7 +136,7 @@ public class HakuPaneeli extends JPanel implements TableModelListener {
         }
 
         public Ote annaOte(int row) {
-            return projekti.getOte(row);
+            return projekti.getProjektinOte(row);
         }
         
         public Ote[] annaOtteet(int[] rows) {

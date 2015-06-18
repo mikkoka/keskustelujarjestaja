@@ -24,6 +24,11 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
     private Path polku;
     private Tallenne tallenne;
     
+    /**
+     * Konstruktori, jota käytetään tilanteessa, että halutaan lukea tietoja tekstitiedostosta.
+     * @param polku
+     * @param tallenne
+     */
     public AnnotaatioidenTuoja(Path polku, Tallenne tallenne)
     {
         kategoriatJaAikajaksot = new HashMap();
@@ -32,6 +37,12 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
         this.tallenne = tallenne;
     }
     
+    /**
+     * Tämä konstruktori on olemassa tilannetta varten, jossa halutaan lukea projektiin
+     * tietoja, jotka ovat merkkijonolistan, ei tekstitiedoston muodossa.
+     * @param rivit
+     * @param tallenne
+     */
     public AnnotaatioidenTuoja(List<String> rivit, Tallenne tallenne)
     {
         kategoriatJaAikajaksot = new HashMap();
@@ -42,8 +53,8 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
     }
     
     /**
-     * Lukee tekstitiedostosta havaintoja ja otteita ja luo niistä olioita
-     * @return  Havainto -olioita sisältävä HashSet
+     * Lukee merkkijonoja ja tuottaa niitten perusteella havaintoja ja otteita.  
+     * @return  Havainto -olioita sisältävä TreeSet
      */
     public TreeSet<Havainto> tuo() 
     {
@@ -54,7 +65,13 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
         eritteleRivit();
         return luoHavainnot();
     }
-
+     /**
+     * Lukee merkkijonoja ja poimii niistä ainutkertaisten otteiden aikatiedot.
+     * Tekstitiedostossa voi esiintyä sama aikaväli useaan kertaan.
+     * TreeSetin käyttö estää useitten samaan aikaväliin liittyvien otteiden 
+     * luomisen.
+     * @return  ainutkertaisia merkkijonoja sisältävä TreeSet
+     */
     private TreeSet<String> listaaOtteet()
     {
         if (rivit.isEmpty())
@@ -87,6 +104,11 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
         
     }  
     
+     /**
+     * Luo otteita metodin listaaOtteet() tuottaman merkkijonolistan perusteella,
+     * lisäten kuhunkin otteeseen myös parametrinä saadun mediatiedostotiedon.
+     * Otteet tallennetaan instanssin kenttään otteet.
+     */
     private void luoOtteet(TreeSet<String> stringOtteet, Tallenne tallenne)
     {
         String tiedostonimi;
@@ -102,6 +124,10 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
         }        
     }
     
+     /**
+     * Lukee tekstitiedostosta saaduilta riveiltä havainnot ja niihin liittyvät
+     * aikajaksot instanssin kenttään kategoriatJaAikajaksot
+     */
     private void eritteleRivit() 
     {       
         //havaintolistat tulevat HashMappin havainnotJaOtteet
@@ -125,7 +151,12 @@ public class AnnotaatioidenTuoja extends TiedostonHallinta
             kategoriatJaAikajaksot.put(rivi[0], kategoriaanLiittyvatOtteet);
         }
     }
-        
+    
+     /**
+     * Luo OtettaKoskevaHavainto -oliot jokaista kategoriatJaAikajaksot -kentän
+     * avainarvoa varten. liittää viitteet Ote -olioihin kategoriatJaAikajaksot 
+     * -kentän avainarvoihin liittyvien tietojen perusteella
+     */
     private TreeSet<Havainto> luoHavainnot()
     {
         Havainto havainto; List<String> aikaJaksot;

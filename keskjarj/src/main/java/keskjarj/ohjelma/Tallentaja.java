@@ -16,7 +16,7 @@ import keskjarj.keskjarj.Projekti;
 /**
  * Luokasta luodaan instanssi, joka tallentaa projektin havainnot, otteet ja 
  * mediatiedostojen tiedot tekstitiedostoon. Luokan kenttiä ei voi muokata; tarkoitus
- * on, että luokan ilmentymää käytetään ainoastaan yhden kerran.
+ * on, että luokan ilmentymää käytetään ainoastaan yhden kerran. 
  * @author mikko
  */
 public class Tallentaja {
